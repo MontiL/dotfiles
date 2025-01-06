@@ -30,10 +30,6 @@ alias ... "cd ../.."
 alias .... "cd ../../.."
 abbr -a -- - 'cd -'
 
-# alias ls "ls -p -G"
-# alias la "ls -A"
-# alias ll "ls -l"
-# alias lla "ll -A"
 alias cls clear
 alias g git
 alias gp "git pull"
@@ -162,6 +158,8 @@ alias a amplify
 # abbr ac "amplify console" # *** ac override a system command
 # abbr ap "amplify pull; say done"
 # abbr aP "amplify push --y; say done"
+
+alias y yazi
 
 # PATH setting
 # ------------------------------------------------------------
