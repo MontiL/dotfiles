@@ -1,0 +1,22 @@
+# theme = catppuccin-frappe
+theme = nordfox
+
+# Fonts
+font-size = 16
+font-family = "JetBrainsMono NFM Bold"
+# font-family = "JetBrainsMono NFM Regular"
+# font-family-italic = "JetBrainsMono NFM Italic"
+# font-family-bold = "JetBrainsMono NFM Bold"
+# font-family-bold-italic =  "JetBrainsMono NFM Bold Italic"
+
+# Window
+macos-titlebar-style = hidden
+window-padding-x = 10
+# window-padding-y = 10
+background-opacity = 0.9
+background-blur-radius = 10
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+adjust-cursor-thickness = 2

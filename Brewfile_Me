@@ -1,0 +1,45 @@
+tap "teamookla/speedtest"
+# Search PDFs for strings matching a regular expression
+# brew "pdfgrep"
+# PDF rendering library (based on the xpdf-3.0 code base)
+# brew "poppler"
+# Swiss-army knife of markup format conversion
+# brew "pandoc"
+# Spreadsheet program for the terminal, using ncurses
+# brew "sc-im"
+# Terminal file manager
+brew "lf"
+# File browser
+brew "ranger"
+# Text interface for Git repositories
+brew "tig"
+# GitHub command-line tool
+brew "gh"
+# Remote repository management made easy
+brew "ghq"
+# Monitor a directory for changes and run a shell command
+brew "fswatch"
+# Command-line benchmarking tool
+brew "hyperfine"
+# Internet file retriever
+brew "wget"
+# Validating, recursive, caching DNS resolver
+# brew "unbound"
+# GNU awk utility
+brew "gawk"
+# Collection of GNU find, xargs, and locate
+brew "findutils"
+# GNU grep, egrep and fgrep
+brew "grep"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# A tiling window manager for macOS based on binary space partitioning.
+brew "koekeishiya/formulae/yabai"
+# Video communication and virtual meeting platform
+# cask "zoom"
+# Remote desktop client
+# cask "microsoft-remote-desktop"
+# Client for the Google Drive storage service
+cask "google-drive"
+# Ookla Speedtest
+brew "teamookla/speedtest/speedtest"

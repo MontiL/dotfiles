@@ -1,0 +1,59 @@
+-- vim.cmd([[
+-- " Set cursor line color on visual mode
+-- " highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40
+-- " highlight LineNr cterm=NONE ctermfg=240 guifg=#2b506e guibg=#000000
+--
+-- " augroup BgHighlight
+-- "   autocmd!
+-- "   autocmd WinEnter * set cul
+-- "   autocmd WinLeave * set nocul
+-- " augroup END
+--
+--
+-- " " airline
+-- " let g:airline_powerline_fonts = 1
+-- " " let g:airline#extensions#tabline#enabled = 1
+-- " let g:airline_theme='molokai'
+-- " "let g:airline#extensions#tabline#buffer_idx_mode = 1 " display buffer number in tab
+-- ]])
+
+-- o.lazyredraw = true
+-- vim.opt.background = "dark"
+
+--[[ require("styles.catppuccin") ]]
+--[[ require("catppuccin").setup({ transparent_background = true }) ]]
+-- setup must be called before loading
+--[[ vim.cmd.colorscheme "catppuccin-mocha" ]]
+--[[ require("catppuccin").setup({ transparent_background = false }) ]]
+--[[ vim.cmd.colorscheme "nordfox" ]]
+
+--[[ vim.cmd.colorscheme "tender" ]]
+--[[ vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = 'NONE' }) -- Transparent background ]]
+-- vim.cmd([[
+-- " hi Normal guibg=none ctermbg=none
+-- " hi LineNr guibg=none ctermbg=none
+-- " hi Folded guibg=none ctermbg=none
+-- " hi NonText guibg=none ctermbg=none
+-- " hi SpecialKey guibg=none ctermbg=sfnone
+-- " hi VertSplit guibg=none ctermbg=none
+-- " hi SignColumn guibg=none ctermbg=none
+-- " hi EndOfBuffer guibg=none ctermbg=none
+-- ]])
+--[[ vim.cmd.colorscheme "gruvbox" ]]
+--[[ vim.cmd.colorscheme "melange" ]]
+--[[ vim.cmd.colorscheme "tokyonight" ]]
+--[[ vim.cmd.colorscheme "onedark" ]]
+-- vim.cmd([[
+--   " Use NeoSolarized
+--   "let g:neosolarized_termtrans=1
+--   "runtime ./colors/NeoSolarized.vim
+--   "colorscheme NeoSolarized
+-- ]])
+
+--[[ vim.cmd.set background "dark" ]]
+--[[ vim.cmd.colorscheme "gruvbox" ]]
+--[[ vim.cmd.colorscheme "melange" ]]
+--[[ vim.cmd.colorscheme "tokyonight" ]]
+--[[ vim.cmd.colorscheme "onedark" ]]
+
+-- o.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time

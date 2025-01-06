@@ -1,0 +1,92 @@
+# Neovim Client
+cask "neovide"
+# Interactive computing in Python
+brew "ipython"
+# Fancy interface to the Python interpreter
+brew "bpython"
+# Python version management
+brew "pyenv"
+# Pyenv plugin to manage virtualenv
+brew "pyenv-virtualenv"
+
+brew "go"
+
+# Search PDFs for strings matching a regular expression
+brew "pdfgrep"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+
+# Open-source code editor
+cask "visual-studio-code"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+
+# Command-line shell and scripting language
+cask "powershell"
+
+# Open-source keystroke visualizer
+cask "keycastr"
+
+# Full TeX Live distribution with GUI applications
+cask "mactex"
+
+# Open-source version of the X.Org X Window System
+cask "xquartz"
+
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
+
+tap "zegervdv/zathura"
+brew "zegervdv/zathura/girara", args: ["HEAD"]
+brew "zegervdv/zathura/zathura", args: ["HEAD"]
+
+# Run commands and display their output on the desktop
+cask "ubersicht"
+
+# GNU database manager
+brew "gdbm"
+# Universal database tool and SQL client
+cask "dbeaver-community"
+
+tap "saulpw/vd"
+# Terminal utility for exploring and arranging tabular data
+brew "saulpw/vd/visidata"
+
+tap "kde-mac/kde", "https://invent.kde.org/packaging/homebrew-kde.git"
+# GNOME Spreadsheet Application
+brew "gnumeric"
+
+cask "spacelauncher"
+ 
+# PDF to HTML converter
+brew "pdf2htmlex"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+
+# Command-line benchmarking tool
+brew "hyperfine"
+
+# BBS client
+cask "welly"
+
+# Create, manage, and run virtual machines
+cask "vmware-fusion"
+
+# Play, record, convert, and stream audio and video
+brew "ffmpeg@4"
+# Create thumbnails for your video files
+brew "ffmpegthumbnailer"
+
+# GUI for the Neovim text editor
+cask "vimr"
+
+cask "font-hack-nerd-font"
+
+# LLVM bytecode to JavaScript compiler
+brew "emscripten"
+
+# Version control system designed to be a better CVS
+brew "subversion"

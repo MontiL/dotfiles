@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleSelectedInputSources \
+| grep '"KeyboardLayout Name" = ABC'

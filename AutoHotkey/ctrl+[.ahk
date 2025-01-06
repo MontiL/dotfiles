@@ -1,0 +1,3 @@
+﻿^[::
+Send {Esc}
+return

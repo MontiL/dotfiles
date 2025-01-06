@@ -1,0 +1,53 @@
+# Inserts a blank line between shell prompts
+#add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+#[character] # The name of the module we are configuring is "character"
+#success_symbol = "[➜](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+
+# Disable the package module, hiding it from the prompt completely
+#[package]
+#disabled = true
+command_timeout = 1000
+
+# [git_status]
+# conflicted = "🏳"
+# ahead = "🏎💨"
+# behind = "😰"
+# diverged = "😵"
+# up_to_date = "✓"
+# untracked = "🤷"
+# stashed = "📦"
+# modified = "📝"
+# staged = '[++\($count\)](green)'
+# renamed = "👅"
+# deleted = "🗑"
+
+[git_status]
+ahead = "[⇡${count}](green)"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+behind = "⇣${count}"
+conflicted = "=${count}"
+untracked = "?${count}"
+stashed = "📦${count}"
+modified = "[!${count}](yellow)"
+staged = '[\(+$count\)](green)'
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[character]
+vimcmd_symbol = "[V](bold green) "
+
+[aws]
+# disabled = true
+# force_display = true
+# format = 'on [$symbol($profile )(\($region\) )]($style)'
+# style = 'yellow'
+# symbol = '🅰 '
+[aws.region_aliases]
+ap-northeast-1 = "Japan"
+# [aws.profile_aliases]
+# CompanyGroupFrobozzOnCallAccess = 'Frobozz'
+
+[battery]
+disabled = true

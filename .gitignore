@@ -1,0 +1,113 @@
+*.o
+\#*#
+*#
+.#*
+.*~
+*~
+
+*.sw[po]
+tags
+TAGS
+*.log
+*.aux
+samples
+bower_components
+fishd.*
+
+.DS_Store
+package-lock.json
+Brewfile.lock.json
+.zshrc.local
+
+# Python
+node_modules/
+.python-version
+
+# Vim
+Session.vim
+.vim/bundle/
+.vimrc_sample
+.vim/ftdetect/Dockerfile.vim
+.vim/syntax/Dockerfile.vim
+.vim/snippets/
+
+# Neovim packer
+# nvim/.config/nvim/plugin/packer_compiled.lua
+
+# Fish
+fish/.config/fish/fish_variables
+#opt/fzf/shell/key-bindings.fish
+# config-local.fish
+# fish/functions/fish_mode_prompt.fish
+# fish/functions/fish_prompt.fish
+
+# # Fisher
+# fish/.config/fish/functions/fisher.fish
+# fish/.config/fish/completions/fisher.fish
+# # Fisher NVM
+# fish/.config/fish/functions/_nvm_index_update.fish
+# fish/.config/fish/functions/_nvm_list.fish
+# fish/.config/fish/functions/_nvm_version_activate.fish
+# fish/.config/fish/functions/_nvm_version_deactivate.fish
+# fish/.config/fish/functions/nvm.fish
+# fish/.config/fish/conf.d/nvm.fish
+# fish/.config/fish/completions/nvm.fish
+# # Fisher FZF
+# fish/.config/fish/functions/fzf_key_bindings.fish
+# fish/.config/fish/functions/fzf_configure_bindings.fish
+# fish/.config/fish/functions/_fzf_*.fish
+# fish/.config/fish/conf.d/fzf.fish
+# fish/.config/fish/completions/fzf_configure_bindings.fish
+# # Fisher forgit
+# fish/.config/fish/conf.d/bin/git-forgit
+# fish/.config/fish/conf.d/forgit.plugin.fish
+
+# Karabiner
+karabiner*/.config/karabiner/automatic_backups/
+
+# Added by cargo
+/target
+
+# # Adobe
+# adobe/Adobe Illustrator 26 Settings/zh_TW/AdobeFnt_OSFonts.lst
+# adobe/Adobe Illustrator 26 Settings/zh_TW/DataRecovery
+# adobe/Adobe Illustrator 26 Settings/zh_TW/AI 色彩設定
+# adobe/Adobe Illustrator 26 Settings/zh_TW/已修改的工作區
+# adobe/Adobe Illustrator 26 Settings/zh_TW/Adobe Illustrator 偏好設定
+# adobe/Adobe Illustrator 26 Settings/zh_TW/AdobeFnt_OSFonts.lst
+# adobe/Adobe Illustrator 26 Settings/zh_TW/DVADialogPrefs/DVADialogPrefs.xml
+# adobe/Adobe Illustrator 26 Settings/zh_TW/WSMgrCfg/WSMgrCfg
+# adobe/Adobe Illustrator 26 Settings/zh_TW/.runConfig
+# adobe/Adobe Illustrator 26 Settings/zh_TW/.runConfigRobin
+# adobe/Adobe Illustrator 26 Settings/zh_TW/Adobe Illustrator Cloud Prefs
+# adobe/Adobe Illustrator 26 Settings/zh_TW/AdobeFnt_CMaps.lst
+# adobe/Adobe Illustrator 26 Settings/zh_TW/plugincache.bin
+# adobe/Adobe Illustrator 26 Settings/zh_TW/增效模組快取
+# adobe/Adobe InDesign/Version 17.0-J/zh_TW/UXP/PluginsStorage/Internal/com.adobe.ccx.start/LocalStorage
+# adobe/Adobe InDesign/Version 17.0-J/zh_TW/InDesign Defaults
+# adobe/Adobe InDesign/Version 17.0-J/zh_TW/色彩設定
+# adobe/Adobe InDesign/Version 17.0-J/zh_TW/Workspaces/印刷樣式_CurrentWorkspace.xml
+# adobe/Adobe InDesign/Version 17.0-J/zh_TW/Workspaces/開始_CurrentWorkspace.xml
+# adobe/Adobe InDesign/Version 17.0-J/zh_TW/AdobeFntComposite.lst
+# adobe/Adobe InDesign/Version 17.0-J/zh_TW/Workspaces/基本功能_CurrentWorkspace.xml
+# adobe/Adobe InDesign/Version 17.0-J/zh_TW/DVADialogPrefs/DVADialogPrefs.xml
+
+# lazygit
+lazygit/Library/Application Support/lazygit/state.yml
+nvim/.config/nvim/lazy-lock.json
+
+# fzf - config will be different in Apple Silicon and Intel; ignore it first
+fish/.config/fish/functions/fzf_key_bindings.fish
+fish/.config/fish/functions/_fzf_search_history.fish
+fish/.config/fish/completions/git-forgit.bash
+fish/.config/fish/conf.d/bin/git-forgit
+fish/.config/fish/conf.d/forgit.plugin.fish
+fish/.config/fish/conf.d/ssh-agent-macos.fish
+fish/.config/fish/functions/__ssh_agent_source.fish
+fish/.config/fish/functions/__ssh_agent_start.fish
+fish/.config/fish/functions/__ssh_agent_is_started.fish
+fish/.config/fish/conf.d/fish-ssh-agent.fish
+fish/.config/fish/conf.d/forgit.plugin.fish
+fish/.config/fish/conf.d/bin/git-forgit
+fish/.config/fish/completions/git-forgit.bash
+bash/.bash_history

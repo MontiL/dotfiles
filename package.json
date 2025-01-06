@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.0.1"
+  },
+  "license": "MIT OR Apache-2.0",
+  "config": {
+    "commitizen": {
+      "path": "~/.dotfiles/node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "remark": "^14.0.2"
+  }
+}

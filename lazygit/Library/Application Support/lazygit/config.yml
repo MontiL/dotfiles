@@ -1,0 +1,30 @@
+# Official doc of config
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+keybinding:
+  universal:
+    # prevPage: ',' # default
+    # nextPage: '.' # default
+    prevPage: '<c-b>' # go to next page in list
+    nextPage: '<c-f>' # go to previous page in list
+# gui:
+#     skipDiscardChangeWarning: true
+#     theme:
+#         activeBorderColor:
+#             - red
+#             - bold
+#         inactiveBorderColor:
+#             - white
+#         optionsTextColor:
+#             - blue
+#         selectedLineBgColor:
+#             - blue # set to `default` to have no background colour
+#         selectedRangeBgColor:
+#             - blue
+#         cherryPickedCommitBgColor:
+#             - cyan
+#         cherryPickedCommitFgColor:
+#             - blue
+#         unstagedChangesColor:
+#             - red
+#         defaultFgColor:
+#             - default

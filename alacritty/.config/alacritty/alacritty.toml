@@ -1,0 +1,58 @@
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
+
+[debug]
+log_level = "Warn"
+persistent_logging = false
+print_events = false
+render_timer = false
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 16.0
+
+[font.bold]
+family = "JetBrainsMono NFM"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrainsMono NFM"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetBrainsMono NFM"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono NFM"
+style = "Regular"
+
+[mouse]
+hide_when_typing = false
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "buttonless"
+dynamic_padding = true
+dynamic_title = false
+startup_mode = "Windowed"
+
+[window.padding]
+x = 7
+y = 3
+
+[general]
+import = [
+  "/Users/monti/.config/alacritty/keymaps.toml",
+  "/Users/monti/.config/alacritty/nord.toml",
+]

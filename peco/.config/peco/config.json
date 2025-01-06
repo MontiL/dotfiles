@@ -1,0 +1,25 @@
+{
+  "Layout": "bottom-up",
+  "Keymap": {
+    "Tab": "peco.ToggleSelectionAndSelectNext"
+  },
+  "Use256Color": true,
+  "Style": {
+    "Basic": [
+      "on_default",
+      "default"
+    ],
+    "Selected": [
+      "underline",
+      "on_cyan",
+      "black"
+    ],
+    "Query": [
+      "180",
+      "bold"
+    ],
+    "Matched": [
+      "red"
+    ]
+  }
+}
