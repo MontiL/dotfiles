@@ -457,6 +457,12 @@ else
   autocmd FileType cpp noremap <buffer> go :echo "Need to install g++ first!"<CR>
 end
 
+if executable("coffee")
+  " For CoffeeScript files
+  autocmd FileType coffee noremap <buffer> go :w<CR>:TermExec cmd='coffee "%" -o "%:r" && "./%:r"' direction='horizontal' size=15<CR>
+else
+  autocmd FileType coffee noremap <buffer> go :echo "Need to install coffeescript first!"<CR>
+end
 ]])
 
 

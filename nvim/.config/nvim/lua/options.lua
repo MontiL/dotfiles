@@ -123,6 +123,8 @@ au FileType fish setlocal shiftwidth=4 tabstop=4
 " Python
 " au BufNewFile,BufRead *.mia set filetype=python
 " au BufNewFile,BufRead *.ipy set filetype=ipython
+au BufNewFile,BufRead *.coffee set filetype=coffee
+au BufNewFile,BufRead Cakefile set filetype=coffee
 
 set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.php,.md,.py
 
