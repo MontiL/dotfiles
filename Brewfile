@@ -20,14 +20,14 @@ brew "bat"
 brew "bison"
 # Library for command-line editing
 brew "readline"
-# Core application library for C
-brew "glib"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
-# Vector graphics library with cross-device output support
-brew "cairo"
 # Cross-platform make
 brew "cmake"
+# Platform built on V8 to build network applications
+brew "node"
+# Unfancy JavaScript
+brew "coffeescript"
+# Terminal countdown timer
+brew "countdown"
 # Get, unpack, build, and install modules from CPAN
 brew "cpanminus"
 # Tool for downloading RTMP streaming media
@@ -91,7 +91,7 @@ brew "libxml2"
 # YAML Parser
 brew "libyaml"
 # Just-In-Time Compiler (JIT) for the Lua programming language
-brew "luajit"
+brew "luajit", args: ["HEAD"]
 # Package manager for the Lua programming language
 brew "luarocks"
 # NCurses Disk Usage
@@ -101,8 +101,6 @@ brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
-brew "node"
-# Platform built on V8 to build network applications
 brew "node@20", link: true
 # Manage multiple Node.js versions
 brew "nvm"
@@ -111,15 +109,19 @@ brew "openldap"
 # Simplistic interactive filtering tool
 brew "peco"
 # Fast, disk space efficient package manager
-brew "pnpm", link: false
+brew "pnpm"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Prettier daemon
+brew "prettierd"
 # Python version management
 brew "pyenv"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Utility that provides fast incremental file transfer
@@ -156,8 +158,6 @@ brew "yazi"
 brew "zoxide"
 # A window border system for macOS
 brew "felixkratz/formulae/borders"
-# prettier, on SPEED!
-brew "fsouza/prettierd/prettierd"
 # Supabase CLI
 brew "supabase/tap/supabase"
 # Ookla Speedtest
@@ -193,6 +193,8 @@ cask "numi"
 cask "obsidian"
 # Control your tools with a few keystrokes
 cask "raycast"
+# Open-source code editor
+cask "visual-studio-code"
 # BBS client
 cask "welly"
 # Video communication and virtual meeting platform
