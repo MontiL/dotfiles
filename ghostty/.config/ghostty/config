@@ -3,7 +3,8 @@ theme = nordfox
 
 # Fonts
 font-size = 16
-font-family = "JetBrainsMono NFM Bold"
+font-family = "JetBrainsMonoNL Nerd Font Mono"
+# font-family = "JetBrainsMono NFM Bold"
 # font-family = "JetBrainsMono NFM Regular"
 # font-family-italic = "JetBrainsMono NFM Italic"
 # font-family-bold = "JetBrainsMono NFM Bold"
