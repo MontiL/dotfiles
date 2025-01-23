@@ -10,6 +10,8 @@ tap "teamookla/speedtest"
 tap "universal-ctags/universal-ctags"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
+# Mozilla CA certificate store
+brew "ca-certificates"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
 # C library implementing the SSH2 protocol
@@ -18,12 +20,18 @@ brew "libssh2"
 brew "bat"
 # Parser generator
 brew "bison"
+# XML-based font configuration API for X Windows
+brew "fontconfig"
 # Library for command-line editing
 brew "readline"
+# Core application library for C
+brew "glib"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# Vector graphics library with cross-device output support
+brew "cairo"
 # Cross-platform make
 brew "cmake"
-# Platform built on V8 to build network applications
-brew "node"
 # Unfancy JavaScript
 brew "coffeescript"
 # Terminal countdown timer
@@ -91,13 +99,11 @@ brew "libxml2"
 # YAML Parser
 brew "libyaml"
 # Just-In-Time Compiler (JIT) for the Lua programming language
-brew "luajit", args: ["HEAD"]
+brew "luajit"
 # Package manager for the Lua programming language
 brew "luarocks"
 # NCurses Disk Usage
 brew "ncdu"
-# Parser generator tool and incremental parsing library
-brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
@@ -120,8 +126,6 @@ brew "pyenv"
 brew "python@3.10"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Utility that provides fast incremental file transfer
