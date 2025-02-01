@@ -299,3 +299,6 @@ end
 
 # Added by Windsurf
 fish_add_path /Users/monti/.codeium/windsurf/bin
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/monti/.lmstudio/bin
