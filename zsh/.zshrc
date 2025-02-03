@@ -141,3 +141,8 @@ export LC_ALL=en_US.UTF-8
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(starship init zsh)"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/monti/.cache/lm-studio/bin"
+
+PATH=~/.console-ninja/.bin:$PATH
