@@ -58,14 +58,14 @@ return {
   --     -- vim.cmd.colorscheme("nord")
   --   end
   -- },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 999,
-    config = function()
-      -- vim.cmd.colorscheme("catppuccin-mocha")
-    end
-  },
+  -- {
+  --   "catppuccin/nvim",
+  --   name = "catppuccin",
+  --   priority = 999,
+  --   config = function()
+  --     -- vim.cmd.colorscheme("catppuccin-mocha")
+  --   end
+  -- },
 
   --[[ use { "joshdick/onedark.vim",
     config = {

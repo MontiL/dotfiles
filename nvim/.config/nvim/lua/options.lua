@@ -134,21 +134,6 @@ au FileType yaml setlocal shiftwidth=2 tabstop=2
 au FileType markdown setlocal shiftwidth=2 tabstop=2
 "}}}
 
-" vim-bookmark
-" let g:bookmark_no_default_key_mappings = 1 " disable all default key bindings
-
-"let g:airline_theme='powerlineish'
-"let g:airline_theme='bubblegum'
-"let g:airline_theme='solarized-dark'
-"let g:airline_theme='light'
-"let g:airline_theme='badwolf'
-"let g:airline_theme='simple'
-"let g:airline_theme='ubaryd'
-"let g:airline_theme='ubaryd'
-"let g:airline_theme='monochrome'
-"let g:airline_theme='base16'
-"let g:airline_theme='solarized-light'
-
 " other
 set nrformats+=alpha
 " set exrc
