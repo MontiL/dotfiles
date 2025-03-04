@@ -64,7 +64,8 @@ return {
         -- PYTHON_PATH = "~/.virtualenvs/debugpy/bin/python"
         -- PYTHON_PATH = "~/.pyenv/shims/python"
 
-        PYTHON_PATH = brew_prefix .. "/opt/python@3.12/libexec/bin/python"
+        -- PYTHON_PATH = brew_prefix .. "/opt/python@3.12/libexec/bin/python"
+        PYTHON_PATH = '/Users/monti/.pyenv/shims/python'
         -- HOME_PATH = os.getenv("HOME")
       end
 
