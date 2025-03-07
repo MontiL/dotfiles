@@ -20,18 +20,18 @@ brew "libssh2"
 brew "bat"
 # Parser generator
 brew "bison"
-# XML-based font configuration API for X Windows
-brew "fontconfig"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
 # Library for command-line editing
 brew "readline"
 # Core application library for C
 brew "glib"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
 # Vector graphics library with cross-device output support
 brew "cairo"
 # Cross-platform make
 brew "cmake"
+# Platform built on V8 to build network applications
+brew "node"
 # Unfancy JavaScript
 brew "coffeescript"
 # Terminal countdown timer
@@ -94,6 +94,8 @@ brew "jq"
 brew "lazygit"
 # Postgres C API library
 brew "libpq"
+# Library for storing/retrieving passwords and other secrets
+brew "libsecret"
 # GNOME XML library
 brew "libxml2"
 # YAML Parser
@@ -102,8 +104,12 @@ brew "libyaml"
 brew "luajit"
 # Package manager for the Lua programming language
 brew "luarocks"
+# Apple Silicon Monitor Top written in Golang
+brew "mactop"
 # NCurses Disk Usage
 brew "ncdu"
+# Parser generator tool and incremental parsing library
+brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
@@ -126,6 +132,8 @@ brew "pyenv"
 brew "python@3.10"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Utility that provides fast incremental file transfer
@@ -150,6 +158,8 @@ brew "tig"
 brew "tmux"
 # Language for application scale JavaScript development
 brew "typescript"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
 # Command-line interface for Vercel
 brew "vercel-cli"
 # Internet file retriever
@@ -172,6 +182,8 @@ cask "aerospace"
 cask "arc"
 # Web browser focusing on privacy
 cask "brave-browser"
+# Anthropic's official Claude AI desktop app
+cask "claude"
 # App to build and share containerised applications and microservices
 cask "docker"
 cask "font-jetbrains-mono"
