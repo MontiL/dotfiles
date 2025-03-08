@@ -28,6 +28,7 @@ map("n", "<Space>M", "<cmd>Mason<CR>", { desc = "Mason LSP manager" })
 map("n", "<Space>W", "<cmd>WhichKey<CR>", { desc = "WhichKey menu" })
 map("n", "<Space>/", "<cmd>Telescope keymaps<CR>", { desc = "Query Keymaps by Telescope" })
 map("n", "<Space>?", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" })
+
 -- 複製絕對路徑函數
 local function copy_absolute_path()
   local path = vim.fn.expand('%:p')
@@ -44,8 +45,8 @@ local function copy_relative_path()
 end
 
 -- 路徑複製鍵綁定
-map("n", "<leader>cf", copy_absolute_path, { desc = "copy absolute (f)ilepath", silent = true })
-map("n", "<leader>cF", copy_relative_path, { desc = "copy project relative (F)ilepath (F)etch", silent = true })
+map("n", "<leader>ca", copy_absolute_path, { desc = "copy (a)bsolute filepath", silent = true })
+map("n", "<leader>cr", copy_relative_path, { desc = "copy (r)elative filepath", silent = true })
 map("n", "<leader>cm", ":let @+ = execute('message')<CR>", { desc = "Copy message outputs to clipboard" })
 
 -- Toggles
