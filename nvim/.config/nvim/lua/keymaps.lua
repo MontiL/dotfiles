@@ -28,9 +28,24 @@ map("n", "<Space>M", "<cmd>Mason<CR>", { desc = "Mason LSP manager" })
 map("n", "<Space>W", "<cmd>WhichKey<CR>", { desc = "WhichKey menu" })
 map("n", "<Space>/", "<cmd>Telescope keymaps<CR>", { desc = "Query Keymaps by Telescope" })
 map("n", "<Space>?", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" })
-map("n", "<leader>cf",
-  ":let @+ = substitute(expand('%:p'), fnamemodify(finddir('.git', ';'), ':p:h:h') . '/', '', '')<CR>",
-  { desc = "copy project relative (F)ilepath (F)etch" })
+-- 複製絕對路徑函數
+local function copy_absolute_path()
+  local path = vim.fn.expand('%:p')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied: ' .. path, vim.log.levels.INFO)
+end
+
+-- 複製相對路徑函數
+local function copy_relative_path()
+  local path = vim.fn.substitute(vim.fn.expand('%:p'), vim.fn.fnamemodify(vim.fn.finddir('.git', ';'), ':p:h:h') .. '/',
+    '', '')
+  vim.fn.setreg('+', path)
+  vim.notify('Copied: ' .. path, vim.log.levels.INFO)
+end
+
+-- 路徑複製鍵綁定
+map("n", "<leader>cf", copy_absolute_path, { desc = "copy absolute (f)ilepath", silent = true })
+map("n", "<leader>cF", copy_relative_path, { desc = "copy project relative (F)ilepath (F)etch", silent = true })
 map("n", "<leader>cm", ":let @+ = execute('message')<CR>", { desc = "Copy message outputs to clipboard" })
 
 -- Toggles
@@ -235,7 +250,7 @@ local function copy_all_buffers_to_clipboard()
   end
 
   vim.fn.setreg('+', all_content) -- 將所有內容寫入系統剪貼板
-  print("All buffers copied to clipboard with file paths!")
+  vim.notify("All buffers copied to clipboard with file paths!", vim.log.levels.INFO)
 end
 
 -- 定義函數：將當前窗口的內容複製到剪貼板，並在最前面加上檔案路徑
@@ -262,9 +277,9 @@ local function copy_current_window_to_clipboard()
     local content_to_copy = "//file: " .. relative_path .. "\n" .. win_content
 
     vim.fn.setreg('+', content_to_copy) -- 將內容寫入系統剪貼板
-    print("Current file content copied to clipboard with file path!")
+    vim.notify("Current file content copied to clipboard with file path!", vim.log.levels.INFO)
   else
-    print("No file name for current buffer!")
+    vim.notify("No file name for current buffer!", vim.log.levels.WARN)
   end
 end
 
@@ -401,11 +416,13 @@ wk.add({ { "m", group = "Mark by Harpoon" } })
 map("n", "sm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", { desc = "Marks Table" })
 map("n", "<C-n>", "<cmd>lua require('harpoon.ui').nav_next()<CR>", { desc = "Next mark" })
 map("n", "<C-p>", "<cmd>lua require('harpoon.ui').nav_prev()<CR>", { desc = "Prev mark" })
-map("n", "ma", "<cmd>lua require('harpoon.mark').add_file(); print(vim.fn.expand('%:t') .. ' marked')<CR>",
+map("n", "ma",
+  "<cmd>lua require('harpoon.mark').add_file(); vim.notify(vim.fn.expand('%:t') .. ' marked', vim.log.levels.INFO)<CR>",
   { desc = "[M]ark [A]dd" })
-map("n", "md", "<cmd>lua require('harpoon.mark').rm_file(); print(vim.fn.expand('%:t') .. ' unmarked')<CR>",
+map("n", "md",
+  "<cmd>lua require('harpoon.mark').rm_file(); vim.notify(vim.fn.expand('%:t') .. ' unmarked', vim.log.levels.INFO)<CR>",
   { desc = "[M]ark [D]eleted" })
-map("n", "mc", "<cmd>lua require('harpoon.mark').clear_all(); print('All marks cleared')<CR>",
+map("n", "mc", "<cmd>lua require('harpoon.mark').clear_all(); vim.notify('All marks cleared', vim.log.levels.INFO)<CR>",
   { desc = "[M]arks [C]leared" })
 for i = 0, 9 do
   map("n", string.format("m%s", i), string.format("<cmd>lua require('harpoon.ui').nav_file(%s)<CR>", i),
