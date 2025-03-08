@@ -33,7 +33,7 @@ map("n", "<Space>?", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" })
 local function copy_absolute_path()
   local path = vim.fn.expand('%:p')
   vim.fn.setreg('+', path)
-  vim.notify('Copied: ' .. path, vim.log.levels.INFO)
+  vim.notify('Absolute filepath copied', vim.log.levels.INFO)
 end
 
 -- 複製相對路徑函數
@@ -41,7 +41,7 @@ local function copy_relative_path()
   local path = vim.fn.substitute(vim.fn.expand('%:p'), vim.fn.fnamemodify(vim.fn.finddir('.git', ';'), ':p:h:h') .. '/',
     '', '')
   vim.fn.setreg('+', path)
-  vim.notify('Copied: ' .. path, vim.log.levels.INFO)
+  vim.notify('Relative filepath copied', vim.log.levels.INFO)
 end
 
 -- 路徑複製鍵綁定
