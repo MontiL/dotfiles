@@ -88,7 +88,8 @@ alias ta "tmux attach"
 alias tk "tmux kill-session -t" # can follow by session name
 alias tl "tmux list-sessions"
 alias tp "tmux new-session -s pyenv -e PYENV_INIT=1"
-alias tw "tmux new-session -c ~/.z/projects/capybara/www.capybara.run/ \; new-window \; split-window -v 'npx @agentdeskai/browser-tools-server' \; select-pane -U"
+alias tw "tmux new-session -c ~/.z/projects/capybara/www.capybara.run/ \; new-window"
+alias tws "tmux new-session -c ~/.z/projects/capybara/www.capybara.run/ \; new-window \; split-window -v 'npx @agentdeskai/browser-tools-server' \; select-pane -U"
 
 # if type -q exa
 alias ls eza
