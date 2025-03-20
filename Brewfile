@@ -126,8 +126,6 @@ brew "pnpm"
 brew "poppler"
 # Prettier daemon
 brew "prettierd"
-# Python version management
-brew "pyenv"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
 # Interpreted, interactive, object-oriented programming language
