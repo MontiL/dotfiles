@@ -24,10 +24,8 @@ brew "bison"
 brew "btop"
 # Library for command-line editing
 brew "readline"
-# Core application library for C
-brew "glib"
-# Vector graphics library with cross-device output support
-brew "cairo"
+# Python code formatter
+brew "black"
 # Cross-platform make
 brew "cmake"
 # Platform built on V8 to build network applications
