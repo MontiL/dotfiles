@@ -88,6 +88,8 @@ brew "hyperfine"
 brew "imagemagick"
 # Official CLI for the IPinfo IP Address API
 brew "ipinfo-cli"
+# Sort Python imports automatically
+brew "isort"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Simple terminal UI for git commands
