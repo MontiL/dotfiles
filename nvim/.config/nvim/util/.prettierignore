@@ -1,0 +1,5 @@
+node_modules/
+backup/
+
+# shadcn/ui
+src/components/ui/
