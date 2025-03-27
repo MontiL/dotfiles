@@ -22,12 +22,12 @@ map("n", "<leader><leader>rsv", ":!open https://github.com/honza/vim-snippets/tr
   { desc = "Read Doc of vim-snippets" })
 
 -- Utility
-map("n", "<Space>m", ":message<CR>", { desc = "message" })
-map("n", "<Space>L", "<cmd>LspInfo<CR>", { desc = "LSP Info" })
-map("n", "<Space>M", "<cmd>Mason<CR>", { desc = "Mason LSP manager" })
-map("n", "<Space>W", "<cmd>WhichKey<CR>", { desc = "WhichKey menu" })
-map("n", "<Space>/", "<cmd>Telescope keymaps<CR>", { desc = "Query Keymaps by Telescope" })
-map("n", "<Space>?", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" })
+map("n", "<space>m", ":message<CR>", { desc = "message" })
+map("n", "<space>L", "<cmd>LspInfo<CR>", { desc = "LSP Info" })
+map("n", "<space>M", "<cmd>Mason<CR>", { desc = "Mason LSP manager" })
+map("n", "<space>W", "<cmd>WhichKey<CR>", { desc = "WhichKey menu" })
+map("n", "<space>/", "<cmd>Telescope keymaps<CR>", { desc = "Query Keymaps by Telescope" })
+map("n", "<space>?", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" })
 
 -- 複製絕對路徑函數
 local function copy_absolute_path()
@@ -50,16 +50,16 @@ map("n", "<leader>cr", copy_relative_path, { desc = "copy (r)elative filepath", 
 map("n", "<leader>cm", ":let @+ = execute('message')<CR>", { desc = "Copy message outputs to clipboard" })
 
 -- Toggles
-map("n", "<Space>hl", ":set hlsearch! hlsearch?<CR>", { desc = "Toggle Highlight Search" })
-map("n", "<Space>z", "<cmd>set wrap!<CR>", { desc = "Wrap Toggle" })
-map("n", "<Space>p", "<cmd>MarkdownPreview<CR>", { desc = "Markdown Preview" })
-map("n", "<Space>v", "<cmd>Vista!!<CR>", { desc = "Open/Close window for LSP symbols or tags" })
-map("n", "<Space>q", vim.diagnostic.setqflist, { desc = "Add buffer diagnostics to quickfix" })
-map("n", "<Space>l>", vim.diagnostic.setloclist, { desc = "Add buff diagnostics to loclist" })
+map("n", "<space>hl", ":set hlsearch! hlsearch?<CR>", { desc = "Toggle Highlight Search" })
+map("n", "<space>z", "<cmd>set wrap!<CR>", { desc = "Wrap Toggle" })
+map("n", "<space>p", "<cmd>MarkdownPreview<CR>", { desc = "Markdown Preview" })
+map("n", "<space>v", "<cmd>Vista!!<CR>", { desc = "Open/Close window for LSP symbols or tags" })
+map("n", "<space>q", vim.diagnostic.setqflist, { desc = "Add buffer diagnostics to quickfix" })
+map("n", "<space>l>", vim.diagnostic.setloclist, { desc = "Add buff diagnostics to loclist" })
 
 -- Insert/append newline
-map("n", "]<Space>", "o<Esc>k", { desc = "Append newline" })
-map("n", "[<Space>", "O<Esc>j", { desc = "Insert newline" })
+map("n", "]<space>", "o<Esc>k", { desc = "Append newline" })
+map("n", "[<space>", "O<Esc>j", { desc = "Insert newline" })
 
 -- Buffer navigation
 map("n", "]b", "<cmd>bnext<CR>", { desc = "Next buffer" })
@@ -131,7 +131,7 @@ map("n", "gI", vim.lsp.buf.implementation, { desc = '[G]oto [I]mplementation' })
 map("n", "gS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", { desc = '[W]orkspace [S]ymbols' })
 map("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", { desc = "Workspace Symbol" })
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover" })
-map("n", "<Space>s", vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
+map("n", "<space>s", vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
 map("n", "gr", '<cmd>Telescope lsp_references<CR>', { desc = '[G]oto [R]eferences' })
 map("n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename" })
 
@@ -162,7 +162,7 @@ map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ border = 'rounded' })<CR>", 
 -- Select all
 map("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
 
-map({ 'n', 'v' }, '<Space>', '<Nop>', opts)
+map({ 'n', 'v' }, '<space>', '<Nop>', opts)
 -- Remap for dealing with word wrap
 map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -202,25 +202,25 @@ map("i", ".", ".<c-g>u", { noremap = true })
 --nnoremap dw vb"_d
 
 -- Clear search highlights.
--- map("", "<Leader><Space>", ":let @/=''<CR>", { silent = true }) -- clear the last used search pattern
---[[ map("", "<Leader><Space>", ":noh<CR>", { silent = true }) -- turn off highlighting until the next search ]]
+-- map("", "<Leader><space>", ":let @/=''<CR>", { silent = true }) -- clear the last used search pattern
+--[[ map("", "<Leader><space>", ":noh<CR>", { silent = true }) -- turn off highlighting until the next search ]]
 -- map("n", "<A-a>", "<C-a>", opts)
 -- Select all
 -- map("n", "<C-a>", "gg<S-v>G", opts)
 
 --[[ -- newline without entering insert mode ]]
---[[ map("n", "<Space>o", "o<Esc>", { noremap = true }) ]]
---[[ map("n", "<Space>O", "O<Esc>", { noremap = true }) ]]
+--[[ map("n", "<space>o", "o<Esc>", { noremap = true }) ]]
+--[[ map("n", "<space>O", "O<Esc>", { noremap = true }) ]]
 -- Use system clipboard
 ------------------------------------------------------------------------
 -- " Copy to clipboard
-map("n", "<Space>y", '"+y', { noremap = true })
-map("v", "<Space>y", '"+y', { noremap = true })
-map("n", "<Space>Y", '"+yg_', { noremap = true })
---[[ map("n", "<Space>yy", '"+yy', { noremap = true }) ]]
-map("n", "<Space>d", '"+d', { noremap = true })
-map("v", "<Space>d", '"+d', { noremap = true })
-map("n", "<Space>D", '"+dg_', { noremap = true })
+map("n", "<space>y", '"+y', { noremap = true })
+map("v", "<space>y", '"+y', { noremap = true })
+map("n", "<space>Y", '"+yg_', { noremap = true })
+--[[ map("n", "<space>yy", '"+yy', { noremap = true }) ]]
+map("n", "<space>d", '"+d', { noremap = true })
+map("v", "<space>d", '"+d', { noremap = true })
+map("n", "<space>D", '"+dg_', { noremap = true })
 
 -- 定義函數：將所有 buffer 內容複製到剪貼板，並在每個 buffer 前加上檔案路徑
 local function copy_all_buffers_to_clipboard()
@@ -285,8 +285,8 @@ local function copy_current_window_to_clipboard()
 end
 
 -- 映射快捷鍵
-map("n", "<Space>by", copy_all_buffers_to_clipboard, { desc = "Copy all buffers to clipboard with file paths" })
-map("n", "<Space>wy", copy_current_window_to_clipboard,
+map("n", "<space>by", copy_all_buffers_to_clipboard, { desc = "Copy all buffers to clipboard with file paths" })
+map("n", "<space>wy", copy_current_window_to_clipboard,
   { desc = "Copy current file content to clipboard with file path" })
 
 -- " Paste from clipboard
@@ -380,31 +380,31 @@ map("n", "stp", "<cmd>lua require('trouble').prev({skip_groups = true, jump = tr
   { desc = "[P]revious trouble" })
 
 -- DAP (Debugger)
-wk.add({ { "<Space>d", name = "Neovim DAP ..." } })
-map("n", "<Space>dc", '<cmd>lua require"dap".clear_breakpoints()<CR>', { desc = "Clear Breakpoints" })
-map("n", "<Space>de", '<cmd>lua require"dap".set_exception_breakpoints({"all"})<CR>',
+wk.add({ { "<space>d", name = "Neovim DAP ..." } })
+map("n", "<space>dc", '<cmd>lua require"dap".clear_breakpoints()<CR>', { desc = "Clear Breakpoints" })
+map("n", "<space>de", '<cmd>lua require"dap".set_exception_breakpoints({"all"})<CR>',
   { desc = "Set Exception Breakpoints" })
-map("n", "<Space>dl", "<cmd>Telescope dap list_breakpoints<CR>", { desc = "List Breakpoints" })
-map("n", "<Space>dk", '<cmd>lua require"dap".up()<CR>zz', { desc = "Up" })
-map("n", "<Space>dj", '<cmd>lua require"dap".down()<CR>zz', { desc = "Down" })
-map("n", "<Space>dt", '<cmd>lua require"dap".terminate()<CR>', { desc = "Terminate" })
-map("n", "<Space>dr", '<cmd>lua require"dap".repl.toggle({}, "split")<CR><C-w>j<C-W>J', { desc = "Toggle Repl" })
-map("n", "<Space>ds", '<cmd>lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>',
+map("n", "<space>dl", "<cmd>Telescope dap list_breakpoints<CR>", { desc = "List Breakpoints" })
+map("n", "<space>dk", '<cmd>lua require"dap".up()<CR>zz', { desc = "Up" })
+map("n", "<space>dj", '<cmd>lua require"dap".down()<CR>zz', { desc = "Down" })
+map("n", "<space>dt", '<cmd>lua require"dap".terminate()<CR>', { desc = "Terminate" })
+map("n", "<space>dr", '<cmd>lua require"dap".repl.toggle({}, "split")<CR><C-w>j<C-W>J', { desc = "Toggle Repl" })
+map("n", "<space>ds", '<cmd>lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>',
   { desc = "Scopes" })
-map("n", "<Space>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<CR>", { desc = "Evaluate Input" })
-map("n", "<Space>d?", "<cmd>Telescope dap commands<CR>", { desc = "List Commands" })
-map("n", "<Space>b", '<cmd>lua require"dap".toggle_breakpoint()<CR>', { desc = "Toggle Breakpoint" })
-map("n", "<Space>B", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+map("n", "<space>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<CR>", { desc = "Evaluate Input" })
+map("n", "<space>d?", "<cmd>Telescope dap commands<CR>", { desc = "List Commands" })
+map("n", "<space>b", '<cmd>lua require"dap".toggle_breakpoint()<CR>', { desc = "Toggle Breakpoint" })
+map("n", "<space>B", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
   { desc = "Conditional Breakpoint" })
-map("n", "<Space>c", '<cmd>silent w<CR> :lua require"dap".continue()<CR>', { desc = "Continue" })
-map("n", "<Space>x", "<cmd>lua require'dap'.close()<cr>", { desc = "Quit" })
-map("n", "<Space>j", '<cmd>lua require"dap".step_over()<CR>', { desc = "Step Over" })
-map("n", "<Space>i", '<cmd>lua require"dap".step_into()<CR>', { desc = "Step Into" })
-map("n", "<Space>o", '<cmd>lua require"dap".step_out()<CR>', { desc = "Step Out" })
-map("n", "<Space>n", '<cmd>lua require"dap".run_to_cursor()<CR>', { desc = "Run to Cursor" })
-map("n", "<Space>K", "<cmd>lua require'dap.ui.widgets'.hover()<CR>", { desc = "Hover Variables by DAP" })
-map("n", "<Space>w", "<cmd>lua require'dapui'.toggle()<cr>", { desc = "Toggle UI" })
-map("n", "<Space>e", '<cmd>lua require"dap".repl.toggle({}, "split")<CR><C-w>j<C-W>J', { desc = "Toggle Repl" })
+map("n", "<space>c", '<cmd>silent w<CR> :lua require"dap".continue()<CR>', { desc = "Continue" })
+map("n", "<space>x", "<cmd>lua require'dap'.close()<cr>", { desc = "Quit" })
+map("n", "<space>j", '<cmd>lua require"dap".step_over()<CR>', { desc = "Step Over" })
+map("n", "<space>i", '<cmd>lua require"dap".step_into()<CR>', { desc = "Step Into" })
+map("n", "<space>o", '<cmd>lua require"dap".step_out()<CR>', { desc = "Step Out" })
+map("n", "<space>n", '<cmd>lua require"dap".run_to_cursor()<CR>', { desc = "Run to Cursor" })
+map("n", "<space>K", "<cmd>lua require'dap.ui.widgets'.hover()<CR>", { desc = "Hover Variables by DAP" })
+map("n", "<space>w", "<cmd>lua require'dapui'.toggle()<cr>", { desc = "Toggle UI" })
+map("n", "<space>e", '<cmd>lua require"dap".repl.toggle({}, "split")<CR><C-w>j<C-W>J', { desc = "Toggle Repl" })
 
 
 -- TODO
@@ -413,22 +413,22 @@ map("n", "<Space>e", '<cmd>lua require"dap".repl.toggle({}, "split")<CR><C-w>j<C
 -- f7 = { '<cmd>lua require"dap".step_into()<CR>', "Step Into" },
 -- f9 = { '<cmd>w<CR> :lua require"dap".continue()<CR>', "Continue" },
 
-wk.add({ { "m", group = "Mark by Harpoon" } })
-map("n", "sm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", { desc = "Marks Table" })
-map("n", "<C-n>", "<cmd>lua require('harpoon.ui').nav_next()<CR>", { desc = "Next mark" })
-map("n", "<C-p>", "<cmd>lua require('harpoon.ui').nav_prev()<CR>", { desc = "Prev mark" })
-map("n", "ma",
-  "<cmd>lua require('harpoon.mark').add_file(); vim.notify(vim.fn.expand('%:t') .. ' marked', vim.log.levels.INFO)<CR>",
-  { desc = "[M]ark [A]dd" })
-map("n", "md",
-  "<cmd>lua require('harpoon.mark').rm_file(); vim.notify(vim.fn.expand('%:t') .. ' unmarked', vim.log.levels.INFO)<CR>",
-  { desc = "[M]ark [D]eleted" })
-map("n", "mc", "<cmd>lua require('harpoon.mark').clear_all(); vim.notify('All marks cleared', vim.log.levels.INFO)<CR>",
-  { desc = "[M]arks [C]leared" })
-for i = 0, 9 do
-  map("n", string.format("m%s", i), string.format("<cmd>lua require('harpoon.ui').nav_file(%s)<CR>", i),
-    { desc = string.format("Go to mark %s", i) })
-end
+-- wk.add({ { "m", group = "Mark by Harpoon" } })
+-- map("n", "sm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", { desc = "Marks Table" })
+-- map("n", "<C-n>", "<cmd>lua require('harpoon.ui').nav_next()<CR>", { desc = "Next mark" })
+-- map("n", "<C-p>", "<cmd>lua require('harpoon.ui').nav_prev()<CR>", { desc = "Prev mark" })
+-- map("n", "ma",
+--   "<cmd>lua require('harpoon.mark').add_file(); vim.notify(vim.fn.expand('%:t') .. ' marked', vim.log.levels.INFO)<CR>",
+--   { desc = "[M]ark [A]dd" })
+-- map("n", "md",
+--   "<cmd>lua require('harpoon.mark').rm_file(); vim.notify(vim.fn.expand('%:t') .. ' unmarked', vim.log.levels.INFO)<CR>",
+--   { desc = "[M]ark [D]eleted" })
+-- map("n", "mc", "<cmd>lua require('harpoon.mark').clear_all(); vim.notify('All marks cleared', vim.log.levels.INFO)<CR>",
+--   { desc = "[M]arks [C]leared" })
+-- for i = 0, 9 do
+--   map("n", string.format("m%s", i), string.format("<cmd>lua require('harpoon.ui').nav_file(%s)<CR>", i),
+--     { desc = string.format("Go to mark %s", i) })
+-- end
 
 
 local gs = package.loaded.gitsigns
@@ -450,19 +450,19 @@ end, { expr = true, desc = "Prev Hunk" })
 -- map('n', 'gbr', gs.reset_buffer, { desc = "Reset Buffer" })
 
 -- Git operations
-map('n', '<Space>gb', function() require('gitsigns').blame_line { full = true } end, { desc = "Blame Line" })
-map('n', '<Space>hp', require('gitsigns').preview_hunk, { desc = "Preview Hunk" })
-map('n', '<Space>tb', require('gitsigns').toggle_current_line_blame, { desc = "Toggle Current Line Blame" })
-map('n', '<Space>gd', require('gitsigns').diffthis, { desc = "Diff This" })
-map('n', '<Space>gD', function() require('gitsigns').diffthis('~') end, { desc = "Diff This ~" })
-map('n', "<Space>gv", "<cmd>Gvdiffsplit<CR>", { desc = "Gvdiffsplit" })
-map('n', "<Space>gs", "<cmd>Gdiffsplit<CR>", { desc = "Gdiffsplit" })
-map('n', "<Space>gw", "<cmd>windo diffthis<CR>", { desc = "Diff windows" })
-map('n', "<Space>gf", "<cmd>GV!<CR>", { desc = "list commits for current file" })
-map('n', "<Space>gl", "<cmd>GV?<CR>", { desc = "fills the location list with the revisions of the current file" })
-map('n', "<Space>gF", "<cmd>GV<CR>", { desc = "open commit browser" })
-map('n', "<Space>dp", "<cmd>diffput<CR>", { desc = "diffput" })
-map('n', "<Space>dg", "<cmd>diffget<CR>", { desc = "diffget" })
+map('n', '<space>gb', function() require('gitsigns').blame_line { full = true } end, { desc = "Blame Line" })
+map('n', '<space>hp', require('gitsigns').preview_hunk, { desc = "Preview Hunk" })
+map('n', '<space>tb', require('gitsigns').toggle_current_line_blame, { desc = "Toggle Current Line Blame" })
+map('n', '<space>gd', require('gitsigns').diffthis, { desc = "Diff This" })
+map('n', '<space>gD', function() require('gitsigns').diffthis('~') end, { desc = "Diff This ~" })
+map('n', "<space>gv", "<cmd>Gvdiffsplit<CR>", { desc = "Gvdiffsplit" })
+map('n', "<space>gs", "<cmd>Gdiffsplit<CR>", { desc = "Gdiffsplit" })
+map('n', "<space>gw", "<cmd>windo diffthis<CR>", { desc = "Diff windows" })
+map('n', "<space>gf", "<cmd>GV!<CR>", { desc = "list commits for current file" })
+map('n', "<space>gl", "<cmd>GV?<CR>", { desc = "fills the location list with the revisions of the current file" })
+map('n', "<space>gF", "<cmd>GV<CR>", { desc = "open commit browser" })
+map('n', "<space>dp", "<cmd>diffput<CR>", { desc = "diffput" })
+map('n', "<space>dg", "<cmd>diffget<CR>", { desc = "diffget" })
 
 
 -- Text object
