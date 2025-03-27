@@ -16,10 +16,18 @@ map("n", "<leader>u", ":Lazy update<CR>", { desc = "Lazy.nvim [U]pdate" })
 map("n", "<C-c>", "<cmd>q<CR>", { desc = "[C]lose (quit)" })
 
 -- Snippets documentation
-map("n", "<leader><leader>rsf", ":!open https://github.com/rafamadriz/friendly-snippets/wiki<CR>",
-  { desc = "Read Doc of friendly snippets" })
-map("n", "<leader><leader>rsv", ":!open https://github.com/honza/vim-snippets/tree/master/snippets<CR>",
-  { desc = "Read Doc of vim-snippets" })
+map(
+	"n",
+	"<leader><leader>rsf",
+	":!open https://github.com/rafamadriz/friendly-snippets/wiki<CR>",
+	{ desc = "Read Doc of friendly snippets" }
+)
+map(
+	"n",
+	"<leader><leader>rsv",
+	":!open https://github.com/honza/vim-snippets/tree/master/snippets<CR>",
+	{ desc = "Read Doc of vim-snippets" }
+)
 
 -- Utility
 map("n", "<space>m", ":message<CR>", { desc = "message" })
@@ -28,20 +36,30 @@ map("n", "<space>M", "<cmd>Mason<CR>", { desc = "Mason LSP manager" })
 map("n", "<space>W", "<cmd>WhichKey<CR>", { desc = "WhichKey menu" })
 map("n", "<space>/", "<cmd>Telescope keymaps<CR>", { desc = "Query Keymaps by Telescope" })
 map("n", "<space>?", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" })
+map("n", "<leader>f", function()
+	require("conform").format({
+		timeout_ms = 500,
+		lsp_format = "fallback",
+	})
+end, { desc = "Format current buffer" })
 
 -- 複製絕對路徑函數
 local function copy_absolute_path()
-  local path = vim.fn.expand('%:p')
-  vim.fn.setreg('+', path)
-  vim.notify('Absolute filepath copied', vim.log.levels.INFO)
+	local path = vim.fn.expand("%:p")
+	vim.fn.setreg("+", path)
+	vim.notify("Absolute filepath copied", vim.log.levels.INFO)
 end
 
 -- 複製相對路徑函數
 local function copy_relative_path()
-  local path = vim.fn.substitute(vim.fn.expand('%:p'), vim.fn.fnamemodify(vim.fn.finddir('.git', ';'), ':p:h:h') .. '/',
-    '', '')
-  vim.fn.setreg('+', path)
-  vim.notify('Relative filepath copied', vim.log.levels.INFO)
+	local path = vim.fn.substitute(
+		vim.fn.expand("%:p"),
+		vim.fn.fnamemodify(vim.fn.finddir(".git", ";"), ":p:h:h") .. "/",
+		"",
+		""
+	)
+	vim.fn.setreg("+", path)
+	vim.notify("Relative filepath copied", vim.log.levels.INFO)
 end
 
 -- 路徑複製鍵綁定
@@ -79,14 +97,21 @@ map("n", "[b", "<cmd>bprevious<CR>", { desc = "Prev buffer" })
 
 -- Telescope
 wk.add({ { "<leader>s", name = "Search ..." } })
-map("n", "<leader>sf",
-  "<cmd>Telescope find_files find_command=rg,--files,--follow,--hidden,--ignore-case,--glob=!.git,--glob=!backup<CR>",
-  { desc = "[S]earch [F]iles" })
+map(
+	"n",
+	"<leader>sf",
+	"<cmd>Telescope find_files find_command=rg,--files,--follow,--hidden,--ignore-case,--glob=!.git,--glob=!backup<CR>",
+	{ desc = "[S]earch [F]iles" }
+)
 map("n", "<leader>sg", "<cmd>Telescope git_status<CR>", { desc = "[s]earch [g]it status" })
 map("n", "<leader>sr", "<cmd>Telescope live_grep<CR>", { desc = "[s]earch by g[r]ep" })
 map("n", "<leader>sa", "<cmd>Telescope live_grep_args<CR>", { desc = "[s]earch by grep [a]rgs" })
-map("n", "<leader>sw", "<cmd>Telescope grep_string<CR>",
-  { desc = "[S]earch the string under cursor in current [w]orking directory" })
+map(
+	"n",
+	"<leader>sw",
+	"<cmd>Telescope grep_string<CR>",
+	{ desc = "[S]earch the string under cursor in current [w]orking directory" }
+)
 map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "[s]earch [b]uffer" })
 
 -- Quickfix and Location list navigation
@@ -120,19 +145,25 @@ map({ "n", "v" }, "<leader><leader>gs", "<cmd>ChatGPTRun summarize<CR>", { desc 
 map({ "n", "v" }, "<leader><leader>gf", "<cmd>ChatGPTRun fix_bugs<CR>", { desc = "Fix Bugs" })
 map({ "n", "v" }, "<leader><leader>gx", "<cmd>ChatGPTRun explain_code<CR>", { desc = "Explain Code" })
 map({ "n", "v" }, "<leader><leader>gr", "<cmd>ChatGPTRun roxygen_edit<CR>", { desc = "Roxygen Edit" })
-map({ "n", "v" }, "<leader><leader>gl", "<cmd>ChatGPTRun code_readability_analysis<CR>",
-  { desc = "Code Readability Analysis" })
+map(
+	{ "n", "v" },
+	"<leader><leader>gl",
+	"<cmd>ChatGPTRun code_readability_analysis<CR>",
+	{ desc = "Code Readability Analysis" }
+)
 
 -- LSP and Gitsigns
 wk.add({ { "g", name = "LSP / Gitsigns ..." } })
-map("n", "gd", function() vim.lsp.buf.definition() end, { desc = "Definition" })
+map("n", "gd", function()
+	vim.lsp.buf.definition()
+end, { desc = "Definition" })
 map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Declaration" })
-map("n", "gI", vim.lsp.buf.implementation, { desc = '[G]oto [I]mplementation' })
-map("n", "gS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", { desc = '[W]orkspace [S]ymbols' })
+map("n", "gI", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
+map("n", "gS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", { desc = "[W]orkspace [S]ymbols" })
 map("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", { desc = "Workspace Symbol" })
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover" })
-map("n", "<space>s", vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
-map("n", "gr", '<cmd>Telescope lsp_references<CR>', { desc = '[G]oto [R]eferences' })
+map("n", "<space>s", vim.lsp.buf.signature_help, { desc = "Signature Documentation" })
+map("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "[G]oto [R]eferences" })
 map("n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename" })
 
 -- Gitsigns
@@ -153,7 +184,7 @@ map("n", "gca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Code Action"
 wk.add({ { "gw", name = "Workspace ..." } })
 map("n", "gwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", { desc = "Add Workspace Folder" })
 map("n", "gwd", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", { desc = "Delete Workspace Folder" })
-map("n", "gwl", "<cmd>lua vim.lsp.buf.list_workspace_folders()<CR>", { desc = '[W]orkspace [L]ist Folders' })
+map("n", "gwl", "<cmd>lua vim.lsp.buf.list_workspace_folders()<CR>", { desc = "[W]orkspace [L]ist Folders" })
 
 -- Diagnostic navigation
 map("n", "]d", "<cmd>lua vim.diagnostic.goto_next({ border = 'rounded' })<CR>", { desc = "Diagnostic Next" })
@@ -162,10 +193,10 @@ map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ border = 'rounded' })<CR>", 
 -- Select all
 map("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
 
-map({ 'n', 'v' }, '<space>', '<Nop>', opts)
+map({ "n", "v" }, "<space>", "<Nop>", opts)
 -- Remap for dealing with word wrap
-map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Delete without yank
 map("n", "<leader>d", '"_d', { noremap = true })
@@ -224,70 +255,80 @@ map("n", "<space>D", '"+dg_', { noremap = true })
 
 -- 定義函數：將所有 buffer 內容複製到剪貼板，並在每個 buffer 前加上檔案路徑
 local function copy_all_buffers_to_clipboard()
-  local all_content = "" -- 初始化變數，用於存儲所有內容
+	local all_content = "" -- 初始化變數，用於存儲所有內容
 
-  -- 獲取專案根目錄
-  local project_root = vim.fn.getcwd() -- 當前工作目錄作為專案根目錄
-  if project_root:sub(-1) ~= "/" then
-    project_root = project_root .. "/" -- 確保根目錄以 / 結尾
-  end
+	-- 獲取專案根目錄
+	local project_root = vim.fn.getcwd() -- 當前工作目錄作為專案根目錄
+	if project_root:sub(-1) ~= "/" then
+		project_root = project_root .. "/" -- 確保根目錄以 / 結尾
+	end
 
-  for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do -- 遍歷所有 buffer
-    local buf_path = vim.api.nvim_buf_get_name(buf.bufnr)       -- 獲取 buffer 的完整路徑
-    if buf_path ~= "" then                                      -- 檢查是否為有效檔案
-      -- 計算相對路徑
-      local relative_path = buf_path:gsub(project_root, "")     -- 從完整路徑中移除專案根目錄
-      relative_path = "/" .. relative_path                      -- 加上 / 作為根目錄標記
+	for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do -- 遍歷所有 buffer
+		local buf_path = vim.api.nvim_buf_get_name(buf.bufnr) -- 獲取 buffer 的完整路徑
+		if buf_path ~= "" then -- 檢查是否為有效檔案
+			-- 計算相對路徑
+			local relative_path = buf_path:gsub(project_root, "") -- 從完整路徑中移除專案根目錄
+			relative_path = "/" .. relative_path -- 加上 / 作為根目錄標記
 
-      -- 讀取 buffer 內容
-      local lines = vim.fn.getbufline(buf.bufnr, 1, '$') -- 獲取所有行
-      local buf_content = table.concat(vim.tbl_map(function(line)
-        return tostring(line)                            -- 確保每一行都是字符串
-      end, lines), "\n")
+			-- 讀取 buffer 內容
+			local lines = vim.fn.getbufline(buf.bufnr, 1, "$") -- 獲取所有行
+			local buf_content = table.concat(
+				vim.tbl_map(function(line)
+					return tostring(line) -- 確保每一行都是字符串
+				end, lines),
+				"\n"
+			)
 
-      -- 將檔案路徑和內容追加到變數
-      all_content = all_content .. "//file: " .. relative_path .. "\n" .. buf_content .. "\n\n"
-    end
-  end
+			-- 將檔案路徑和內容追加到變數
+			all_content = all_content .. "//file: " .. relative_path .. "\n" .. buf_content .. "\n\n"
+		end
+	end
 
-  vim.fn.setreg('+', all_content) -- 將所有內容寫入系統剪貼板
-  vim.notify("All buffers copied to clipboard with file paths!", vim.log.levels.INFO)
+	vim.fn.setreg("+", all_content) -- 將所有內容寫入系統剪貼板
+	vim.notify("All buffers copied to clipboard with file paths!", vim.log.levels.INFO)
 end
 
 -- 定義函數：將當前窗口的內容複製到剪貼板，並在最前面加上檔案路徑
 local function copy_current_window_to_clipboard()
-  local buf_path = vim.api.nvim_buf_get_name(0) -- 獲取當前 buffer 的完整路徑
-  if buf_path ~= "" then
-    -- 獲取專案根目錄
-    local project_root = vim.fn.getcwd()
-    if project_root:sub(-1) ~= "/" then
-      project_root = project_root .. "/"
-    end
+	local buf_path = vim.api.nvim_buf_get_name(0) -- 獲取當前 buffer 的完整路徑
+	if buf_path ~= "" then
+		-- 獲取專案根目錄
+		local project_root = vim.fn.getcwd()
+		if project_root:sub(-1) ~= "/" then
+			project_root = project_root .. "/"
+		end
 
-    -- 計算相對路徑
-    local relative_path = buf_path:gsub(project_root, "")
-    relative_path = "/" .. relative_path
+		-- 計算相對路徑
+		local relative_path = buf_path:gsub(project_root, "")
+		relative_path = "/" .. relative_path
 
-    -- 讀取當前 buffer 的所有內容（整個檔案）
-    local lines = vim.fn.getbufline(vim.api.nvim_get_current_buf(), 1, '$')
-    local win_content = table.concat(vim.tbl_map(function(line)
-      return tostring(line)
-    end, lines), "\n")
+		-- 讀取當前 buffer 的所有內容（整個檔案）
+		local lines = vim.fn.getbufline(vim.api.nvim_get_current_buf(), 1, "$")
+		local win_content = table.concat(
+			vim.tbl_map(function(line)
+				return tostring(line)
+			end, lines),
+			"\n"
+		)
 
-    -- 組合檔案路徑和內容
-    local content_to_copy = "//file: " .. relative_path .. "\n" .. win_content
+		-- 組合檔案路徑和內容
+		local content_to_copy = "//file: " .. relative_path .. "\n" .. win_content
 
-    vim.fn.setreg('+', content_to_copy) -- 將內容寫入系統剪貼板
-    vim.notify("Current file content copied to clipboard with file path!", vim.log.levels.INFO)
-  else
-    vim.notify("No file name for current buffer!", vim.log.levels.WARN)
-  end
+		vim.fn.setreg("+", content_to_copy) -- 將內容寫入系統剪貼板
+		vim.notify("Current file content copied to clipboard with file path!", vim.log.levels.INFO)
+	else
+		vim.notify("No file name for current buffer!", vim.log.levels.WARN)
+	end
 end
 
 -- 映射快捷鍵
 map("n", "<space>by", copy_all_buffers_to_clipboard, { desc = "Copy all buffers to clipboard with file paths" })
-map("n", "<space>wy", copy_current_window_to_clipboard,
-  { desc = "Copy current file content to clipboard with file path" })
+map(
+	"n",
+	"<space>wy",
+	copy_current_window_to_clipboard,
+	{ desc = "Copy current file content to clipboard with file path" }
+)
 
 -- " Paste from clipboard
 --[[ map("n", "<leader>p", '"+p', { noremap = true }) ]]
@@ -333,10 +374,18 @@ map("n", "sf", "<cmd>VimFilerBufferDir<Return>", { desc = "VimFiler Buffer Dir" 
 map("n", "sF", "<cmd>VimFilerExplorer -find<Return>", { desc = "VimFiler Explorer" })
 map("n", "so", "<cmd>Telescope oldfiles<CR>", { desc = "[s]earch [o]ldfiles" })
 map("n", "sb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" })
-map("n", "sw", "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>",
-  { desc = "[S]earch [W]orktree" })
-map("n", "sW", "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>",
-  { desc = "[S]et [W]orktree" })
+map(
+	"n",
+	"sw",
+	"<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>",
+	{ desc = "[S]earch [W]orktree" }
+)
+map(
+	"n",
+	"sW",
+	"<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>",
+	{ desc = "[S]et [W]orktree" }
+)
 map("n", "sh", "<C-w>h", { desc = "Jump left" })
 map("n", "sk", "<C-w>k", { desc = "Jump up" })
 map("n", "sj", "<C-w>j", { desc = "Jump down" })
@@ -371,31 +420,51 @@ map("n", "stt", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Tr
 map("n", "stb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
 map("n", "sts", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
 map("n", "stq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
-map("n", "stL", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-  { desc = "LSP Definitions / references / ... (Trouble)" })
+map(
+	"n",
+	"stL",
+	"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+	{ desc = "LSP Definitions / references / ... (Trouble)" }
+)
 map("n", "stl", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
 map("n", "str", "<cmd>TroubleToggle lst_references<cr>", { desc = "Trouble, LSP Reference" })
 map("n", "stn", "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<cr>", { desc = "[N]ext trouble" })
-map("n", "stp", "<cmd>lua require('trouble').prev({skip_groups = true, jump = true})<cr>",
-  { desc = "[P]revious trouble" })
+map(
+	"n",
+	"stp",
+	"<cmd>lua require('trouble').prev({skip_groups = true, jump = true})<cr>",
+	{ desc = "[P]revious trouble" }
+)
 
 -- DAP (Debugger)
 wk.add({ { "<space>d", name = "Neovim DAP ..." } })
 map("n", "<space>dc", '<cmd>lua require"dap".clear_breakpoints()<CR>', { desc = "Clear Breakpoints" })
-map("n", "<space>de", '<cmd>lua require"dap".set_exception_breakpoints({"all"})<CR>',
-  { desc = "Set Exception Breakpoints" })
+map(
+	"n",
+	"<space>de",
+	'<cmd>lua require"dap".set_exception_breakpoints({"all"})<CR>',
+	{ desc = "Set Exception Breakpoints" }
+)
 map("n", "<space>dl", "<cmd>Telescope dap list_breakpoints<CR>", { desc = "List Breakpoints" })
 map("n", "<space>dk", '<cmd>lua require"dap".up()<CR>zz', { desc = "Up" })
 map("n", "<space>dj", '<cmd>lua require"dap".down()<CR>zz', { desc = "Down" })
 map("n", "<space>dt", '<cmd>lua require"dap".terminate()<CR>', { desc = "Terminate" })
 map("n", "<space>dr", '<cmd>lua require"dap".repl.toggle({}, "split")<CR><C-w>j<C-W>J', { desc = "Toggle Repl" })
-map("n", "<space>ds", '<cmd>lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>',
-  { desc = "Scopes" })
+map(
+	"n",
+	"<space>ds",
+	'<cmd>lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>',
+	{ desc = "Scopes" }
+)
 map("n", "<space>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<CR>", { desc = "Evaluate Input" })
 map("n", "<space>d?", "<cmd>Telescope dap commands<CR>", { desc = "List Commands" })
 map("n", "<space>b", '<cmd>lua require"dap".toggle_breakpoint()<CR>', { desc = "Toggle Breakpoint" })
-map("n", "<space>B", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-  { desc = "Conditional Breakpoint" })
+map(
+	"n",
+	"<space>B",
+	"<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+	{ desc = "Conditional Breakpoint" }
+)
 map("n", "<space>c", '<cmd>silent w<CR> :lua require"dap".continue()<CR>', { desc = "Continue" })
 map("n", "<space>x", "<cmd>lua require'dap'.close()<cr>", { desc = "Quit" })
 map("n", "<space>j", '<cmd>lua require"dap".step_over()<CR>', { desc = "Step Over" })
@@ -405,7 +474,6 @@ map("n", "<space>n", '<cmd>lua require"dap".run_to_cursor()<CR>', { desc = "Run 
 map("n", "<space>K", "<cmd>lua require'dap.ui.widgets'.hover()<CR>", { desc = "Hover Variables by DAP" })
 map("n", "<space>w", "<cmd>lua require'dapui'.toggle()<cr>", { desc = "Toggle UI" })
 map("n", "<space>e", '<cmd>lua require"dap".repl.toggle({}, "split")<CR><C-w>j<C-W>J', { desc = "Toggle Repl" })
-
 
 -- TODO
 -- ["<F5>"] = { '<cmd>lua require"dap".step_out()<CR>', "Step Out" },
@@ -430,17 +498,24 @@ map("n", "<space>e", '<cmd>lua require"dap".repl.toggle({}, "split")<CR><C-w>j<C
 --     { desc = string.format("Go to mark %s", i) })
 -- end
 
-
 local gs = package.loaded.gitsigns
-map('n', ']g', function()
-  if vim.wo.diff then return ']g' end
-  vim.schedule(function() gs.next_hunk() end)
-  return '<Ignore>'
+map("n", "]g", function()
+	if vim.wo.diff then
+		return "]g"
+	end
+	vim.schedule(function()
+		gs.next_hunk()
+	end)
+	return "<Ignore>"
 end, { expr = true, desc = "Next Hunk" })
-map('n', '[g', function()
-  if vim.wo.diff then return '[g' end
-  vim.schedule(function() gs.prev_hunk() end)
-  return '<Ignore>'
+map("n", "[g", function()
+	if vim.wo.diff then
+		return "[g"
+	end
+	vim.schedule(function()
+		gs.prev_hunk()
+	end)
+	return "<Ignore>"
 end, { expr = true, desc = "Prev Hunk" })
 -- map('n', 'ghs', gs.stage_hunk, { desc = "Stage Hunk" })
 -- map('v', 'ghs', function() gs.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end, { desc = "Stage Hunk by range" })
@@ -450,25 +525,31 @@ end, { expr = true, desc = "Prev Hunk" })
 -- map('n', 'gbr', gs.reset_buffer, { desc = "Reset Buffer" })
 
 -- Git operations
-map('n', '<space>gb', function() require('gitsigns').blame_line { full = true } end, { desc = "Blame Line" })
-map('n', '<space>hp', require('gitsigns').preview_hunk, { desc = "Preview Hunk" })
-map('n', '<space>tb', require('gitsigns').toggle_current_line_blame, { desc = "Toggle Current Line Blame" })
-map('n', '<space>gd', require('gitsigns').diffthis, { desc = "Diff This" })
-map('n', '<space>gD', function() require('gitsigns').diffthis('~') end, { desc = "Diff This ~" })
-map('n', "<space>gv", "<cmd>Gvdiffsplit<CR>", { desc = "Gvdiffsplit" })
-map('n', "<space>gs", "<cmd>Gdiffsplit<CR>", { desc = "Gdiffsplit" })
-map('n', "<space>gw", "<cmd>windo diffthis<CR>", { desc = "Diff windows" })
-map('n', "<space>gf", "<cmd>GV!<CR>", { desc = "list commits for current file" })
-map('n', "<space>gl", "<cmd>GV?<CR>", { desc = "fills the location list with the revisions of the current file" })
-map('n', "<space>gF", "<cmd>GV<CR>", { desc = "open commit browser" })
-map('n', "<space>dp", "<cmd>diffput<CR>", { desc = "diffput" })
-map('n', "<space>dg", "<cmd>diffget<CR>", { desc = "diffget" })
-
+map("n", "<space>gb", function()
+	require("gitsigns").blame_line({ full = true })
+end, { desc = "Blame Line" })
+map("n", "<space>hp", require("gitsigns").preview_hunk, { desc = "Preview Hunk" })
+map("n", "<space>tb", require("gitsigns").toggle_current_line_blame, { desc = "Toggle Current Line Blame" })
+map("n", "<space>gd", require("gitsigns").diffthis, { desc = "Diff This" })
+map("n", "<space>gD", function()
+	require("gitsigns").diffthis("~")
+end, { desc = "Diff This ~" })
+map("n", "<space>gv", "<cmd>Gvdiffsplit<CR>", { desc = "Gvdiffsplit" })
+map("n", "<space>gs", "<cmd>Gdiffsplit<CR>", { desc = "Gdiffsplit" })
+map("n", "<space>gw", "<cmd>windo diffthis<CR>", { desc = "Diff windows" })
+map("n", "<space>gf", "<cmd>GV!<CR>", { desc = "list commits for current file" })
+map("n", "<space>gl", "<cmd>GV?<CR>", { desc = "fills the location list with the revisions of the current file" })
+map("n", "<space>gF", "<cmd>GV<CR>", { desc = "open commit browser" })
+map("n", "<space>dp", "<cmd>diffput<CR>", { desc = "diffput" })
+map("n", "<space>dg", "<cmd>diffget<CR>", { desc = "diffget" })
 
 -- Text object
-map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',
-  { desc = "Select Hunk, used in visual or followed by d/y commands" })
-
+map(
+	{ "o", "x" },
+	"ih",
+	":<C-U>Gitsigns select_hunk<CR>",
+	{ desc = "Select Hunk, used in visual or followed by d/y commands" }
+)
 
 vim.cmd([[
 " Save with root permission
@@ -550,7 +631,6 @@ else
 end
 ]])
 
-
 -- Telescope
 ----------------------------------------------------------------------
 -- map("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
@@ -583,468 +663,516 @@ end
 -- end
 
 local function find_jsx_parent(node)
-  if not node then return nil end
+	if not node then
+		return nil
+	end
 
-  local parent = node:parent()
-  while parent do
-    -- 检查是否在 JSX 表达式中
-    if parent:type() == "jsx_expression" then
-      -- 继续向上查找，直到找到 jsx_attribute
-      local next_parent = parent:parent()
-      while next_parent do
-        if next_parent:type() == "jsx_attribute" then
-          -- 找到包含此属性的 self-closing tag
-          local tag_parent = next_parent:parent()
-          if tag_parent and tag_parent:type() == "jsx_self_closing_element" then
-            return tag_parent
-          end
-        end
-        next_parent = next_parent:parent()
-      end
-    end
-    -- 检查是否是 JSX 元素
-    if parent:type() == "jsx_element" or
-        parent:type() == "jsx_fragment" or
-        parent:type() == "jsx_self_closing_element" then
-      return parent
-    end
-    parent = parent:parent()
-  end
-  return nil
+	local parent = node:parent()
+	while parent do
+		-- 检查是否在 JSX 表达式中
+		if parent:type() == "jsx_expression" then
+			-- 继续向上查找，直到找到 jsx_attribute
+			local next_parent = parent:parent()
+			while next_parent do
+				if next_parent:type() == "jsx_attribute" then
+					-- 找到包含此属性的 self-closing tag
+					local tag_parent = next_parent:parent()
+					if tag_parent and tag_parent:type() == "jsx_self_closing_element" then
+						return tag_parent
+					end
+				end
+				next_parent = next_parent:parent()
+			end
+		end
+		-- 检查是否是 JSX 元素
+		if
+			parent:type() == "jsx_element"
+			or parent:type() == "jsx_fragment"
+			or parent:type() == "jsx_self_closing_element"
+		then
+			return parent
+		end
+		parent = parent:parent()
+	end
+	return nil
 end
 
 local function find_jsx_in_node(node)
-  if not node then return nil end
+	if not node then
+		return nil
+	end
 
-  -- 直接返回JSX元素
-  if node:type() == "jsx_element" or
-      node:type() == "jsx_fragment" or
-      node:type() == "jsx_self_closing_element" then
-    return node
-  end
+	-- 直接返回JSX元素
+	if node:type() == "jsx_element" or node:type() == "jsx_fragment" or node:type() == "jsx_self_closing_element" then
+		return node
+	end
 
-  -- 遍历所有子节点
-  for i = 0, node:child_count() - 1 do
-    local child = node:child(i)
-    -- 递归检查每个子节点
-    local result = find_jsx_in_node(child)
-    if result then
-      return result
-    end
-  end
+	-- 遍历所有子节点
+	for i = 0, node:child_count() - 1 do
+		local child = node:child(i)
+		-- 递归检查每个子节点
+		local result = find_jsx_in_node(child)
+		if result then
+			return result
+		end
+	end
 
-  return nil
+	return nil
 end
 
 local function get_first_jsx_in_map(expression)
-  -- print("\n=== Checking map expression ===")
-  -- print("Expression type: " .. expression:type())
+	-- print("\n=== Checking map expression ===")
+	-- print("Expression type: " .. expression:type())
 
-  -- 找到 map 调用
-  local call_node = nil
-  for i = 0, expression:child_count() - 1 do
-    local child = expression:child(i)
-    -- print("Child type: " .. child:type())
-    if child:type() == "call_expression" then
-      call_node = child
-      break
-    end
-  end
+	-- 找到 map 调用
+	local call_node = nil
+	for i = 0, expression:child_count() - 1 do
+		local child = expression:child(i)
+		-- print("Child type: " .. child:type())
+		if child:type() == "call_expression" then
+			call_node = child
+			break
+		end
+	end
 
-  if not call_node then
-    -- print("No call_expression found")
-    return nil
-  end
+	if not call_node then
+		-- print("No call_expression found")
+		return nil
+	end
 
-  -- 遍历 call_expression 的参数
-  for i = 0, call_node:child_count() - 1 do
-    local child = call_node:child(i)
-    -- print("Call child type: " .. child:type())
+	-- 遍历 call_expression 的参数
+	for i = 0, call_node:child_count() - 1 do
+		local child = call_node:child(i)
+		-- print("Call child type: " .. child:type())
 
-    -- 检查是否是参数列表
-    if child:type() == "arguments" then
-      -- print("Found arguments")
-      -- 查找箭头函数参数
-      for j = 0, child:child_count() - 1 do
-        local arg = child:child(j)
-        -- print("Argument type: " .. arg:type())
+		-- 检查是否是参数列表
+		if child:type() == "arguments" then
+			-- print("Found arguments")
+			-- 查找箭头函数参数
+			for j = 0, child:child_count() - 1 do
+				local arg = child:child(j)
+				-- print("Argument type: " .. arg:type())
 
-        if arg:type() == "arrow_function" then
-          -- print("Found arrow function")
-          -- 获取箭头函数的主体
-          for k = 0, arg:child_count() - 1 do
-            local func_part = arg:child(k)
-            -- print("Function part type: " .. func_part:type())
+				if arg:type() == "arrow_function" then
+					-- print("Found arrow function")
+					-- 获取箭头函数的主体
+					for k = 0, arg:child_count() - 1 do
+						local func_part = arg:child(k)
+						-- print("Function part type: " .. func_part:type())
 
-            -- 处理箭头函数主体（可能被括号包裹）
-            if func_part:type() == "parenthesized_expression" then
-              for l = 0, func_part:child_count() - 1 do
-                local body_item = func_part:child(l)
-                -- print("Body item type: " .. body_item:type())
+						-- 处理箭头函数主体（可能被括号包裹）
+						if func_part:type() == "parenthesized_expression" then
+							for l = 0, func_part:child_count() - 1 do
+								local body_item = func_part:child(l)
+								-- print("Body item type: " .. body_item:type())
 
-                if body_item:type() == "jsx_element" then
-                  -- print("Found JSX element in map!")
-                  return body_item
-                end
-              end
-            end
-          end
-        end
-      end
-    end
-  end
+								if body_item:type() == "jsx_element" then
+									-- print("Found JSX element in map!")
+									return body_item
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
 
-  -- print("No JSX found in map")
-  return nil
+	-- print("No JSX found in map")
+	return nil
 end
 
 local function find_next_map_expression(node)
-  if not node then return nil end
-  -- print("\n=== Finding next map expression ===")
-  -- print("Starting from node type: " .. node:type())
+	if not node then
+		return nil
+	end
+	-- print("\n=== Finding next map expression ===")
+	-- print("Starting from node type: " .. node:type())
 
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local current = node
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local current = node
 
-  -- 寻找下一个兄弟节点
-  local next_node = ts_utils.get_next_node(current, true, true)
-  while next_node do
-    -- print("Checking next node type: " .. next_node:type())
-    -- 当找到 jsx_expression 时，尝试在其中查找 map
-    if next_node:type() == "jsx_expression" then
-      -- print("Found jsx_expression")
+	-- 寻找下一个兄弟节点
+	local next_node = ts_utils.get_next_node(current, true, true)
+	while next_node do
+		-- print("Checking next node type: " .. next_node:type())
+		-- 当找到 jsx_expression 时，尝试在其中查找 map
+		if next_node:type() == "jsx_expression" then
+			-- print("Found jsx_expression")
 
-      -- 首先尝试直接在表达式中查找 JSX 元素
-      for i = 0, next_node:child_count() - 1 do
-        local child = next_node:child(i)
-        if child:type() == "call_expression" then
-          -- 检查是否是 map 调用
-          local first_child = child:child(0)
-          if first_child and first_child:type() == "member_expression" then
-            -- print("Found potential map call")
-            local map_jsx = get_first_jsx_in_map(next_node)
-            if map_jsx then
-              return map_jsx
-            end
-          end
-        end
-      end
-    end
-    next_node = ts_utils.get_next_node(next_node, true, true)
-  end
+			-- 首先尝试直接在表达式中查找 JSX 元素
+			for i = 0, next_node:child_count() - 1 do
+				local child = next_node:child(i)
+				if child:type() == "call_expression" then
+					-- 检查是否是 map 调用
+					local first_child = child:child(0)
+					if first_child and first_child:type() == "member_expression" then
+						-- print("Found potential map call")
+						local map_jsx = get_first_jsx_in_map(next_node)
+						if map_jsx then
+							return map_jsx
+						end
+					end
+				end
+			end
+		end
+		next_node = ts_utils.get_next_node(next_node, true, true)
+	end
 
-  -- print("No map expression found")
-  return nil
+	-- print("No map expression found")
+	return nil
 end
 
 local function get_jsx_from_attribute_value(attr_value)
-  if not attr_value then return nil end
+	if not attr_value then
+		return nil
+	end
 
-  if attr_value:type() == "jsx_expression" then
-    -- 遍历表达式的内容
-    for i = 0, attr_value:child_count() - 1 do
-      local expr_child = attr_value:child(i)
+	if attr_value:type() == "jsx_expression" then
+		-- 遍历表达式的内容
+		for i = 0, attr_value:child_count() - 1 do
+			local expr_child = attr_value:child(i)
 
-      if expr_child:type() == "arrow_function" then
-        -- 获取箭头函数的主体
-        for j = 0, expr_child:child_count() - 1 do
-          local func_child = expr_child:child(j)
-          if func_child:type() == "parenthesized_expression" then
-            local jsx = find_jsx_in_node(func_child)
-            if jsx then return jsx end
-          end
-        end
-      else
-        -- 对于非箭头函数的表达式，直接搜索JSX
-        local jsx = find_jsx_in_node(expr_child)
-        if jsx then return jsx end
-      end
-    end
-  end
-  return nil
+			if expr_child:type() == "arrow_function" then
+				-- 获取箭头函数的主体
+				for j = 0, expr_child:child_count() - 1 do
+					local func_child = expr_child:child(j)
+					if func_child:type() == "parenthesized_expression" then
+						local jsx = find_jsx_in_node(func_child)
+						if jsx then
+							return jsx
+						end
+					end
+				end
+			else
+				-- 对于非箭头函数的表达式，直接搜索JSX
+				local jsx = find_jsx_in_node(expr_child)
+				if jsx then
+					return jsx
+				end
+			end
+		end
+	end
+	return nil
 end
 
 local function get_first_jsx_in_attributes(node)
-  -- 遍历所有属性
-  for i = 0, node:child_count() - 1 do
-    local child = node:child(i)
-    if child:type() == "jsx_attribute" then
-      for j = 0, child:child_count() - 1 do
-        local attr_part = child:child(j)
-        local jsx = get_jsx_from_attribute_value(attr_part)
-        if jsx then return jsx end
-      end
-    end
-  end
-  return nil
+	-- 遍历所有属性
+	for i = 0, node:child_count() - 1 do
+		local child = node:child(i)
+		if child:type() == "jsx_attribute" then
+			for j = 0, child:child_count() - 1 do
+				local attr_part = child:child(j)
+				local jsx = get_jsx_from_attribute_value(attr_part)
+				if jsx then
+					return jsx
+				end
+			end
+		end
+	end
+	return nil
 end
 
 local function get_first_child(node)
-  if not node then return nil end
-  -- print("\n=== Getting first child ===")
-  -- print("Parent node type: " .. node:type())
-  -- print("Full node structure:")
-  -- print(debug_node(node))
+	if not node then
+		return nil
+	end
+	-- print("\n=== Getting first child ===")
+	-- print("Parent node type: " .. node:type())
+	-- print("Full node structure:")
+	-- print(debug_node(node))
 
-  -- 首先检查直接子元素
-  local has_children = false
-  for i = 0, node:child_count() - 1 do
-    local child = node:child(i)
-    -- print("Checking direct child type: " .. child:type())
-    if child:type() == "jsx_element" or
-        child:type() == "jsx_fragment" or
-        child:type() == "jsx_self_closing_element" then
-      has_children = true
-      -- print("Found direct JSX child")
-      return child
-    end
-  end
+	-- 首先检查直接子元素
+	local has_children = false
+	for i = 0, node:child_count() - 1 do
+		local child = node:child(i)
+		-- print("Checking direct child type: " .. child:type())
+		if
+			child:type() == "jsx_element"
+			or child:type() == "jsx_fragment"
+			or child:type() == "jsx_self_closing_element"
+		then
+			has_children = true
+			-- print("Found direct JSX child")
+			return child
+		end
+	end
 
-  -- 如果是self-closing标签，检查其属性中的JSX
-  if node:type() == "jsx_self_closing_element" then
-    -- print("Checking self-closing tag attributes")
-    local jsx_in_attr = get_first_jsx_in_attributes(node)
-    if jsx_in_attr then
-      -- print("Found JSX in attributes")
-      return jsx_in_attr
-    end
-  end
+	-- 如果是self-closing标签，检查其属性中的JSX
+	if node:type() == "jsx_self_closing_element" then
+		-- print("Checking self-closing tag attributes")
+		local jsx_in_attr = get_first_jsx_in_attributes(node)
+		if jsx_in_attr then
+			-- print("Found JSX in attributes")
+			return jsx_in_attr
+		end
+	end
 
-  -- 如果没有子元素，尝试查找下一个 map 表达式中的元素
-  if not has_children then
-    -- print("No direct children, looking for map")
-    local map_jsx = find_next_map_expression(node)
-    if map_jsx then
-      -- print("Found JSX in map")
-      return map_jsx
-    end
-  end
+	-- 如果没有子元素，尝试查找下一个 map 表达式中的元素
+	if not has_children then
+		-- print("No direct children, looking for map")
+		local map_jsx = find_next_map_expression(node)
+		if map_jsx then
+			-- print("Found JSX in map")
+			return map_jsx
+		end
+	end
 
-  -- print("No children or map found")
-  return nil
+	-- print("No children or map found")
+	return nil
 end
 
 local function is_jsx_node(node)
-  if not node then return false end
-  local type = node:type()
-  return type == "jsx_element" or
-      type == "jsx_fragment" or
-      type == "jsx_self_closing_element"
+	if not node then
+		return false
+	end
+	local type = node:type()
+	return type == "jsx_element" or type == "jsx_fragment" or type == "jsx_self_closing_element"
 end
 
 local function get_next_sibling(node)
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local current = node
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local current = node
 
-  -- 如果节点在JSX表达式内，先找到最外层的JSX父节点
-  if not is_jsx_node(current) then
-    current = find_jsx_parent(current)
-  end
+	-- 如果节点在JSX表达式内，先找到最外层的JSX父节点
+	if not is_jsx_node(current) then
+		current = find_jsx_parent(current)
+	end
 
-  if not current then return nil end
+	if not current then
+		return nil
+	end
 
-  local next_node = ts_utils.get_next_node(current, true, true)
-  while next_node ~= nil and next_node:parent() == current:parent() do
-    if is_jsx_node(next_node) then
-      return next_node
-    end
-    next_node = ts_utils.get_next_node(next_node, true, true)
-  end
-  return nil
+	local next_node = ts_utils.get_next_node(current, true, true)
+	while next_node ~= nil and next_node:parent() == current:parent() do
+		if is_jsx_node(next_node) then
+			return next_node
+		end
+		next_node = ts_utils.get_next_node(next_node, true, true)
+	end
+	return nil
 end
 
 local function get_previous_sibling(node)
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local current = node
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local current = node
 
-  -- 如果节点在JSX表达式内，先找到最外层的JSX父节点
-  if not is_jsx_node(current) then
-    current = find_jsx_parent(current)
-  end
+	-- 如果节点在JSX表达式内，先找到最外层的JSX父节点
+	if not is_jsx_node(current) then
+		current = find_jsx_parent(current)
+	end
 
-  if not current then return nil end
+	if not current then
+		return nil
+	end
 
-  local prev_node = ts_utils.get_previous_node(current, true, true)
-  while prev_node ~= nil and prev_node:parent() == current:parent() do
-    if is_jsx_node(prev_node) then
-      return prev_node
-    end
-    prev_node = ts_utils.get_previous_node(prev_node, true, true)
-  end
-  return nil
+	local prev_node = ts_utils.get_previous_node(current, true, true)
+	while prev_node ~= nil and prev_node:parent() == current:parent() do
+		if is_jsx_node(prev_node) then
+			return prev_node
+		end
+		prev_node = ts_utils.get_previous_node(prev_node, true, true)
+	end
+	return nil
 end
 
 local function get_master_node()
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local node = ts_utils.get_node_at_cursor()
-  if node == nil then return nil end
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local node = ts_utils.get_node_at_cursor()
+	if node == nil then
+		return nil
+	end
 
-  local start_row = node:start()
-  local parent = node:parent()
+	local start_row = node:start()
+	local parent = node:parent()
 
-  while parent ~= nil and parent:start() == start_row do
-    node = parent
-    parent = node:parent()
-  end
+	while parent ~= nil and parent:start() == start_row do
+		node = parent
+		parent = node:parent()
+	end
 
-  return node
+	return node
 end
 
 local function goto_child_or_sibling_node()
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local node = get_master_node()
-  if node == nil then return end
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local node = get_master_node()
+	if node == nil then
+		return
+	end
 
-  -- Try to get child first
-  local child = get_first_child(node)
-  if child ~= nil then
-    ts_utils.goto_node(child)
-    return
-  end
+	-- Try to get child first
+	local child = get_first_child(node)
+	if child ~= nil then
+		ts_utils.goto_node(child)
+		return
+	end
 
-  -- If no child found, try to get next sibling
-  local sibling = get_next_sibling(node)
-  if sibling ~= nil then
-    ts_utils.goto_node(sibling)
-  end
+	-- If no child found, try to get next sibling
+	local sibling = get_next_sibling(node)
+	if sibling ~= nil then
+		ts_utils.goto_node(sibling)
+	end
 end
 
 local function goto_parent_node()
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local node = get_master_node()
-  if node == nil then return end
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local node = get_master_node()
+	if node == nil then
+		return
+	end
 
-  -- Try to find parent JSX element
-  local parent = find_jsx_parent(node)
-  if parent then
-    ts_utils.goto_node(parent)
-  end
+	-- Try to find parent JSX element
+	local parent = find_jsx_parent(node)
+	if parent then
+		ts_utils.goto_node(parent)
+	end
 end
 
 local function goto_next_sibling_node()
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local node = get_master_node()
-  if node == nil then return end
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local node = get_master_node()
+	if node == nil then
+		return
+	end
 
-  local sibling = get_next_sibling(node)
-  if sibling ~= nil then
-    ts_utils.goto_node(sibling)
-  end
+	local sibling = get_next_sibling(node)
+	if sibling ~= nil then
+		ts_utils.goto_node(sibling)
+	end
 end
 
 local function goto_prev_sibling_node()
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local node = get_master_node()
-  if node == nil then return end
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local node = get_master_node()
+	if node == nil then
+		return
+	end
 
-  local sibling = get_previous_sibling(node)
-  if sibling ~= nil then
-    ts_utils.goto_node(sibling)
-  end
+	local sibling = get_previous_sibling(node)
+	if sibling ~= nil then
+		ts_utils.goto_node(sibling)
+	end
 end
 
 local function goto_root_node()
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local node = ts_utils.get_node_at_cursor()
-  if node == nil then return end
+	local ts_utils = require("nvim-treesitter.ts_utils")
+	local node = ts_utils.get_node_at_cursor()
+	if node == nil then
+		return
+	end
 
-  local root = node
-  while node ~= nil do
-    local type = node:type()
-    if type == "jsx_element" or
-        type == "jsx_fragment" or
-        type == "jsx_self_closing_element" or
-        type == "element" then
-      root = node
-    end
-    node = node:parent()
-  end
+	local root = node
+	while node ~= nil do
+		local type = node:type()
+		if
+			type == "jsx_element"
+			or type == "jsx_fragment"
+			or type == "jsx_self_closing_element"
+			or type == "element"
+		then
+			root = node
+		end
+		node = node:parent()
+	end
 
-  ts_utils.goto_node(root)
+	ts_utils.goto_node(root)
 end
 
 -- 创建 Filetype autocmd
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "html", "typescriptreact", "javascriptreact" },
-  callback = function()
-    -- Original mappings
-    vim.keymap.set("n", "[t", function()
-      local filetype = vim.bo.filetype
-      if filetype == "typescriptreact" or filetype == "javascriptreact" then
-        local ts_utils = require('nvim-treesitter.ts_utils')
-        local node = ts_utils.get_node_at_cursor()
-        if node == nil then return end
+	pattern = { "html", "typescriptreact", "javascriptreact" },
+	callback = function()
+		-- Original mappings
+		vim.keymap.set("n", "[t", function()
+			local filetype = vim.bo.filetype
+			if filetype == "typescriptreact" or filetype == "javascriptreact" then
+				local ts_utils = require("nvim-treesitter.ts_utils")
+				local node = ts_utils.get_node_at_cursor()
+				if node == nil then
+					return
+				end
 
-        while node ~= nil do
-          if node:type() == "jsx_element" or
-              node:type() == "jsx_fragment" or
-              node:type() == "jsx_self_closing_element" then
-            goto_parent_node()
-            return
-          end
-          node = node:parent()
-        end
-      else
-        goto_parent_node()
-      end
-    end, { buffer = true, desc = "Goto parent HTML/JSX element" })
+				while node ~= nil do
+					if
+						node:type() == "jsx_element"
+						or node:type() == "jsx_fragment"
+						or node:type() == "jsx_self_closing_element"
+					then
+						goto_parent_node()
+						return
+					end
+					node = node:parent()
+				end
+			else
+				goto_parent_node()
+			end
+		end, { buffer = true, desc = "Goto parent HTML/JSX element" })
 
-    vim.keymap.set("n", "]t", function()
-      local filetype = vim.bo.filetype
-      if filetype == "typescriptreact" or filetype == "javascriptreact" then
-        local ts_utils = require('nvim-treesitter.ts_utils')
-        local node = ts_utils.get_node_at_cursor()
-        if node == nil then return end
+		vim.keymap.set("n", "]t", function()
+			local filetype = vim.bo.filetype
+			if filetype == "typescriptreact" or filetype == "javascriptreact" then
+				local ts_utils = require("nvim-treesitter.ts_utils")
+				local node = ts_utils.get_node_at_cursor()
+				if node == nil then
+					return
+				end
 
-        while node ~= nil do
-          if node:type() == "jsx_element" or
-              node:type() == "jsx_fragment" or
-              node:type() == "jsx_self_closing_element" then
-            goto_child_or_sibling_node()
-            return
-          end
-          node = node:parent()
-        end
-      else
-        goto_child_or_sibling_node()
-      end
-    end, { buffer = true, desc = "Goto child, expression, or next sibling HTML/JSX element" })
+				while node ~= nil do
+					if
+						node:type() == "jsx_element"
+						or node:type() == "jsx_fragment"
+						or node:type() == "jsx_self_closing_element"
+					then
+						goto_child_or_sibling_node()
+						return
+					end
+					node = node:parent()
+				end
+			else
+				goto_child_or_sibling_node()
+			end
+		end, { buffer = true, desc = "Goto child, expression, or next sibling HTML/JSX element" })
 
-    -- New sibling navigation mappings
-    vim.keymap.set("n", "]s", function()
-      local filetype = vim.bo.filetype
-      if filetype == "typescriptreact" or filetype == "javascriptreact" then
-        goto_next_sibling_node()
-      end
-    end, { buffer = true, desc = "Goto next sibling HTML/JSX element" })
+		-- New sibling navigation mappings
+		vim.keymap.set("n", "]s", function()
+			local filetype = vim.bo.filetype
+			if filetype == "typescriptreact" or filetype == "javascriptreact" then
+				goto_next_sibling_node()
+			end
+		end, { buffer = true, desc = "Goto next sibling HTML/JSX element" })
 
-    vim.keymap.set("n", "[s", function()
-      local filetype = vim.bo.filetype
-      if filetype == "typescriptreact" or filetype == "javascriptreact" then
-        goto_prev_sibling_node()
-      end
-    end, { buffer = true, desc = "Goto previous sibling HTML/JSX element" })
+		vim.keymap.set("n", "[s", function()
+			local filetype = vim.bo.filetype
+			if filetype == "typescriptreact" or filetype == "javascriptreact" then
+				goto_prev_sibling_node()
+			end
+		end, { buffer = true, desc = "Goto previous sibling HTML/JSX element" })
 
-    -- Root navigation mapping
-    vim.keymap.set("n", "[r", function()
-      local filetype = vim.bo.filetype
-      if filetype == "typescriptreact" or filetype == "javascriptreact" then
-        local ts_utils = require('nvim-treesitter.ts_utils')
-        local node = ts_utils.get_node_at_cursor()
-        if node == nil then return end
+		-- Root navigation mapping
+		vim.keymap.set("n", "[r", function()
+			local filetype = vim.bo.filetype
+			if filetype == "typescriptreact" or filetype == "javascriptreact" then
+				local ts_utils = require("nvim-treesitter.ts_utils")
+				local node = ts_utils.get_node_at_cursor()
+				if node == nil then
+					return
+				end
 
-        while node ~= nil do
-          if node:type() == "jsx_element" or
-              node:type() == "jsx_fragment" or
-              node:type() == "jsx_self_closing_element" then
-            goto_root_node()
-            return
-          end
-          node = node:parent()
-        end
-      else
-        goto_root_node()
-      end
-    end, { buffer = true, desc = "Goto root HTML/JSX element" })
-  end
+				while node ~= nil do
+					if
+						node:type() == "jsx_element"
+						or node:type() == "jsx_fragment"
+						or node:type() == "jsx_self_closing_element"
+					then
+						goto_root_node()
+						return
+					end
+					node = node:parent()
+				end
+			else
+				goto_root_node()
+			end
+		end, { buffer = true, desc = "Goto root HTML/JSX element" })
+	end,
 })

@@ -4,11 +4,9 @@ return {
     "folke/neodev.nvim",
     dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
-      require("neodev").setup(
-        {
-          library = { plugins = { "nvim-dap-ui" }, types = true },
-        }
-      )
+      require("neodev").setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      })
     end,
   },
   -- {
@@ -22,8 +20,8 @@ return {
   --     },
   --   },
   -- },
-  { "Bilal2453/luvit-meta",    lazy = true }, -- optional `vim.uv` typings
-  {                                           -- optional completion source for require statements and module annotations
+  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+  { -- optional completion source for require statements and module annotations
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       opts.sources = opts.sources or {}
@@ -43,29 +41,29 @@ return {
       --[[ "williamboman/nvim-lsp-installer", ]]
       --[[ "tamago324/nlsp-settings.nvim", -- language server settings defined in json ]]
       -- "jose-elias-alvarez/null-ls.nvim",
-      "folke/neodev.nvim"
+      "folke/neodev.nvim",
     },
     config = function()
-      local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
-      local format_on_save = function(_, bufnr)
-        vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          group = augroup_format,
-          buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format({ bufnr = bufnr })
-          end,
-        })
-      end
-
-      --  This function gets run when an LSP connects to a particular buffer.
-      local on_attach = function(client, bufnr)
-        -- Create a command `:Format` local to the LSP buffer
-        --[[ vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-      vim.lsp.buf.format()
-    end, { desc = 'Format current buffer with LSP' }) ]]
-        format_on_save(client, bufnr)
-      end
+      --   local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
+      --   local format_on_save = function(_, bufnr)
+      --     vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
+      --     -- vim.api.nvim_create_autocmd("BufWritePre", {
+      --     --   group = augroup_format,
+      --     --   buffer = bufnr,
+      --     --   callback = function()
+      --     --     vim.lsp.buf.format({ bufnr = bufnr })
+      --     --   end,
+      --     -- })
+      --   end
+      --
+      --   --  This function gets run when an LSP connects to a particular buffer.
+      --   local on_attach = function(client, bufnr)
+      --     -- Create a command `:Format` local to the LSP buffer
+      --     --[[ vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+      --   vim.lsp.buf.format()
+      -- end, { desc = 'Format current buffer with LSP' }) ]]
+      --     format_on_save(client, bufnr)
+      --   end
 
       -- Server Configurations
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#dockerls
@@ -78,21 +76,22 @@ return {
           Lua = {
             runtime = {
               -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-              version = 'LuaJIT',
+              version = "LuaJIT",
             },
             diagnostics = {
               -- Get the language server to recognize the `vim` global
-              globals = { 'vim' }
+              globals = { "vim" },
             },
             workspace = {
               -- Make the server aware of Neovim runtime files
               --[[ library = vim.api.nvim_get_runtime_file("", true), ]]
-              checkThirdParty = false
+              checkThirdParty = false,
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = { enable = false },
           },
         },
+        -- luau_lsp = {},
         -- NOTE: need to have `pyrightconfig.json` in root folder
         -- pyright = {
         --   Python = {
@@ -120,57 +119,61 @@ return {
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
       -- Setup mason so it can manage external tooling
-      require('mason').setup()
+      require("mason").setup()
 
       -- Ensure the servers above are installed
       local mason_lspconfig = require("mason-lspconfig")
-      mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers) }
+      mason_lspconfig.setup({ ensure_installed = vim.tbl_keys(servers) })
       local lspconfig = require("lspconfig")
 
       -- Automatic server setup (advanced feature) :h mason-lspconfig-automatic-server-setup
-      mason_lspconfig.setup_handlers {
+      mason_lspconfig.setup_handlers({
         function(server_name)
-          lspconfig[server_name].setup {
+          lspconfig[server_name].setup({
             capabilities = capabilities,
-            on_attach = on_attach,
+            -- on_attach = on_attach,
             settings = servers[server_name],
-          }
+          })
         end,
-      }
+      })
 
       require("lsp.handlers").setup()
       -- require("lsp.null-ls")
       --[[ require("lsp.lsp-installer") ]]
-    end
+    end,
   },
 
   -- Standalone UI for nvim-lsp progress
   {
     "j-hui/fidget.nvim",
-    config = function() require("fidget").setup() end,
+    config = function()
+      require("fidget").setup()
+    end,
     commit = "0ba1e16d07627532b6cae915cc992ecac249fb97",
-    dependencies = { "neovim/nvim-lspconfig" }
+    dependencies = { "neovim/nvim-lspconfig" },
   },
   --[[ "arkav/lualine-lsp-progress", ]]
 
   -- snippets
   -- For luasnip users.
   {
-    "L3MON4D3/LuaSnip",                            -- snippet engine
+    "L3MON4D3/LuaSnip", -- snippet engine
     dependencies = "rafamadriz/friendly-snippets", -- a bunch of snippets to use
     config = function()
       local status_ok, ls = pcall(require, "luasnip")
-      if not status_ok then return end
+      if not status_ok then
+        return
+      end
 
       local types = require("luasnip.util.types")
       local snippet = ls.snippet
       local i = ls.insert_node
       local t = ls.text_node
 
-      ls.config.set_config {
+      ls.config.set_config({
         -- This tells LuaSnip to remember to keep around the last snippet.
         -- You can jump back into it even if you move outside of the selection
         history = false,
@@ -191,7 +194,7 @@ return {
             },
           },
         },
-      }
+      })
 
       -- expansion key
       -- expand the current item or jump to the next item within the snippet.
@@ -219,12 +222,16 @@ return {
       ls.add_snippets("all", {
         snippet("ternary", {
           -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
-          i(1, "cond"), t(" ? "), i(2, "then"), t(" : "), i(3, "else")
-        })
+          i(1, "cond"),
+          t(" ? "),
+          i(2, "then"),
+          t(" : "),
+          i(3, "else"),
+        }),
       })
 
       require("luasnip.loaders.from_snipmate").lazy_load({ paths = "~/.config/nvim/vim-snippets/snippets" })
-    end
+    end,
   },
   { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
   {
@@ -235,27 +242,28 @@ let g:snips_author = "Monti"
 let g:snips_email = "ooy.yoo@gmail.com"
 let g:snips_github = "https://github.com/MontiL"
 ]])
-    end
+    end,
   },
-  -- vsnip
-  --[[ "hrsh7th/cmp-vsnip", ]]
-  --[[ "hrsh7th/vim-vsnip", ]]
-  -- ultisnips
-  -- "SirVer/ultisnips",
-  -- "quangnguyen30192/cmp-nvim-ultisnips",
-  -- "epilande/vim-es2015-snippets", -- ES2015 code snippets (Optional)
-  -- "epilande/vim-react-snippets", -- React code snippets
-  -- For snippy users
-  -- "dcampos/nvim-snippy",
-  -- "dcampos/cmp-snippy",
-  --[[ use { "ray-x/lsp_signature.nvim" } ]]
-
   {
-    -- format on save
-    "lukas-reineke/lsp-format.nvim",
-    config = function()
-      require("lsp-format").setup {}
-      require("lspconfig").gopls.setup { on_attach = require("lsp-format").on_attach }
-    end
-  }
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        -- Conform will run multiple formatters sequentially
+        python = { "isort", "black" },
+        -- You can customize some of the format options for the filetype (:help conform.format)
+        rust = { "rustfmt", lsp_format = "fallback" },
+        -- Conform will run the first available formatter
+        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
+      },
+      format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      },
+    },
+  },
 }
