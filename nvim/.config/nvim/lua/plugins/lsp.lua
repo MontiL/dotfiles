@@ -42,7 +42,7 @@ return {
 
       --[[ "williamboman/nvim-lsp-installer", ]]
       --[[ "tamago324/nlsp-settings.nvim", -- language server settings defined in json ]]
-      "jose-elias-alvarez/null-ls.nvim",
+      -- "jose-elias-alvarez/null-ls.nvim",
       "folke/neodev.nvim"
     },
     config = function()
@@ -142,7 +142,7 @@ return {
       }
 
       require("lsp.handlers").setup()
-      require("lsp.null-ls")
+      -- require("lsp.null-ls")
       --[[ require("lsp.lsp-installer") ]]
     end
   },
