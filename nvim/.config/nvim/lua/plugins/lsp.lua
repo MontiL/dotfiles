@@ -9,19 +9,7 @@ return {
       })
     end,
   },
-  -- {
-  --   "folke/lazydev.nvim",
-  --   ft = "lua", -- only load on lua files
-  --   opts = {
-  --     library = {
-  --       -- See the configuration section for more details
-  --       -- Load luvit types when the `vim.uv` word is found
-  --       { path = "luvit-meta/library", words = { "vim%.uv" } },
-  --     },
-  --   },
-  -- },
   { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
-
   -- Standalone UI for nvim-lsp progress
   {
     "j-hui/fidget.nvim",
@@ -31,8 +19,6 @@ return {
     commit = "0ba1e16d07627532b6cae915cc992ecac249fb97",
     dependencies = { "neovim/nvim-lspconfig" },
   },
-  --[[ "arkav/lualine-lsp-progress", ]]
-
   {
     "stevearc/conform.nvim",
     opts = {
@@ -63,4 +49,16 @@ return {
       },
     },
   },
+  -- {
+  --   "folke/lazydev.nvim",
+  --   ft = "lua", -- only load on lua files
+  --   opts = {
+  --     library = {
+  --       -- See the configuration section for more details
+  --       -- Load luvit types when the `vim.uv` word is found
+  --       { path = "luvit-meta/library", words = { "vim%.uv" } },
+  --     },
+  --   },
+  -- },
+  --[[ "arkav/lualine-lsp-progress", ]]
 }
