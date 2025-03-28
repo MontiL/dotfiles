@@ -10,8 +10,6 @@ tap "teamookla/speedtest"
 tap "universal-ctags/universal-ctags"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# Mozilla CA certificate store
-brew "ca-certificates"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
 # C library implementing the SSH2 protocol
@@ -22,10 +20,6 @@ brew "bat"
 brew "bison"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
-# Library for command-line editing
-brew "readline"
-# Python code formatter
-brew "black"
 # Cross-platform make
 brew "cmake"
 # Platform built on V8 to build network applications
@@ -46,6 +40,8 @@ brew "eza"
 brew "fd"
 # OpenType text shaping engine
 brew "harfbuzz"
+# Library for command-line editing
+brew "readline"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
 # Collection of GNU find, xargs, and locate
@@ -86,8 +82,6 @@ brew "hyperfine"
 brew "imagemagick"
 # Official CLI for the IPinfo IP Address API
 brew "ipinfo-cli"
-# Sort Python imports automatically
-brew "isort"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Simple terminal UI for git commands
@@ -124,8 +118,6 @@ brew "peco"
 brew "pnpm"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
-# Prettier daemon
-brew "prettierd"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
 # Interpreted, interactive, object-oriented programming language
@@ -146,8 +138,6 @@ brew "sevenzip"
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
-# Opinionated Lua code formatter
-brew "stylua"
 # Code-search similar to ack
 brew "the_silver_searcher"
 # Text interface for Git repositories
