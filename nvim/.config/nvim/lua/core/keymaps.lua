@@ -3,6 +3,12 @@ local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 local wk = require("which-key")
 
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = "\\"
+vim.g.maplocalleader = "\\"
+
 -- Reload configurations
 map("n", "<leader><leader>rf", ":source ~/.config/fish/config.fish<CR>", { desc = "Reload Fish shell" })
 map("n", "<leader><leader>rw", ":source ~/.config/nvim/lua/plugins/whichkey.lua<CR>", { desc = "Reload whichkey.lua" })
