@@ -5,6 +5,5 @@
   "tabWidth": 2,
   "useTabs": false,
   "arrowParens": "avoid",
-  "printWidth": 80,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "printWidth": 80
 }
