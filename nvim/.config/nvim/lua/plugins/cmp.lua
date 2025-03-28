@@ -9,7 +9,7 @@ return {
         -- defaults
         filetypes = { "gitcommit", "octo" },
         remotes = { "upstream", "origin" }, -- in order of most to least prioritized
-        enableRemoteUrlRewrites = false,    -- enable git url rewrites, see https://git-scm.com/docs/git-config#Documentation/git-config.txt-urlltbasegtinsteadOf
+        enableRemoteUrlRewrites = false, -- enable git url rewrites, see https://git-scm.com/docs/git-config#Documentation/git-config.txt-urlltbasegtinsteadOf
         git = {
           commits = {
             limit = 100,
@@ -104,9 +104,8 @@ return {
             end,
           },
         },
-      }
-      )
-    end
+      })
+    end,
   },
   {
     -- Completion
@@ -115,8 +114,8 @@ return {
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",  -- buffer completions
-      "hrsh7th/cmp-path",    -- path completions
+      "hrsh7th/cmp-buffer", -- buffer completions
+      "hrsh7th/cmp-path", -- path completions
       "hrsh7th/cmp-cmdline", -- cmdline completions
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-nvim-lua",
@@ -128,7 +127,9 @@ return {
       -- https://github.com/hrsh7th/nvim-cmp#setup
 
       local status_ok, cmp = pcall(require, "cmp")
-      if not status_ok then return end
+      if not status_ok then
+        return
+      end
 
       --[[ local check_backspace = function() ]]
       --[[   local col = vim.fn.col(".") - 1 ]]
@@ -165,15 +166,14 @@ return {
       }
       --- find more here: https://www.nerdfonts.com/cheat-sheet
 
-
       cmp.setup({
         view = {
-          entries = "custom" -- can be "custom", "wildmenu" or "native"
+          entries = "custom", -- can be "custom", "wildmenu" or "native"
         },
         snippet = {
           expand = function(args)
             --[[ vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users. ]]
-            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
           end,
         },
         window = {
@@ -186,9 +186,9 @@ return {
           -- ['<m-c>'] = cmp.mapping.complete(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
-          ['<C-y>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-e>'] = cmp.mapping.scroll_docs(4),
-          ['<C-c>'] = cmp.mapping.abort(), -- Close
+          ["<C-y>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-e>"] = cmp.mapping.scroll_docs(4),
+          ["<C-c>"] = cmp.mapping.abort(), -- Close
           -- Accept currently selected item. If none selected, `select` first item.
           -- Set `select` to `false` to only confirm explicitly selected items.
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -217,14 +217,14 @@ return {
           -- { name = "snippy" }, -- For snippy users.
           { name = "path" },
           { name = "emoji" },
-          { name = 'nvim_lsp_signature_help' }
+          { name = "nvim_lsp_signature_help" },
         }),
         formatting = {
           fields = { "abbr", "kind", "menu" },
           format = function(entry, vim_item)
             -- Kind icons
             --[[ vim_item.kind = string.format("%s", kind_icons[vim_item.kind]) ]]
-            vim_item.kind = (kind_icons[vim_item.kind] or '') .. ' ' .. vim_item.kind
+            vim_item.kind = (kind_icons[vim_item.kind] or "") .. " " .. vim_item.kind
             -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 
             vim_item.menu = ({
@@ -252,7 +252,7 @@ return {
 
             return vim_item
           end,
-          expandable_indicator = true
+          expandable_indicator = true,
         },
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Replace,
@@ -265,21 +265,21 @@ return {
       })
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline({ '/', '?' }, {
+      cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = 'buffer' }
-        }
+          { name = "buffer" },
+        },
       })
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-          { name = 'path' }
+          { name = "path" },
         }, {
-          { name = 'cmdline' }
-        })
+          { name = "cmdline" },
+        }),
       })
 
       vim.cmd([[
@@ -327,5 +327,92 @@ return {
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
     end, -- completion plugin
-  }
+  },
+  -- snippets
+  -- For luasnip users.
+  {
+    "L3MON4D3/LuaSnip", -- snippet engine
+    dependencies = "rafamadriz/friendly-snippets", -- a bunch of snippets to use
+    config = function()
+      local status_ok, ls = pcall(require, "luasnip")
+      if not status_ok then
+        return
+      end
+
+      local types = require("luasnip.util.types")
+      local snippet = ls.snippet
+      local i = ls.insert_node
+      local t = ls.text_node
+
+      ls.config.set_config({
+        -- This tells LuaSnip to remember to keep around the last snippet.
+        -- You can jump back into it even if you move outside of the selection
+        history = false,
+
+        -- This one is cool cause if you have dynamic snippets, it updates as you type!
+        updateevents = "TextChanged,TextChangedI",
+
+        -- Autosnippets:
+        enable_autosnippets = true,
+
+        -- Crazy highlights!!
+        -- #vid3
+        -- ext_opts = nil,
+        ext_opts = {
+          [types.choiceNode] = {
+            active = {
+              virt_text = { { " « ", "NonTest" } },
+            },
+          },
+        },
+      })
+
+      -- expansion key
+      -- expand the current item or jump to the next item within the snippet.
+      vim.keymap.set({ "i", "s" }, "<c-l>", function()
+        if ls.expand_or_jumpable() then
+          ls.expand_or_jump()
+        end
+      end, { silent = true })
+
+      -- jump backwards key
+      -- this always moves to the previous item within the snippet
+      vim.keymap.set({ "i", "s" }, "<c-h>", function()
+        if ls.jumpable(-1) then
+          ls.jump(-1)
+        end
+      end, { silent = true })
+
+      -- <c-l> is selecting within a list of options.
+      -- This is useful for choice nodes (introduced in the forthcoming episode 2)
+      --[[ vim.keymap.set("i", "<c-l>", function() ]]
+      --[[   if ls.choice_active() then ]]
+      --[[     ls.change_choice(1) ]]
+      --[[   end ]]
+      --[[ end) ]]
+      ls.add_snippets("all", {
+        snippet("ternary", {
+          -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
+          i(1, "cond"),
+          t(" ? "),
+          i(2, "then"),
+          t(" : "),
+          i(3, "else"),
+        }),
+      })
+
+      require("luasnip.loaders.from_snipmate").lazy_load({ paths = "~/.config/nvim/vim-snippets/snippets" })
+    end,
+  },
+  { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
+  {
+    "honza/vim-snippets",
+    config = function()
+      vim.cmd([[
+let g:snips_author = "Monti"
+let g:snips_email = "ooy.yoo@gmail.com"
+let g:snips_github = "https://github.com/MontiL"
+]])
+    end,
+  },
 }
