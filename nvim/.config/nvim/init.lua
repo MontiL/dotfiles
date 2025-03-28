@@ -16,5 +16,3 @@ vim.g.skip_ts_context_commentstring_module = true
 
 require("config.lazy")
 require("core")
---[[ require("styles") ]]
---[[ require("lsp") ]]
