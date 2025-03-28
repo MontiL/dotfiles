@@ -4,11 +4,10 @@ return {
     -- Automatically install LSPs to stdpath for neovim
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-
+    "folke/neodev.nvim",
     --[[ "williamboman/nvim-lsp-installer", ]]
     --[[ "tamago324/nlsp-settings.nvim", -- language server settings defined in json ]]
     -- "jose-elias-alvarez/null-ls.nvim",
-    "folke/neodev.nvim",
   },
   config = function()
     -- Server Configurations
