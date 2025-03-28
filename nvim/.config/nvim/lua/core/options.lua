@@ -5,9 +5,9 @@ o.shortmess:append("I") -- don't give the intro message when starting Vim, see |
 
 -- file related
 o.encoding = "utf-8"
-o.fileencodings = "utf-8"              -- the encoding written to file
-o.backup = false                       -- create a backup file
-o.swapfile = false                     -- creates a swapfile
+o.fileencodings = "utf-8" -- the encoding written to file
+o.backup = false -- create a backup file
+o.swapfile = false -- creates a swapfile
 -- o.undofile = true -- enable persistent undo
 vim.opt.guifont = "Hack Nerd Font:h16" -- the font used in graphical neovim applications
 
@@ -16,16 +16,16 @@ o.path:append("**")
 -- o.wildignore.append("*/node_modules/*")
 -- o.wildignore.append("*/DS_Store/*")
 o.ignorecase = true -- ignore case in search patterns
-o.smartcase = true  -- smart case
+o.smartcase = true -- smart case
 -- o.writebackup = false -- default on. if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 
-o.hlsearch = false       -- highlight all matches on previous search pattern
-o.cursorline = true      -- highlight the current line
+o.hlsearch = false -- highlight all matches on previous search pattern
+o.cursorline = true -- highlight the current line
 o.number = true
 o.relativenumber = false -- use relative line numbers
-o.inccommand = "split"   -- incremental substitution (neovim)
-o.mouse = "a"            -- allow the mouse to be used in all mode
-o.wrap = true            -- display lines as one long line
+o.inccommand = "split" -- incremental substitution (neovim)
+o.mouse = "a" -- allow the mouse to be used in all mode
+o.wrap = true -- display lines as one long line
 --[[ o.mousemoveevent = true -- for Bufferline to hover for close icon ]]
 --
 -- Status line
@@ -38,18 +38,18 @@ o.showmode = false -- we don't need to see things like -- INSERT -- anymore
 -- set noruler
 -- ]])
 
-o.scrolloff = 2     --  5 -- Minimal number of screen lines to keep above and below the cursor
+o.scrolloff = 2 --  5 -- Minimal number of screen lines to keep above and below the cursor
 o.sidescrolloff = 2 -- 5 -- The minimal number of screen columns to keep to the left and to the right of the cursor if 'nowrap' is set
 -- o.numberwidth = 4 -- (default 4) set number column width to 2
 -- o.lazyredraw = true
 
 -- o.showtabline = 2    -- always show tabs
-o.splitbelow = true  -- force all horizontal splits to go below current window
-o.splitright = true  -- force all vertical splits to go to the right of current window
+o.splitbelow = true -- force all horizontal splits to go below current window
+o.splitright = true -- force all vertical splits to go to the right of current window
 
-o.expandtab = true   -- convert tabs to spaces
-o.tabstop = 2        -- insert 2 spaces for a tab
-o.shiftwidth = 2     -- the number of spaces inserted for each indentation
+o.expandtab = true -- convert tabs to spaces
+o.tabstop = 2 -- insert 2 spaces for a tab
+o.shiftwidth = 2 -- the number of spaces inserted for each indentation
 o.autoindent = true
 o.smartindent = true -- make indenting smarter again
 
@@ -85,13 +85,13 @@ local is_windows = vim.loop.os_uname().version:match("Windows")
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
   group = highlight_group,
-  pattern = '*',
+  pattern = "*",
 })
 
 -- Turn off paste mode when leaving insert

@@ -119,7 +119,7 @@ return {
         end,
       })
 
-      require("lsp.handlers").setup()
+      require("plugins.lsp.handlers").setup()
       -- require("lsp.null-ls")
       --[[ require("lsp.lsp-installer") ]]
     end,
