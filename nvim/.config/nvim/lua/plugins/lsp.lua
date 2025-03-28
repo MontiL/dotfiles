@@ -44,27 +44,6 @@ return {
       "folke/neodev.nvim",
     },
     config = function()
-      --   local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
-      --   local format_on_save = function(_, bufnr)
-      --     vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
-      --     -- vim.api.nvim_create_autocmd("BufWritePre", {
-      --     --   group = augroup_format,
-      --     --   buffer = bufnr,
-      --     --   callback = function()
-      --     --     vim.lsp.buf.format({ bufnr = bufnr })
-      --     --   end,
-      --     -- })
-      --   end
-      --
-      --   --  This function gets run when an LSP connects to a particular buffer.
-      --   local on_attach = function(client, bufnr)
-      --     -- Create a command `:Format` local to the LSP buffer
-      --     --[[ vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-      --   vim.lsp.buf.format()
-      -- end, { desc = 'Format current buffer with LSP' }) ]]
-      --     format_on_save(client, bufnr)
-      --   end
-
       -- Server Configurations
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#dockerls
       local servers = {
@@ -258,6 +237,14 @@ let g:snips_github = "https://github.com/MontiL"
         javascript = { "prettierd" },
         typescript = { "prettierd" },
         typescriptreact = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        css = { "prettierd" },
+        html = { "prettierd" },
+        json = { "prettierd" },
+        yaml = { "prettierd" },
+        toml = { "prettierd" },
+        markdown = { "prettierd" },
+        graphql = { "prettierd" },
       },
       format_on_save = {
         -- These options will be passed to conform.format()
