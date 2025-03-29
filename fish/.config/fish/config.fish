@@ -21,7 +21,8 @@ set -x LC_CTYPE en_US.UTF-8
 
 # project paths
 # ------------------------------------------------------------
-set -g proj ~/.z/projects/capybara/
+set -g capy ~/.z/projects/capybara/
+set -g dotfile ~/.dotfiles
 
 # aliases
 # ------------------------------------------------------------
