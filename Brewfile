@@ -1,7 +1,5 @@
 tap "felixkratz/formulae"
 tap "fsouza/prettierd"
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "koekeishiya/formulae"
 tap "nikitabobko/tap"
 tap "ohueter/tap"
