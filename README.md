@@ -22,6 +22,19 @@ git large file storage, need to run this once per user account
 
 `git lfs install`
 
+## sync dotfiles
+
+in git server
+
+`git clone /Users/monti/repos/dotfiles.git ~/.dotfiles/`
+
+in other server
+
+```
+ssh-copy-id monti@monti.local
+git clone monti@/Users/monti/repos/dotfiles.git ~/.dotfiles/
+```
+
 ## Homebrew
 
     cd ~/.dotfiles && brew bundle && brew cleanup && brew doctor
