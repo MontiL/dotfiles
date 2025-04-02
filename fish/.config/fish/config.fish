@@ -68,6 +68,7 @@ alias v nvim
 
 alias n pnpm
 alias nd "pnpm dev"
+alias nt "pnpm devt"
 alias nx "pnpm dlx" # pnpm dlx is same as pnpx and npx
 alias ni "pnpm install"
 alias niD "pnpm install -D"
