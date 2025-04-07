@@ -58,10 +58,137 @@ local function copy_relative_path()
   vim.notify("Relative filepath copied", vim.log.levels.INFO)
 end
 
--- 路徑複製鍵綁定
-map("n", "<leader>ca", copy_absolute_path, { desc = "copy (a)bsolute filepath", silent = true })
-map("n", "<leader>cr", copy_relative_path, { desc = "copy (r)elative filepath", silent = true })
-map("n", "<leader>cm", ":let @+ = execute('message')<CR>", { desc = "Copy message outputs to clipboard" })
+-- 複製所有 buffers 的絕對路徑函數
+local function copy_all_buffer_absolute_paths()
+  local paths = {} -- 初始化陣列，用於存儲所有路徑
+
+  for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do -- 遍歷所有 buffer
+    local buf_path = vim.api.nvim_buf_get_name(buf.bufnr) -- 獲取 buffer 的完整路徑
+    if buf_path ~= "" then -- 檢查是否為有效檔案
+      table.insert(paths, buf_path) -- 添加絕對路徑到陣列
+    end
+  end
+
+  if #paths > 0 then
+    local all_paths = table.concat(paths, "\n") -- 將所有路徑合併成字串，以換行符分隔
+    vim.fn.setreg("+", all_paths) -- 將所有路徑寫入系統剪貼板
+    vim.notify("All buffer absolute paths copied to clipboard!", vim.log.levels.INFO)
+  else
+    vim.notify("No valid buffers found", vim.log.levels.WARN)
+  end
+end
+
+-- 複製所有 buffers 的相對路徑函數
+local function copy_all_buffer_relative_paths()
+  local paths = {} -- 初始化陣列，用於存儲所有路徑
+
+  -- 獲取專案根目錄
+  local project_root = vim.fn.getcwd() -- 當前工作目錄作為專案根目錄
+  if project_root:sub(-1) ~= "/" then
+    project_root = project_root .. "/" -- 確保根目錄以 / 結尾
+  end
+
+  for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do -- 遍歷所有 buffer
+    local buf_path = vim.api.nvim_buf_get_name(buf.bufnr) -- 獲取 buffer 的完整路徑
+    if buf_path ~= "" then -- 檢查是否為有效檔案
+      -- 計算相對路徑
+      local relative_path = buf_path:gsub(project_root, "")
+      table.insert(paths, relative_path) -- 添加相對路徑到陣列
+    end
+  end
+
+  if #paths > 0 then
+    local all_paths = table.concat(paths, "\n") -- 將所有路徑合併成字串，以換行符分隔
+    vim.fn.setreg("+", all_paths) -- 將所有路徑寫入系統剪貼板
+    vim.notify("All buffer relative paths copied to clipboard!", vim.log.levels.INFO)
+  else
+    vim.notify("No valid buffers found", vim.log.levels.WARN)
+  end
+end
+
+-- 定義函數：將當前窗口的內容複製到剪貼板，並在最前面加上檔案路徑
+local function copy_current_window_to_clipboard()
+  local buf_path = vim.api.nvim_buf_get_name(0) -- 獲取當前 buffer 的完整路徑
+  if buf_path ~= "" then
+    -- 獲取專案根目錄
+    local project_root = vim.fn.getcwd()
+    if project_root:sub(-1) ~= "/" then
+      project_root = project_root .. "/"
+    end
+
+    -- 計算相對路徑
+    local relative_path = buf_path:gsub(project_root, "")
+    relative_path = "/" .. relative_path
+
+    -- 讀取當前 buffer 的所有內容（整個檔案）
+    local lines = vim.fn.getbufline(vim.api.nvim_get_current_buf(), 1, "$")
+    local win_content = table.concat(
+      vim.tbl_map(function(line)
+        return tostring(line)
+      end, lines),
+      "\n"
+    )
+
+    -- 組合檔案路徑和內容
+    local content_to_copy = "//file: " .. relative_path .. "\n" .. win_content
+
+    vim.fn.setreg("+", content_to_copy) -- 將內容寫入系統剪貼板
+    vim.notify("Current file content copied to clipboard with file path!", vim.log.levels.INFO)
+  else
+    vim.notify("No file name for current buffer!", vim.log.levels.WARN)
+  end
+end
+
+-- 定義函數：將所有 buffer 內容複製到剪貼板，並在每個 buffer 前加上檔案路徑
+local function copy_all_buffers_to_clipboard()
+  local all_content = "" -- 初始化變數，用於存儲所有內容
+
+  -- 獲取專案根目錄
+  local project_root = vim.fn.getcwd() -- 當前工作目錄作為專案根目錄
+  if project_root:sub(-1) ~= "/" then
+    project_root = project_root .. "/" -- 確保根目錄以 / 結尾
+  end
+
+  for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do -- 遍歷所有 buffer
+    local buf_path = vim.api.nvim_buf_get_name(buf.bufnr) -- 獲取 buffer 的完整路徑
+    if buf_path ~= "" then -- 檢查是否為有效檔案
+      -- 計算相對路徑
+      local relative_path = buf_path:gsub(project_root, "") -- 從完整路徑中移除專案根目錄
+      relative_path = "/" .. relative_path -- 加上 / 作為根目錄標記
+
+      -- 讀取 buffer 內容
+      local lines = vim.fn.getbufline(buf.bufnr, 1, "$") -- 獲取所有行
+      local buf_content = table.concat(
+        vim.tbl_map(function(line)
+          return tostring(line) -- 確保每一行都是字符串
+        end, lines),
+        "\n"
+      )
+
+      -- 將檔案路徑和內容追加到變數
+      all_content = all_content .. "//file: " .. relative_path .. "\n" .. buf_content .. "\n\n"
+    end
+  end
+
+  vim.fn.setreg("+", all_content) -- 將所有內容寫入系統剪貼板
+  vim.notify("All buffers copied to clipboard with file paths!", vim.log.levels.INFO)
+end
+
+-- 複製路徑
+map("n", "<leader>ca", copy_absolute_path, { desc = "[y]ank [a]bsolute filepath", silent = true })
+map("n", "<leader>cr", copy_relative_path, { desc = "[y]ank [r]elative filepath", silent = true })
+map("n", "<leader>cm", ":let @+ = execute('message')<CR>", { desc = "[y]ank [m]essage outputs to clipboard" })
+map("n", "<leader>cbr", copy_all_buffer_relative_paths, { desc = "[y]ank all [b]uffers relative paths", silent = true })
+map("n", "<leader>cba", copy_all_buffer_absolute_paths, { desc = "[y]ank all [B]uffers absolute paths", silent = true })
+
+-- 複製內容
+map("n", "<space>by", copy_all_buffers_to_clipboard, { desc = "Copy all buffers to clipboard with file paths" })
+map(
+  "n",
+  "<space>wy",
+  copy_current_window_to_clipboard,
+  { desc = "Copy current file content to clipboard with file path" }
+)
 
 -- Toggles
 map("n", "<space>hl", ":set hlsearch! hlsearch?<CR>", { desc = "Toggle Highlight Search" })
@@ -248,83 +375,6 @@ map("n", "<space>Y", '"+yg_', { noremap = true })
 map("n", "<space>d", '"+d', { noremap = true })
 map("v", "<space>d", '"+d', { noremap = true })
 map("n", "<space>D", '"+dg_', { noremap = true })
-
--- 定義函數：將所有 buffer 內容複製到剪貼板，並在每個 buffer 前加上檔案路徑
-local function copy_all_buffers_to_clipboard()
-  local all_content = "" -- 初始化變數，用於存儲所有內容
-
-  -- 獲取專案根目錄
-  local project_root = vim.fn.getcwd() -- 當前工作目錄作為專案根目錄
-  if project_root:sub(-1) ~= "/" then
-    project_root = project_root .. "/" -- 確保根目錄以 / 結尾
-  end
-
-  for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do -- 遍歷所有 buffer
-    local buf_path = vim.api.nvim_buf_get_name(buf.bufnr) -- 獲取 buffer 的完整路徑
-    if buf_path ~= "" then -- 檢查是否為有效檔案
-      -- 計算相對路徑
-      local relative_path = buf_path:gsub(project_root, "") -- 從完整路徑中移除專案根目錄
-      relative_path = "/" .. relative_path -- 加上 / 作為根目錄標記
-
-      -- 讀取 buffer 內容
-      local lines = vim.fn.getbufline(buf.bufnr, 1, "$") -- 獲取所有行
-      local buf_content = table.concat(
-        vim.tbl_map(function(line)
-          return tostring(line) -- 確保每一行都是字符串
-        end, lines),
-        "\n"
-      )
-
-      -- 將檔案路徑和內容追加到變數
-      all_content = all_content .. "//file: " .. relative_path .. "\n" .. buf_content .. "\n\n"
-    end
-  end
-
-  vim.fn.setreg("+", all_content) -- 將所有內容寫入系統剪貼板
-  vim.notify("All buffers copied to clipboard with file paths!", vim.log.levels.INFO)
-end
-
--- 定義函數：將當前窗口的內容複製到剪貼板，並在最前面加上檔案路徑
-local function copy_current_window_to_clipboard()
-  local buf_path = vim.api.nvim_buf_get_name(0) -- 獲取當前 buffer 的完整路徑
-  if buf_path ~= "" then
-    -- 獲取專案根目錄
-    local project_root = vim.fn.getcwd()
-    if project_root:sub(-1) ~= "/" then
-      project_root = project_root .. "/"
-    end
-
-    -- 計算相對路徑
-    local relative_path = buf_path:gsub(project_root, "")
-    relative_path = "/" .. relative_path
-
-    -- 讀取當前 buffer 的所有內容（整個檔案）
-    local lines = vim.fn.getbufline(vim.api.nvim_get_current_buf(), 1, "$")
-    local win_content = table.concat(
-      vim.tbl_map(function(line)
-        return tostring(line)
-      end, lines),
-      "\n"
-    )
-
-    -- 組合檔案路徑和內容
-    local content_to_copy = "//file: " .. relative_path .. "\n" .. win_content
-
-    vim.fn.setreg("+", content_to_copy) -- 將內容寫入系統剪貼板
-    vim.notify("Current file content copied to clipboard with file path!", vim.log.levels.INFO)
-  else
-    vim.notify("No file name for current buffer!", vim.log.levels.WARN)
-  end
-end
-
--- 映射快捷鍵
-map("n", "<space>by", copy_all_buffers_to_clipboard, { desc = "Copy all buffers to clipboard with file paths" })
-map(
-  "n",
-  "<space>wy",
-  copy_current_window_to_clipboard,
-  { desc = "Copy current file content to clipboard with file path" }
-)
 
 -- " Paste from clipboard
 --[[ map("n", "<leader>p", '"+p', { noremap = true }) ]]
