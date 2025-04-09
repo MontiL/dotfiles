@@ -79,7 +79,7 @@ alias nbs "pnpm build && pnpm start"
 alias nig "pnpm install --global"
 alias nid "pnpm install && pnpm dev"
 alias nit "pnpm install && pnpm devt"
-alias np "pnpm dlx prisma migrate dev"
+alias np "pnpm dlx prisma@6.5.0 migrate dev"
 
 # alias nv neovide
 # alias vim nvim
