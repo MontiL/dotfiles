@@ -6,6 +6,11 @@ keybinding:
     # nextPage: '.' # default
     prevPage: '<c-b>' # go to next page in list
     nextPage: '<c-f>' # go to previous page in list
+
+os:
+  editCommand: 'nvim' # 您可以根據需要修改為您喜歡的編輯器
+  editCommandTemplate: '{{editor}} {{filename}}'
+  openCommand: 'open {{filename}}'
 # gui:
 #     skipDiscardChangeWarning: true
 #     theme:
