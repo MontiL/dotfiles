@@ -8,9 +8,12 @@ keybinding:
     nextPage: '<c-f>' # go to previous page in list
 
 os:
-  edit: 'nvim' # 新的編輯器設定
-  editAtLine: 'nvim +{{line}} {{filename}}' # 可以跳到特定行的設定
-  open: 'open {{filename}}' # 開啟檔案的指令
+  edit: 'nvim {{filename}}'
+  editAtLine: 'nvim --line={{line}} {{filename}}'
+  editAtLineAndWait: 'nvim --block --line={{line}} {{filename}}'
+  editInTerminal: true
+  openDirInEditor: 'nvim {{dir}}'
+#
 # gui:
 #     skipDiscardChangeWarning: true
 #     theme:
