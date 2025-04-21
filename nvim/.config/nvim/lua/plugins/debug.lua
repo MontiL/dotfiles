@@ -2,8 +2,8 @@ return {
   {
     "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
-    lazy = true,
-    cmd = "TroubleToggle",
+    -- lazy = true,
+    cmd = "Trouble",
     config = function()
       require("trouble").setup()
     end,
@@ -12,7 +12,9 @@ return {
     "mfussenegger/nvim-dap",
     config = function()
       local status, dap = pcall(require, "dap")
-      if not status then return end
+      if not status then
+        return
+      end
 
       local is_windows = vim.loop.os_uname().version:match("Windows")
 
@@ -58,14 +60,16 @@ return {
         -- HOME_PATH = os.getenv("UserProfile")
       else
         local handle = io.popen("brew --prefix")
-        if not handle then return end
+        if not handle then
+          return
+        end
 
         local brew_prefix = string.gsub(handle:read("*a"), "\n", "")
         -- PYTHON_PATH = "~/.virtualenvs/debugpy/bin/python"
         -- PYTHON_PATH = "~/.pyenv/shims/python"
 
         -- PYTHON_PATH = brew_prefix .. "/opt/python@3.12/libexec/bin/python"
-        PYTHON_PATH = '/Users/monti/.pyenv/shims/python'
+        PYTHON_PATH = "/Users/monti/.pyenv/shims/python"
         -- HOME_PATH = os.getenv("HOME")
       end
 
@@ -121,7 +125,10 @@ dap.configurations.javascript = {
         "DapLogPoint",
         { text = "", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
       )
-      vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
+      vim.fn.sign_define(
+        "DapStopped",
+        { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" }
+      )
 
       -- Debugger
       ----------------------------------------------------------------------
@@ -146,11 +153,13 @@ dap.configurations.javascript = {
       -- 	"<leader>d?",
       -- 	':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>'
       -- )
-    end
+    end,
   },
   {
     "theHamsta/nvim-dap-virtual-text",
-    config = function() require("nvim-dap-virtual-text").setup({}) end,
+    config = function()
+      require("nvim-dap-virtual-text").setup({})
+    end,
   },
   {
     "rcarriga/nvim-dap-ui",
@@ -158,12 +167,12 @@ dap.configurations.javascript = {
     config = function()
       local dap, dapui = require("dap"), require("dapui")
       dapui.setup()
-    end
+    end,
   },
   {
     "mfussenegger/nvim-dap-python",
     config = function()
       require("dap-python").setup("python")
     end,
-  }
+  },
 }
