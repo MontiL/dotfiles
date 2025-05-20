@@ -198,6 +198,8 @@ fish_add_path /opt/homebrew/opt/node@20/bin
 set -gx LDFLAGS "-L/opt/homebrew/opt/node@20/lib"
 set -gx CPPFLAGS "-I/opt/homebrew/opt/node@20/include"
 set -gx NODE_EXTRA_CA_CERTS "/private/etc/ssl/cert.pem"
+# PostgreSQL 15
+fish_add_path /opt/homebrew/opt/postgresql@15/bin
 
 # anaconda
 # if test -d ~/../../opt/homebrew/anaconda3/bin
