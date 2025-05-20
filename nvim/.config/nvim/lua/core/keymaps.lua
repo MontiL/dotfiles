@@ -78,6 +78,33 @@ local function copy_all_buffer_absolute_paths()
   end
 end
 
+-- 複製 quickfix 中的絕對路徑函數
+local function copy_quickfix_absolute_paths()
+  local paths = {} -- 初始化陣列，用於存儲所有路徑
+
+  -- 取得 quickfix 列表
+  local qf_items = vim.fn.getqflist()
+  for _, item in ipairs(qf_items) do
+    if item.bufnr > 0 then
+      local buf_path = vim.api.nvim_buf_get_name(item.bufnr) -- 獲取 buffer 的完整路徑
+      if buf_path ~= "" then -- 檢查是否為有效檔案
+        -- 避免重複路徑
+        if not vim.tbl_contains(paths, buf_path) then
+          table.insert(paths, buf_path) -- 添加絕對路徑到陣列
+        end
+      end
+    end
+  end
+
+  if #paths > 0 then
+    local all_paths = table.concat(paths, "\n") -- 將所有路徑合併成字串，以換行符分隔
+    vim.fn.setreg("+", all_paths) -- 將所有路徑寫入系統剪貼板
+    vim.notify("All quickfix absolute paths copied to clipboard!", vim.log.levels.INFO)
+  else
+    vim.notify("No valid paths in quickfix list", vim.log.levels.WARN)
+  end
+end
+
 -- 複製所有 buffers 的相對路徑函數
 local function copy_all_buffer_relative_paths()
   local paths = {} -- 初始化陣列，用於存儲所有路徑
@@ -103,6 +130,41 @@ local function copy_all_buffer_relative_paths()
     vim.notify("All buffer relative paths copied to clipboard!", vim.log.levels.INFO)
   else
     vim.notify("No valid buffers found", vim.log.levels.WARN)
+  end
+end
+
+-- 複製 quickfix 中的相對路徑函數
+local function copy_quickfix_relative_paths()
+  local paths = {} -- 初始化陣列，用於存儲所有路徑
+
+  -- 獲取專案根目錄
+  local project_root = vim.fn.getcwd() -- 當前工作目錄作為專案根目錄
+  if project_root:sub(-1) ~= "/" then
+    project_root = project_root .. "/" -- 確保根目錄以 / 結尾
+  end
+
+  -- 取得 quickfix 列表
+  local qf_items = vim.fn.getqflist()
+  for _, item in ipairs(qf_items) do
+    if item.bufnr > 0 then
+      local buf_path = vim.api.nvim_buf_get_name(item.bufnr) -- 獲取 buffer 的完整路徑
+      if buf_path ~= "" then -- 檢查是否為有效檔案
+        -- 計算相對路徑
+        local relative_path = buf_path:gsub(project_root, "")
+        -- 避免重複路徑
+        if not vim.tbl_contains(paths, relative_path) then
+          table.insert(paths, relative_path) -- 添加相對路徑到陣列
+        end
+      end
+    end
+  end
+
+  if #paths > 0 then
+    local all_paths = table.concat(paths, "\n") -- 將所有路徑合併成字串，以換行符分隔
+    vim.fn.setreg("+", all_paths) -- 將所有路徑寫入系統剪貼板
+    vim.notify("All quickfix relative paths copied to clipboard!", vim.log.levels.INFO)
+  else
+    vim.notify("No valid paths in quickfix list", vim.log.levels.WARN)
   end
 end
 
@@ -180,6 +242,8 @@ map("n", "<leader>cr", copy_relative_path, { desc = "[y]ank [r]elative filepath"
 map("n", "<leader>cm", ":let @+ = execute('message')<CR>", { desc = "[y]ank [m]essage outputs to clipboard" })
 map("n", "<leader>cbr", copy_all_buffer_relative_paths, { desc = "[y]ank all [b]uffers relative paths", silent = true })
 map("n", "<leader>cba", copy_all_buffer_absolute_paths, { desc = "[y]ank all [B]uffers absolute paths", silent = true })
+map("n", "<leader>cqr", copy_quickfix_relative_paths, { desc = "[y]ank all [q]uickfix relative paths", silent = true })
+map("n", "<leader>cqa", copy_quickfix_absolute_paths, { desc = "[y]ank all [q]uickfix absolute paths", silent = true })
 
 -- 複製內容
 map("n", "<space>by", copy_all_buffers_to_clipboard, { desc = "Copy all buffers to clipboard with file paths" })
