@@ -310,3 +310,6 @@ set -gx OLLAMA_HOST "0.0.0.0"
 
 # Added by LM Studio CLI (lms)
 set -gx PATH $PATH /Users/monti/.cache/lm-studio/bin
+
+# Load API keys
+source ~/.dotfiles/fish/.config/fish/api-keys.fish
