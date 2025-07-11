@@ -313,3 +313,16 @@ set -gx PATH $PATH /Users/monti/.cache/lm-studio/bin
 
 # Load API keys
 source ~/.dotfiles/fish/.config/fish/api-keys.fish
+
+function __tmux_rename_window --on-event fish_preexec
+    if test -n "$TMUX"
+        set -l cmd (string split " " $argv[1])[1]
+        tmux rename-window $cmd
+    end
+end
+
+function __tmux_restore_window --on-event fish_postexec
+    if test -n "$TMUX"
+        tmux rename-window "fish"
+    end
+end
