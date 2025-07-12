@@ -65,6 +65,8 @@ alias gg "ghq get"
 # end
 # alias vim nvim
 alias v nvim
+alias c claude
+alias cr "claude --resume"
 
 alias n pnpm
 alias nd "pnpm dev"
