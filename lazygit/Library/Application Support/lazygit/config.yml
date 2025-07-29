@@ -14,7 +14,8 @@ os:
   editInTerminal: true
   openDirInEditor: 'nvim {{dir}}'
 #
-# gui:
+gui:
+    useHunkModeInStagingView: false  # Set to true to auto-enter hunk mode in staging view
 #     skipDiscardChangeWarning: true
 #     theme:
 #         activeBorderColor:
