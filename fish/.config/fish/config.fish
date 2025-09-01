@@ -82,6 +82,7 @@ alias nig "pnpm install --global"
 alias nid "pnpm install && pnpm dev"
 alias nit "pnpm install && pnpm devt"
 alias np "pnpm dlx prisma migrate dev"
+alias format 'git diff HEAD --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx|css|scss|json|md)$' | xargs pnpm prettier --write'
 
 # alias nv neovide
 # alias vim nvim
