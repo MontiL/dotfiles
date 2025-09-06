@@ -38,7 +38,6 @@ return {
         "html",
         "cssls",
         "tailwindcss",
-        "prismals",
         -- "graphql",
         "emmet_ls",
         "prismals",
