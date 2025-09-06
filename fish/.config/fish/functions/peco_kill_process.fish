@@ -6,7 +6,7 @@ function _peco_kill_process
   end
 
   if [ $foo ]
-    echo -e $foo | sed -e 's/^\s\+//' | cut -f 1 -w | read command
+    echo -e $foo | sed -e 's/^\s\+//' | cut -f 2 -w | read command
     # echo 'kill' $command | read newcommand
     # commandline $newcommand
     # echo 'kill' $command
@@ -21,6 +21,6 @@ end
 
 function peco_kill_process
   begin
-    ps
+    ps aux
   end | _peco_kill_process $argv
 end
