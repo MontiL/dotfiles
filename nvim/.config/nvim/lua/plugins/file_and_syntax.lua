@@ -1,8 +1,38 @@
 return {
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        -- Conform will run multiple formatters sequentially
+        python = { "isort", "black" },
+        -- You can customize some of the format options for the filetype (:help conform.format)
+        rust = { "rustfmt", lsp_format = "fallback" },
+        -- Conform will run the first available formatter
+        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        css = { "prettierd" },
+        html = { "prettierd" },
+        json = { "prettierd" },
+        yaml = { "prettierd" },
+        toml = { "prettierd" },
+        markdown = { "prettierd" },
+        graphql = { "prettierd" },
+      },
+      format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 1000,
+        lsp_format = "fallback",
+      },
+    },
+  },
   -- colorscheme
   {
     "EdenEast/nightfox.nvim",
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- require("nightfox").setup({
@@ -24,7 +54,7 @@ return {
         "   autocmd FileType * colorscheme nordfox
         " augroup END
       ]])
-    end
+    end,
   },
   -- {
   --   'nordtheme/vim',
@@ -112,7 +142,9 @@ return {
     build = ":TSUpdate",
     config = function()
       local ok, configs = pcall(require, "nvim-treesitter.configs")
-      if not ok then return end
+      if not ok then
+        return
+      end
 
       local on_windows = vim.loop.os_uname().version:match("Windows")
       local os_name = vim.loop.os_uname().sysname
@@ -120,25 +152,53 @@ return {
       --[[ local jit = require("jit") ]]
 
       local lst_of_lang = {
-        "bash", "fish",
-        "yaml", "toml",
-        "regex", "query",
-        "gitignore", "gitattributes", "gitcommit", "git_config", "git_rebase",
+        "bash",
+        "fish",
+        "yaml",
+        "toml",
+        "regex",
+        "query",
+        "gitignore",
+        "gitattributes",
+        "gitcommit",
+        "git_config",
+        "git_rebase",
 
-        "vim", "vimdoc",
+        "vim",
+        "vimdoc",
 
-        "lua", "luadoc", "luap", "python",
-        "make", "c", "cpp", "cmake",
+        "lua",
+        "luadoc",
+        "luap",
+        "python",
+        "make",
+        "c",
+        "cpp",
+        "cmake",
 
         -- web
-        "html", "css", "scss", "javascript", "jsdoc", "tsx", "typescript",
-        "json", "jsonc", "json5", "markdown", "markdown_inline",
+        "html",
+        "css",
+        "scss",
+        "javascript",
+        "jsdoc",
+        "tsx",
+        "typescript",
+        "json",
+        "jsonc",
+        "json5",
+        "markdown",
+        "markdown_inline",
         "graphql",
 
-        "prisma", "graphql",
+        "prisma",
+        "graphql",
 
         -- studying
-        "vue", "astro", "svelte", "dockerfile",
+        "vue",
+        "astro",
+        "svelte",
+        "dockerfile",
       }
 
       if os_name == "Linux" then
@@ -157,8 +217,8 @@ return {
         auto_install = true,
         ignore_install = { "" }, -- List of parsers to ignore installing
         highlight = {
-          enable = true,         -- `false` will disable the whole extension
-          disable = { "" },      -- list of language that will be disabled
+          enable = true, -- `false` will disable the whole extension
+          disable = { "" }, -- list of language that will be disabled
           -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
           -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
           -- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -171,10 +231,10 @@ return {
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = '<Space>s',
-            node_incremental = '<Space>s',
-            scope_incremental = '<Space>S',
-            node_decremental = '<Space>x',
+            init_selection = "<Space>s",
+            node_incremental = "<Space>s",
+            scope_incremental = "<Space>S",
+            node_decremental = "<Space>x",
           },
         },
         modules = {},
@@ -189,45 +249,45 @@ return {
             lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
             keymaps = {
               -- You can use the capture groups defined in textobjects.scm
-              ['aa'] = '@parameter.outer',
-              ['ia'] = '@parameter.inner',
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = '@class.inner',
-              ['aC'] = '@comment.outer',
-              ['iC'] = '@comment.iuter',
-              ['al'] = '@loop.outer',
-              ['il'] = '@loop.iuter',
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["aC"] = "@comment.outer",
+              ["iC"] = "@comment.iuter",
+              ["al"] = "@loop.outer",
+              ["il"] = "@loop.iuter",
             },
           },
           move = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-              [']f'] = '@function.outer',
-              [']c'] = '@class.outer',
+              ["]f"] = "@function.outer",
+              ["]c"] = "@class.outer",
             },
             goto_next_end = {
-              [']F'] = '@function.outer',
-              [']C'] = '@class.outer',
+              ["]F"] = "@function.outer",
+              ["]C"] = "@class.outer",
             },
             goto_previous_start = {
-              ['[f'] = '@function.outer',
-              ['[c'] = '@class.outer',
+              ["[f"] = "@function.outer",
+              ["[c"] = "@class.outer",
             },
             goto_previous_end = {
-              ['[F'] = '@function.outer',
-              ['[C'] = '@class.outer',
+              ["[F"] = "@function.outer",
+              ["[C"] = "@class.outer",
             },
           },
           swap = {
             enable = true,
             swap_next = {
-              ['<leader>a'] = '@parameter.inner',
+              ["<leader>a"] = "@parameter.inner",
             },
             swap_previous = {
-              ['<leader>A'] = '@parameter.inner',
+              ["<leader>A"] = "@parameter.inner",
             },
           },
         },
@@ -245,7 +305,7 @@ return {
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "nvim-treesitter/nvim-treesitter-textobjects", -- text object
-      "windwp/nvim-ts-autotag"
+      "windwp/nvim-ts-autotag",
     },
   },
 
@@ -257,7 +317,7 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
     config = function()
-      require 'nvim-web-devicons'.setup {
+      require("nvim-web-devicons").setup({
         -- your personnal icons can go here (to override)
         -- you can specify color or cterm_color instead of specifying both of them
         -- DevIcon will be appended to `name`
@@ -266,8 +326,8 @@ return {
             icon = "",
             color = "#428850",
             cterm_color = "65",
-            name = "Zsh"
-          }
+            name = "Zsh",
+          },
         },
         -- globally enable different highlight colors per icon (default to true)
         -- if set to false all icons will have the default icon's color
@@ -275,10 +335,10 @@ return {
         -- globally enable default icons (default to false)
         -- will get overriden by `get_icons` option
         default = true,
-      }
-    end
+      })
+    end,
   },
-  { 'echasnovski/mini.nvim',      version = false },
+  { "echasnovski/mini.nvim", version = false },
   --[[ use { ]]
   --[[   "projekt0n/circles.nvim", ]]
   --[[   dependencies = { "kyazdani42/nvim-web-devicons" }, ]]
@@ -301,83 +361,83 @@ return {
         let g:vimfiler_tree_closed_icon = '▸'
         let g:vimfiler_ignore_pattern = ['^\.git$', '^\.DS_Store$', '^__pycache__$']
         ]])
-    end
+    end,
   },
   {
-    'nvim-tree/nvim-tree.lua',
+    "nvim-tree/nvim-tree.lua",
     requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+      "nvim-tree/nvim-web-devicons", -- optional, for file icons
     },
     -- tag = 'nightly',                 -- optional, updated every week. (see issue #1193)
     --[[ lazy = true, ]]
     cmd = "NvimTreeToggle",
     config = function()
       local function on_attach(bufnr)
-        local api = require('nvim-tree.api')
+        local api = require("nvim-tree.api")
 
         local function opts(desc)
-          return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
         end
 
         -- Default mappings. Feel free to modify or remove as you wish.
         --
         -- BEGIN_DEFAULT_ON_ATTACH
         --[[ vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node, opts('CD')) ]]
-        vim.keymap.set('n', '.', api.tree.change_root_to_node, opts('CD'))
-        vim.keymap.set('n', '<C-e>', api.node.open.replace_tree_buffer, opts('Open: In Place'))
-        vim.keymap.set('n', '<C-k>', api.node.show_info_popup, opts('Info'))
+        vim.keymap.set("n", ".", api.tree.change_root_to_node, opts("CD"))
+        vim.keymap.set("n", "<C-e>", api.node.open.replace_tree_buffer, opts("Open: In Place"))
+        vim.keymap.set("n", "<C-k>", api.node.show_info_popup, opts("Info"))
         --[[ vim.keymap.set('n', '<C-r>', api.fs.rename_sub, opts('Rename: Omit Filename')) ]]
-        vim.keymap.set('n', 'r', api.fs.rename_sub, opts('Rename: Omit Filename'))
-        vim.keymap.set('n', '<C-t>', api.node.open.tab, opts('Open: New Tab'))
-        vim.keymap.set('n', 'sv', api.node.open.vertical, opts('Open: Vertical Split'))
-        vim.keymap.set('n', 'ss', api.node.open.horizontal, opts('Open: Horizontal Split'))
+        vim.keymap.set("n", "r", api.fs.rename_sub, opts("Rename: Omit Filename"))
+        vim.keymap.set("n", "<C-t>", api.node.open.tab, opts("Open: New Tab"))
+        vim.keymap.set("n", "sv", api.node.open.vertical, opts("Open: Vertical Split"))
+        vim.keymap.set("n", "ss", api.node.open.horizontal, opts("Open: Horizontal Split"))
         --[[ vim.keymap.set('n', '<BS>', api.node.navigate.parent_close, opts('Close Directory')) ]]
-        vim.keymap.set('n', '-', api.node.navigate.parent_close, opts('Close Directory'))
-        vim.keymap.set('n', '<CR>', api.node.open.edit, opts('Open'))
-        vim.keymap.set('n', '<Tab>', api.node.open.preview, opts('Open Preview'))
-        vim.keymap.set('n', '>', api.node.navigate.sibling.next, opts('Next Sibling'))
-        vim.keymap.set('n', '<', api.node.navigate.sibling.prev, opts('Previous Sibling'))
+        vim.keymap.set("n", "-", api.node.navigate.parent_close, opts("Close Directory"))
+        vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "<Tab>", api.node.open.preview, opts("Open Preview"))
+        vim.keymap.set("n", ">", api.node.navigate.sibling.next, opts("Next Sibling"))
+        vim.keymap.set("n", "<", api.node.navigate.sibling.prev, opts("Previous Sibling"))
         --[[ vim.keymap.set('n', '.', api.node.run.cmd, opts('Run Command')) ]]
         --[[ vim.keymap.set('n', '-', api.tree.change_root_to_parent, opts('Up')) ]]
-        vim.keymap.set('n', '<BS>', api.tree.change_root_to_parent, opts('Up'))
-        vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
-        vim.keymap.set('n', 'bmv', api.marks.bulk.move, opts('Move Bookmarked'))
-        vim.keymap.set('n', 'B', api.tree.toggle_no_buffer_filter, opts('Toggle No Buffer'))
-        vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
-        vim.keymap.set('n', 'C', api.tree.toggle_git_clean_filter, opts('Toggle Git Clean'))
-        vim.keymap.set('n', '[c', api.node.navigate.git.prev, opts('Prev Git'))
-        vim.keymap.set('n', ']c', api.node.navigate.git.next, opts('Next Git'))
-        vim.keymap.set('n', 'd', api.fs.remove, opts('Delete'))
-        vim.keymap.set('n', 'D', api.fs.trash, opts('Trash'))
-        vim.keymap.set('n', 'E', api.tree.expand_all, opts('Expand All'))
-        vim.keymap.set('n', 'e', api.fs.rename_basename, opts('Rename: Basename'))
-        vim.keymap.set('n', ']d', api.node.navigate.diagnostics.next, opts('Next Diagnostic'))
-        vim.keymap.set('n', '[d', api.node.navigate.diagnostics.prev, opts('Prev Diagnostic'))
-        vim.keymap.set('n', 'F', api.live_filter.clear, opts('Clean Filter'))
-        vim.keymap.set('n', 'f', api.live_filter.start, opts('Filter'))
-        vim.keymap.set('n', 'g?', api.tree.toggle_help, opts('Help'))
-        vim.keymap.set('n', 'gy', api.fs.copy.absolute_path, opts('Copy Absolute Path'))
-        vim.keymap.set('n', 'H', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
-        vim.keymap.set('n', 'I', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore'))
-        vim.keymap.set('n', 'J', api.node.navigate.sibling.last, opts('Last Sibling'))
-        vim.keymap.set('n', 'K', api.node.navigate.sibling.first, opts('First Sibling'))
-        vim.keymap.set('n', 'm', api.marks.toggle, opts('Toggle Bookmark'))
-        vim.keymap.set('n', 'o', api.node.open.edit, opts('Open'))
-        vim.keymap.set('n', 'O', api.node.open.no_window_picker, opts('Open: No Window Picker'))
-        vim.keymap.set('n', 'p', api.fs.paste, opts('Paste'))
-        vim.keymap.set('n', 'P', api.node.navigate.parent, opts('Parent Directory'))
-        vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
-        vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
-        vim.keymap.set('n', 'R', api.tree.reload, opts('Refresh'))
+        vim.keymap.set("n", "<BS>", api.tree.change_root_to_parent, opts("Up"))
+        vim.keymap.set("n", "a", api.fs.create, opts("Create"))
+        vim.keymap.set("n", "bmv", api.marks.bulk.move, opts("Move Bookmarked"))
+        vim.keymap.set("n", "B", api.tree.toggle_no_buffer_filter, opts("Toggle No Buffer"))
+        vim.keymap.set("n", "c", api.fs.copy.node, opts("Copy"))
+        vim.keymap.set("n", "C", api.tree.toggle_git_clean_filter, opts("Toggle Git Clean"))
+        vim.keymap.set("n", "[c", api.node.navigate.git.prev, opts("Prev Git"))
+        vim.keymap.set("n", "]c", api.node.navigate.git.next, opts("Next Git"))
+        vim.keymap.set("n", "d", api.fs.remove, opts("Delete"))
+        vim.keymap.set("n", "D", api.fs.trash, opts("Trash"))
+        vim.keymap.set("n", "E", api.tree.expand_all, opts("Expand All"))
+        vim.keymap.set("n", "e", api.fs.rename_basename, opts("Rename: Basename"))
+        vim.keymap.set("n", "]d", api.node.navigate.diagnostics.next, opts("Next Diagnostic"))
+        vim.keymap.set("n", "[d", api.node.navigate.diagnostics.prev, opts("Prev Diagnostic"))
+        vim.keymap.set("n", "F", api.live_filter.clear, opts("Clean Filter"))
+        vim.keymap.set("n", "f", api.live_filter.start, opts("Filter"))
+        vim.keymap.set("n", "g?", api.tree.toggle_help, opts("Help"))
+        vim.keymap.set("n", "gy", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
+        vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
+        vim.keymap.set("n", "I", api.tree.toggle_gitignore_filter, opts("Toggle Git Ignore"))
+        vim.keymap.set("n", "J", api.node.navigate.sibling.last, opts("Last Sibling"))
+        vim.keymap.set("n", "K", api.node.navigate.sibling.first, opts("First Sibling"))
+        vim.keymap.set("n", "m", api.marks.toggle, opts("Toggle Bookmark"))
+        vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "O", api.node.open.no_window_picker, opts("Open: No Window Picker"))
+        vim.keymap.set("n", "p", api.fs.paste, opts("Paste"))
+        vim.keymap.set("n", "P", api.node.navigate.parent, opts("Parent Directory"))
+        vim.keymap.set("n", "q", api.tree.close, opts("Close"))
+        vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
+        vim.keymap.set("n", "R", api.tree.reload, opts("Refresh"))
         --[[ vim.keymap.set('n', 's', api.node.run.system, opts('Run System')) ]]
-        vim.keymap.set('n', 'S', api.tree.search_node, opts('Search'))
-        vim.keymap.set('n', 'U', api.tree.toggle_custom_filter, opts('Toggle Hidden'))
-        vim.keymap.set('n', 'W', api.tree.collapse_all, opts('Collapse'))
-        vim.keymap.set('n', 'x', api.fs.cut, opts('Cut'))
-        vim.keymap.set('n', 'y', api.fs.copy.filename, opts('Copy Name'))
-        vim.keymap.set('n', 'Y', api.fs.copy.relative_path, opts('Copy Relative Path'))
-        vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts('Open'))
-        vim.keymap.set('n', '<2-RightMouse>', api.tree.change_root_to_node, opts('CD'))
+        vim.keymap.set("n", "S", api.tree.search_node, opts("Search"))
+        vim.keymap.set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Hidden"))
+        vim.keymap.set("n", "W", api.tree.collapse_all, opts("Collapse"))
+        vim.keymap.set("n", "x", api.fs.cut, opts("Cut"))
+        vim.keymap.set("n", "y", api.fs.copy.filename, opts("Copy Name"))
+        vim.keymap.set("n", "Y", api.fs.copy.relative_path, opts("Copy Relative Path"))
+        vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
         -- END_DEFAULT_ON_ATTACH
 
         -- Mappings removed via:
@@ -388,29 +448,29 @@ return {
         -- The dummy set before del is done for safety, in case a default mapping does not exist.
         --
         -- You might tidy things by removing these along with their default mapping.
-        vim.keymap.set('n', 'O', '', { buffer = bufnr })
-        vim.keymap.del('n', 'O', { buffer = bufnr })
-        vim.keymap.set('n', '<2-RightMouse>', '', { buffer = bufnr })
-        vim.keymap.del('n', '<2-RightMouse>', { buffer = bufnr })
-        vim.keymap.set('n', 'D', '', { buffer = bufnr })
-        vim.keymap.del('n', 'D', { buffer = bufnr })
-        vim.keymap.set('n', 'E', '', { buffer = bufnr })
-        vim.keymap.del('n', 'E', { buffer = bufnr })
+        vim.keymap.set("n", "O", "", { buffer = bufnr })
+        vim.keymap.del("n", "O", { buffer = bufnr })
+        vim.keymap.set("n", "<2-RightMouse>", "", { buffer = bufnr })
+        vim.keymap.del("n", "<2-RightMouse>", { buffer = bufnr })
+        vim.keymap.set("n", "D", "", { buffer = bufnr })
+        vim.keymap.del("n", "D", { buffer = bufnr })
+        vim.keymap.set("n", "E", "", { buffer = bufnr })
+        vim.keymap.del("n", "E", { buffer = bufnr })
 
         -- Mappings migrated from view.mappings.list
         --
         -- You will need to insert "your code goes here" for any mappings with a custom action_cb
-        vim.keymap.set('n', 'A', api.tree.expand_all, opts('Expand All'))
-        vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+        vim.keymap.set("n", "A", api.tree.expand_all, opts("Expand All"))
+        vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
         --[[ vim.keymap.set('n', 'C', api.tree.change_root_to_node, opts('CD')) ]]
-        vim.keymap.set('n', 'P', function()
+        vim.keymap.set("n", "P", function()
           local node = api.tree.get_node_under_cursor()
           if node then
             print(node.absolute_path)
           end
-        end, opts('Print Node Path'))
+        end, opts("Print Node Path"))
 
-        vim.keymap.set('n', 'Z', api.node.run.system, opts('Run System'))
+        vim.keymap.set("n", "Z", api.node.run.system, opts("Run System"))
       end
 
       -- empty setup using defaults
@@ -664,19 +724,19 @@ return {
   },
   {
     "MunifTanjim/nui.nvim",
-    's1n7ax/nvim-window-picker',
-    version = '2.*',
+    "s1n7ax/nvim-window-picker",
+    version = "2.*",
     config = function()
-      require 'window-picker'.setup({
+      require("window-picker").setup({
         filter_rules = {
           include_current_win = false,
           autoselect_one = true,
           -- filter using buffer options
           bo = {
             -- if the file type is one of following, the window will be ignored
-            filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+            filetype = { "neo-tree", "neo-tree-popup", "notify" },
             -- if the buffer type is one of following, the window will be ignored
-            buftype = { 'terminal', "quickfix" },
+            buftype = { "terminal", "quickfix" },
           },
         },
       })
@@ -697,7 +757,7 @@ return {
           enable_git_status = true,
           enable_diagnostics = true,
           sort_case_insensitive = false, -- used when sorting files and directories in the tree
-          sort_function = nil,           -- use a custom function for sorting files and directories in the tree
+          sort_function = nil, -- use a custom function for sorting files and directories in the tree
           -- sort_function = function (a,b)
           --       if a.type == b.type then
           --           return a.path > b.path
@@ -707,7 +767,7 @@ return {
           --   end , -- this sorts files and directories descendantly
           default_component_configs = {
             container = {
-              enable_character_fade = true
+              enable_character_fade = true,
             },
             indent = {
               indent_size = 2,
@@ -730,7 +790,7 @@ return {
               -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
               -- then these will never be used.
               default = "*",
-              highlight = "NeoTreeFileIcon"
+              highlight = "NeoTreeFileIcon",
             },
             modified = {
               symbol = "[+]",
@@ -744,22 +804,22 @@ return {
             git_status = {
               symbols = {
                 -- Change type
-                added     = "!", -- or "✚", but this is redundant info if you use git_status_colors on the name
-                modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
+                added = "!", -- or "✚", but this is redundant info if you use git_status_colors on the name
+                modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
                 --[[ deleted   = "✖", -- this can only be used in the git_status source ]]
-                deleted   = "✘", -- this can only be used in the git_status source
+                deleted = "✘", -- this can only be used in the git_status source
                 --[[ renamed   = "", -- this can only be used in the git_status source ]]
-                renamed   = "»", -- this can only be used in the git_status source
+                renamed = "»", -- this can only be used in the git_status source
                 -- Status type
                 untracked = "",
-                ignored   = "",
+                ignored = "",
                 --[[ unstaged  = "", ]]
                 --[[ staged    = "", ]]
                 unstaged = "!",
-                staged   = "+",
+                staged = "+",
                 --[[ conflict  = "", ]]
                 conflict = "=",
-              }
+              },
             },
           },
           window = {
@@ -797,8 +857,8 @@ return {
                 -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
                 -- some commands may take optional config options, see `:h neo-tree-mappings` for details
                 config = {
-                  show_path = "none" -- "none", "relative", "absolute"
-                }
+                  show_path = "none", -- "none", "relative", "absolute"
+                },
               },
               --[[ ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion. ]]
               ["K"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
@@ -820,7 +880,7 @@ return {
               ["?"] = "show_help",
               ["<"] = "prev_source",
               [">"] = "next_source",
-            }
+            },
           },
           nesting_rules = {},
           filesystem = {
@@ -847,9 +907,9 @@ return {
                 --".null-ls_*",
               },
             },
-            follow_current_file = true,             -- This will find and focus the file in the active buffer every
+            follow_current_file = true, -- This will find and focus the file in the active buffer every
             -- time the current file is changed while the tree is open.
-            group_empty_dirs = false,               -- when true, empty folders will be grouped together
+            group_empty_dirs = false, -- when true, empty folders will be grouped together
             hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
             -- in whatever position is specified in window.position
             -- "open_current",  -- netrw disabled, opening a directory opens within the
@@ -870,20 +930,20 @@ return {
                 ["<c-x>"] = "clear_filter",
                 ["[c"] = "prev_git_modified",
                 ["]c"] = "next_git_modified",
-              }
-            }
+              },
+            },
           },
           buffers = {
             follow_current_file = true, -- This will find and focus the file in the active buffer every
             -- time the current file is changed while the tree is open.
-            group_empty_dirs = true,    -- when true, empty folders will be grouped together
+            group_empty_dirs = true, -- when true, empty folders will be grouped together
             show_unloaded = true,
             window = {
               mappings = {
                 ["bd"] = "buffer_delete",
                 ["<bs>"] = "navigate_up",
                 ["."] = "set_root",
-              }
+              },
             },
           },
           git_status = {
@@ -897,16 +957,16 @@ return {
                 ["gc"] = "git_commit",
                 ["gp"] = "git_push",
                 ["gg"] = "git_commit_and_push",
-              }
-            }
-          }
+              },
+            },
+          },
         })
-      end
-    }
+      end,
+    },
   },
 
   {
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     opts = {},
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -1113,7 +1173,7 @@ return {
           border = "rounded",
         },
       })
-    end
+    end,
   },
 
   -- Markdown
@@ -1121,7 +1181,7 @@ return {
     "preservim/vim-markdown",
     config = function()
       vim.g.vim_markdown_folding_disabled = 1
-    end
+    end,
   },
   -- {
   --   "epwalsh/obsidian.nvim",
@@ -1189,7 +1249,7 @@ return {
         highlight Headline5 guifg=#86cedb
         highlight Headline6 guifg=#9d86db
       ]])
-      require("headlines").setup {
+      require("headlines").setup({
         markdown = {
           query = vim.treesitter.query.parse(
             "markdown",
@@ -1265,14 +1325,14 @@ return {
           fat_headline_upper_string = "▃",
           fat_headline_lower_string = "🬂",
         },
-      }
-    end
+      })
+    end,
   },
   -- other non-lsp syntax highlight
   { "mtdl9/vim-log-highlighting", ft = { "log", "_log" } }, -- Log highlight
-  { "gisphm/vim-gitignore",       ft = { "gitignore" } },   -- .gitignore highlight
+  { "gisphm/vim-gitignore", ft = { "gitignore" } }, -- .gitignore highlight
   -- "khaveesh/vim-fish-syntax", -- Fish shell highlight
-  { "imsnif/kdl.vim",             event = "BufReadPre *.kdl" },
+  { "imsnif/kdl.vim", event = "BufReadPre *.kdl" },
   -- use 'ap/vim-css-color'
   --[[ { ]]
   --[[   "norcalli/nvim-colorizer.lua", ]]
@@ -1283,8 +1343,8 @@ return {
     opts = {
       user_default_options = {
         tailwind = true,
-      }
-    }
+      },
+    },
   },
 
   {
@@ -1306,6 +1366,6 @@ return {
   },
 
   {
-    "kchmck/vim-coffee-script"
-  }
+    "kchmck/vim-coffee-script",
+  },
 }
