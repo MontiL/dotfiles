@@ -1,5 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     -- Automatically install LSPs to stdpath for neovim
     "williamboman/mason.nvim",
@@ -67,24 +68,31 @@ return {
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    -- Setup mason so it can manage external tooling
-    require("mason").setup()
-
-    -- Ensure the servers above are installed
+    -- mason-lspconfig is configured in mason.lua
     local mason_lspconfig = require("mason-lspconfig")
-    -- mason_lspconfig.setup({ ensure_installed = vim.tbl_keys(servers) })
+
     local lspconfig = require("lspconfig")
 
     -- Automatic server setup (advanced feature) :h mason-lspconfig-automatic-server-setup
-    mason_lspconfig.setup_handlers({
-      function(server_name)
+    if mason_lspconfig.setup_handlers then
+      mason_lspconfig.setup_handlers({
+        function(server_name)
+          lspconfig[server_name].setup({
+            capabilities = capabilities,
+            -- on_attach = on_attach,
+            -- settings = servers[server_name],
+          })
+        end,
+      })
+    else
+      -- Fallback: setup common servers manually if setup_handlers doesn't exist
+      local servers = { "lua_ls", "ts_ls", "jsonls", "bashls", "pyright" }
+      for _, server_name in ipairs(servers) do
         lspconfig[server_name].setup({
           capabilities = capabilities,
-          -- on_attach = on_attach,
-          -- settings = servers[server_name],
         })
-      end,
-    })
+      end
+    end
 
     -- Diagnostic symbols in the sign column (gutter)
     local signs = { Error = " ", Warn = " ", Hint = "● ", Info = "" }
