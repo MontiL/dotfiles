@@ -230,9 +230,10 @@ fish_add_path /opt/homebrew/opt/postgresql@15/bin
 # set -l pref (brew --prefix)
 # set -gx BREW_PREFIX (brew --prefix)
 
-# Homebrew mirrors for Taiwan
-set -gx HOMEBREW_BREW_GIT_REMOTE "https://mirrors.ustc.edu.cn/brew.git"
-set -gx HOMEBREW_BOTTLE_DOMAIN "https://mirrors.ustc.edu.cn/homebrew-bottles"
+# Use official GitHub sources (most secure)
+# Remove mirror settings to use default ghcr.io
+# set -e HOMEBREW_BREW_GIT_REMOTE
+# set -e HOMEBREW_BOTTLE_DOMAIN
 
 # source ~/.dotfiles/fish/.config/fish/config-yushun.fish
 
