@@ -32,7 +32,7 @@ alias .... "cd ../../.."
 abbr -a -- - 'cd -'
 
 alias cls clear
-alias g git
+# alias g git
 alias gp "git pull"
 alias gP "git push"
 # alias gc 'git commit -v'
@@ -67,10 +67,10 @@ alias gg "ghq get"
 alias v nvim
 alias c claude
 alias cr "claude --resume"
+alias g gemini
 
 alias n pnpm
 alias nd "pnpm dev"
-alias nt "pnpm devt"
 alias nx "pnpm dlx" # pnpm dlx is same as pnpx and npx
 alias ni "pnpm install"
 alias niD "pnpm install -D"
@@ -80,7 +80,6 @@ alias ns "pnpm start"
 alias nbs "pnpm build && pnpm start"
 alias nig "pnpm install --global"
 alias nid "pnpm install && pnpm dev"
-alias nit "pnpm install && pnpm devt"
 alias np "pnpm dlx prisma migrate dev"
 function format
     begin
@@ -201,10 +200,15 @@ fish_add_path -g /usr/local/go/bin
 fish_add_path -g ~/go/bin
 # pg_dump / pg_restore
 fish_add_path /opt/homebrew/opt/libpq/bin
-# node v20
-fish_add_path /opt/homebrew/opt/node@20/bin
-set -gx LDFLAGS "-L/opt/homebrew/opt/node@20/lib"
-set -gx CPPFLAGS "-I/opt/homebrew/opt/node@20/include"
+# Node v20
+# fish_add_path /opt/homebrew/opt/node@20/bin
+# set -gx LDFLAGS "-L/opt/homebrew/opt/node@20/lib"
+# set -gx CPPFLAGS "-I/opt/homebrew/opt/node@20/include"
+# Node v22
+fish_add_path /opt/homebrew/opt/node@22/bin
+set -gx LDFLAGS "-L/opt/homebrew/opt/node@22/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/node@22/include"
+
 set -gx NODE_EXTRA_CA_CERTS "/private/etc/ssl/cert.pem"
 # PostgreSQL 15
 fish_add_path /opt/homebrew/opt/postgresql@15/bin
