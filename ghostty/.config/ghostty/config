@@ -1,5 +1,6 @@
 # theme = catppuccin-frappe
-theme = nordfox
+# theme = nordfox
+theme = Nord
 
 # Fonts
 font-size = 16
