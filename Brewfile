@@ -1,5 +1,7 @@
 tap "felixkratz/formulae"
 tap "fsouza/prettierd"
+tap "homebrew/bundle"
+tap "homebrew/services"
 tap "koekeishiya/formulae"
 tap "nikitabobko/tap"
 tap "ohueter/tap"
@@ -8,6 +10,8 @@ tap "teamookla/speedtest"
 tap "universal-ctags/universal-ctags"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
+# Mozilla CA certificate store
+brew "ca-certificates"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
 # C library implementing the SSH2 protocol
@@ -18,6 +22,12 @@ brew "bat"
 brew "bison"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
+# XML-based font configuration API for X Windows
+brew "fontconfig"
+# Core application library for C
+brew "glib"
+# Vector graphics library with cross-device output support
+brew "cairo"
 # Cross-platform make
 brew "cmake"
 # Platform built on V8 to build network applications
@@ -54,6 +64,8 @@ brew "fswatch"
 brew "fzf"
 # GNU awk utility
 brew "gawk"
+# Interact with Google Gemini AI models from the command-line
+brew "gemini-cli"
 # GitHub command-line tool
 brew "gh"
 # Remote repository management made easy
@@ -105,9 +117,9 @@ brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
-brew "node@20", link: true
-# Manage multiple Node.js versions
-brew "nvm"
+brew "node@22"
+# Simplified-traditional Chinese conversion tool
+brew "opencc"
 # Open source suite of directory software
 brew "openldap"
 # Simplistic interactive filtering tool
@@ -116,6 +128,8 @@ brew "peco"
 brew "pnpm"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Object-relational database system
+brew "postgresql@15", link: true
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
 # Interpreted, interactive, object-oriented programming language
@@ -171,7 +185,7 @@ cask "brave-browser"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # App to build and share containerised applications and microservices
-cask "docker"
+cask "docker-desktop"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-noto-sans-cjk"
