@@ -18,3 +18,4 @@ background-blur-radius = 10
 cursor-style = block
 cursor-style-blink = false
 adjust-cursor-thickness = 2
+keybind = shift+enter=text:\x1b\r
