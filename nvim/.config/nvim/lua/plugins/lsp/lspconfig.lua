@@ -64,33 +64,37 @@ return {
     -- }
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-    -- local capabilities = vim.lsp.protocol.make_client_capabilities()
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
     -- mason-lspconfig is configured in mason.lua
     local mason_lspconfig = require("mason-lspconfig")
 
-    local lspconfig = require("lspconfig")
-
+    -- Use new vim.lsp.config API instead of deprecated lspconfig
     -- Automatic server setup (advanced feature) :h mason-lspconfig-automatic-server-setup
     if mason_lspconfig.setup_handlers then
       mason_lspconfig.setup_handlers({
         function(server_name)
-          lspconfig[server_name].setup({
-            capabilities = capabilities,
-            -- on_attach = on_attach,
-            -- settings = servers[server_name],
-          })
+          -- Use vim.lsp.enable with configuration
+          vim.lsp.enable(server_name)
+          -- Configure capabilities through vim.lsp.config
+          if vim.lsp.config[server_name] then
+            vim.lsp.config[server_name] = vim.tbl_deep_extend('force', vim.lsp.config[server_name] or {}, {
+              capabilities = capabilities,
+            })
+          end
         end,
       })
     else
       -- Fallback: setup common servers manually if setup_handlers doesn't exist
       local servers = { "lua_ls", "ts_ls", "jsonls", "bashls", "pyright" }
       for _, server_name in ipairs(servers) do
-        lspconfig[server_name].setup({
-          capabilities = capabilities,
-        })
+        vim.lsp.enable(server_name)
+        if vim.lsp.config[server_name] then
+          vim.lsp.config[server_name] = vim.tbl_deep_extend('force', vim.lsp.config[server_name] or {}, {
+            capabilities = capabilities,
+          })
+        end
       end
     end
 
