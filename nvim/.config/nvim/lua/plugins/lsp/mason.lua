@@ -49,12 +49,20 @@ return {
 
     mason_tool_installer.setup({
       ensure_installed = {
+        -- Formatters
         "prettierd", -- prettier formatter
         "stylua", -- lua formatter
         "isort", -- python formatter
         "black", -- python formatter
-        -- "pylint",
-        -- "eslint_d",
+
+        -- Linters
+        "eslint_d", -- js/ts linter
+        "ruff", -- python linter
+        "luacheck", -- lua linter
+        -- "markdownlint", -- markdown linter
+        -- "yamllint", -- yaml linter
+        -- "hadolint", -- dockerfile linter
+        -- "shellcheck", -- shell script linter
       },
     })
   end,

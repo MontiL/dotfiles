@@ -24,10 +24,47 @@ return {
       },
       format_on_save = {
         -- These options will be passed to conform.format()
-        timeout_ms = 1000,
+        timeout_ms = 2000,
         lsp_format = "fallback",
       },
     },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local lint = require("lint")
+
+      -- Configure linters by filetype
+      lint.linters_by_ft = {
+        javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
+        python = { "ruff" },
+        lua = { "luacheck" },
+        -- markdown = { "markdownlint" },
+        -- yaml = { "yamllint" },
+        -- json = { "jsonlint" },
+        -- dockerfile = { "hadolint" },
+        -- sh = { "shellcheck" },
+      }
+
+      -- Create autocommand to trigger linting
+      local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+        group = lint_augroup,
+        callback = function()
+          lint.try_lint()
+        end,
+      })
+
+      -- Optional: Add a keymap to trigger linting manually
+      vim.keymap.set("n", "<leader>l", function()
+        lint.try_lint()
+      end, { desc = "Trigger linting for current file" })
+    end,
   },
   -- colorscheme
   {
