@@ -131,7 +131,7 @@ alias p 'open -a "Adobe Photoshop 2023"'
 # alias sc sc-im
 # alias vs "visidata"
 
-alias update "cd ~/.dotfiles/ && git submodule update --init && brew autoremove && brew bundle && brew update && brew upgrade"
+alias update "cd ~/.dotfiles/ && git submodule update --init && brew autoremove && brew bundle && brew update && brew upgrade && pnpm update -g"
 alias clean "brew cleanup -s && rustup update && yarn cache clean"
 alias clean_chrome "rm -rf /Users/"(whoami)"/Library/Caches/Google/Chrome/* && rm -rf /Users/"(whoami)"/Library/Application\ Support/Google/Chrome/Profile\ *"
 #alias init_pyenv "pyenv init - | source && eval '$(pyenv virtualenv-init -)'"
