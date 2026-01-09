@@ -325,6 +325,9 @@ fish_add_path /Users/monti/.codeium/windsurf/bin
 # Ollama
 set -gx OLLAMA_HOST "0.0.0.0"
 
+# Gemini
+set -gx GEMINI_MODEL gemini-3-pro-preview
+
 # Added by LM Studio CLI (lms)
 set -gx PATH $PATH /Users/monti/.cache/lm-studio/bin
 
