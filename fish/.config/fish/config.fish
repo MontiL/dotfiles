@@ -82,7 +82,7 @@ alias ns "pnpm start"
 alias nbs "pnpm build && pnpm start"
 alias nig "pnpm install --global"
 alias nid "pnpm install && pnpm dev"
-alias np "pnpm dlx prisma migrate dev"
+alias np "pnpm prisma migrate dev"
 function format
     begin
         git diff --name-only --diff-filter=ACMR -z
