@@ -7,7 +7,7 @@
 switch (uname -m)
     case arm64
         eval (/opt/homebrew/bin/brew shellenv)
-        set -gx fish_user_paths /opt/homebrew/bin $fish_user_paths # Add brew binaries in fish path:
+        # set -gx fish_user_paths /opt/homebrew/bin $fish_user_paths # Add brew binaries in fish path:
 
         # # python@3.10
         # # If you need to have python@3.10 first in your PATH, run:
@@ -37,7 +37,7 @@ switch (uname -m)
 
     case x86_64
         eval (/usr/local/bin/brew shellenv)
-        set -gx fish_user_paths /usr/local/bin $fish_user_paths # Add brew binaries in fish path:
+        # set -gx fish_user_paths /usr/local/bin $fish_user_paths # Add brew binaries in fish path:
 
         # # python@3.10
         # # If you need to have python@3.10 first in your PATH, run:

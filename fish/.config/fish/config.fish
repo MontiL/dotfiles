@@ -207,9 +207,9 @@ fish_add_path /opt/homebrew/opt/libpq/bin
 # set -gx LDFLAGS "-L/opt/homebrew/opt/node@20/lib"
 # set -gx CPPFLAGS "-I/opt/homebrew/opt/node@20/include"
 # Node v22
-fish_add_path /opt/homebrew/opt/node@22/bin
-set -gx LDFLAGS "-L/opt/homebrew/opt/node@22/lib"
-set -gx CPPFLAGS "-I/opt/homebrew/opt/node@22/include"
+# fish_add_path /opt/homebrew/opt/node@22/bin
+# set -gx LDFLAGS "-L/opt/homebrew/opt/node@22/lib"
+# set -gx CPPFLAGS "-I/opt/homebrew/opt/node@22/include"
 
 set -gx NODE_EXTRA_CA_CERTS "/private/etc/ssl/cert.pem"
 # PostgreSQL 15
@@ -320,6 +320,9 @@ if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# fnm (after PNPM_HOME so fnm's node path takes priority)
+fnm env --use-on-cd --shell fish | source
 
 # Added by Windsurf
 fish_add_path /Users/monti/.codeium/windsurf/bin
