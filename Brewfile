@@ -30,7 +30,9 @@ brew "glib"
 brew "cairo"
 # Cross-platform make
 brew "cmake"
-# Platform built on V8 to build network applications
+# Library for command-line editing
+brew "readline"
+# Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # Unfancy JavaScript
 brew "coffeescript"
@@ -42,15 +44,13 @@ brew "cpanminus"
 brew "rtmpdump"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
+# Perl lib for reading and writing EXIF metadata
+brew "exiftool"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
-# OpenType text shaping engine
-brew "harfbuzz"
-# Library for command-line editing
-brew "readline"
-# Play, record, convert, and stream audio and video
+# Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
 # Collection of GNU find, xargs, and locate
 brew "findutils"
@@ -58,6 +58,8 @@ brew "findutils"
 brew "fish"
 # Plugin manager for the Fish shell
 brew "fisher"
+# Fast and simple Node.js version manager
+brew "fnm"
 # Monitor a directory for changes and run a shell command
 brew "fswatch"
 # Command-line fuzzy finder written in Go
@@ -76,19 +78,21 @@ brew "git"
 brew "git-delta"
 # Git extension for versioning large files
 brew "git-lfs"
-# GNU Pretty Good Privacy (PGP) package
+# GNU Privacy Guard (OpenPGP)
 brew "gnupg"
 # GNU grep, egrep and fgrep
 brew "grep"
 # GNU Ubiquitous Intelligent Language for Extensions
 brew "guile"
+# OpenType text shaping engine
+brew "harfbuzz"
 # Improved top (interactive process viewer)
 brew "htop"
 # Add GitHub support to git on the command-line
 brew "hub"
 # Command-line benchmarking tool
 brew "hyperfine"
-# Tools and libraries to manipulate images in many formats
+# Tools and libraries to manipulate images in select formats
 brew "imagemagick"
 # Official CLI for the IPinfo IP Address API
 brew "ipinfo-cli"
@@ -108,16 +112,14 @@ brew "libyaml"
 brew "luajit"
 # Package manager for the Lua programming language
 brew "luarocks"
-# Apple Silicon Monitor Top written in Golang
+# Apple Silicon Monitor Top written in Go Lang
 brew "mactop"
 # NCurses Disk Usage
 brew "ncdu"
-# Parser generator tool and incremental parsing library
-brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-# Platform built on V8 to build network applications
-brew "node@22"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node@22", link: true
 # Simplified-traditional Chinese conversion tool
 brew "opencc"
 # Open source suite of directory software
@@ -156,6 +158,8 @@ brew "the_silver_searcher"
 brew "tig"
 # Terminal multiplexer
 brew "tmux"
+# Incremental parsing library
+brew "tree-sitter"
 # Language for application scale JavaScript development
 brew "typescript"
 # Extremely fast Python package installer and resolver, written in Rust
@@ -171,13 +175,13 @@ brew "yazi"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 # A window border system for macOS
-brew "felixkratz/formulae/borders"
+brew "felixkratz/formulae/borders", args: ["HEAD"]
 # Supabase CLI
 brew "supabase/tap/supabase"
 # Ookla Speedtest
 brew "teamookla/speedtest/speedtest"
 # AeroSpace is an i3-like tiling window manager for macOS
-cask "aerospace"
+cask "nikitabobko/tap/aerospace"
 # Chromium based browser
 cask "arc"
 # Web browser focusing on privacy
