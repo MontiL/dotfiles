@@ -51,3 +51,14 @@ ap-northeast-1 = "Japan"
 
 [battery]
 disabled = true
+
+# 自定義咖啡模組
+[custom.cafe]
+description = "顯示咖啡狀態"
+# 檢查是否有 caffeinate 進程
+command = "pgrep -x caffeinate > /dev/null"
+# 偵測到進程時顯示的圖示與樣式
+symbol = "☕ "
+style = "bold orange"
+# 只有當 command 回傳 0 (找到進程) 時才顯示
+when = "pgrep -x caffeinate"

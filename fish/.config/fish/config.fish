@@ -161,7 +161,7 @@ alias unblock 'block_unblock unblock'
 alias himonti "ngrok tcp 22"
 alias mchost "ngrok tcp 25565"
 
-alias cafe "caffeinate -d"
+# alias cafe "caffeinate -d"
 alias done "terminal-notifier -message 'finished' -sound default; killall caffeinate"
 
 # abbr fix "tsc | awk -F'(' '{print \$1}' | sort | uniq | xargs nvim -c 'autocmd CursorHold * lua vim.diagnostic.setqflist()'"
