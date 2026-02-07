@@ -52,6 +52,12 @@ ap-northeast-1 = "Japan"
 [battery]
 disabled = true
 
+[custom.at_jobs]
+command = "atq | wc -l | tr -d ' '"
+when = "atq | grep -q '.'"
+format = "[⏳ $output]($style) "
+style = "bold blue"
+
 # 自定義咖啡模組
 [custom.cafe]
 description = "顯示咖啡狀態"
