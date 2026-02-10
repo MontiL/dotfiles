@@ -126,8 +126,6 @@ brew "opencc"
 brew "openldap"
 # Simplistic interactive filtering tool
 brew "peco"
-# Fast, disk space efficient package manager
-brew "pnpm"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Object-relational database system

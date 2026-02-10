@@ -315,7 +315,7 @@ set fzf_preview_file_cmd "fzf --preview 'cat {}' --preview-window right:90%:hidd
 # <<< conda initialize <<<
 
 # pnpm
-set -gx PNPM_HOME "/opt/homebrew/bin"
+set -gx PNPM_HOME "$HOME/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
