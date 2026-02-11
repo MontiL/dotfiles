@@ -35,7 +35,7 @@ alias cls clear
 # alias g git
 alias gp "git pull" # pull from remote
 alias gP "git push" # push to remote
-alias wp "git fetch origin dev && git merge FETCH_HEAD" # pull from worktree
+alias wp "git fetch origin dev && git merge FETCH_HEAD dev" # pull from worktree
 alias wP "git push -u origin HEAD" # push to worktree
 # alias gc 'git commit -v'
 alias gc 'git checkout'
