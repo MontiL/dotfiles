@@ -36,7 +36,42 @@ alias cls clear
 alias gp "git pull" # pull from remote
 alias gP "git push" # push to remote
 alias wp "git fetch origin dev && git merge FETCH_HEAD dev" # pull from worktree
-alias wP "git push -u origin HEAD" # push to worktree
+alias wP "git push origin dev" # push dev to remote
+function ws --description "Worktree sync: merge agents into dev, push dev, then sync agents back"
+    set -l root ~/.z/projects/capybara
+    set -l dev "$root/www.capybara.run"
+    # 1. Merge each agent branch into dev (skip if no new commits)
+    for n in 1 2 3 4 5
+        set -l agent_dir "$root/agent$n"
+        if test -d "$agent_dir"
+            set -l ahead (git -C "$dev" rev-list --count dev..agent$n 2>/dev/null)
+            if test "$ahead" -gt 0
+                echo "Merging agent$n into dev ($ahead commits)..."
+                git -C "$dev" merge agent$n --no-edit
+            end
+        end
+    end
+    # 2. Push dev to remote
+    echo "Pushing dev to origin..."
+    git -C "$dev" push origin dev
+    # 3. Sync agents back to latest dev (+ prisma generate if schema changed)
+    set -l schema_changed (git -C "$dev" diff --name-only HEAD@{1}..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
+    for n in 1 2 3 4 5
+        set -l agent_dir "$root/agent$n"
+        if test -d "$agent_dir"
+            set -l behind (git -C "$agent_dir" rev-list --count agent$n..dev 2>/dev/null)
+            if test "$behind" -gt 0
+                echo "Syncing agent$n ($behind behind)..."
+                git -C "$agent_dir" merge dev --no-edit
+                if test -n "$schema_changed"
+                    echo "  Prisma schema changed, regenerating client..."
+                    pnpm --prefix "$agent_dir" prisma generate
+                end
+            end
+        end
+    end
+    echo "Done."
+end
 # alias gc 'git commit -v'
 alias gc 'git checkout'
 # alias gca 'git commit -v -a'
