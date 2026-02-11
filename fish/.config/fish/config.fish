@@ -343,13 +343,38 @@ source ~/.dotfiles/fish/.config/fish/api-keys.fish
 
 function __tmux_rename_window --on-event fish_preexec
     if test -n "$TMUX"
-        set -l cmd (string split " " $argv[1])[1]
-        tmux rename-window $cmd
+        set -l mode (tmux show-option -gqv @window_name_mode)
+        if test "$mode" = "command"
+            set -l cmd (string split " " $argv[1])[1]
+            tmux rename-window $cmd
+        end
     end
 end
 
 function __tmux_restore_window --on-event fish_postexec
     if test -n "$TMUX"
-        tmux rename-window "fish"
+        set -l mode (tmux show-option -gqv @window_name_mode)
+        if test "$mode" = "command"
+            tmux rename-window "fish"
+        else
+            tmux rename-window (basename $PWD)
+        end
+    end
+end
+
+function __tmux_update_folder_name --on-variable PWD
+    if test -n "$TMUX"
+        set -l mode (tmux show-option -gqv @window_name_mode)
+        if test "$mode" != "command"
+            tmux rename-window (basename $PWD)
+        end
+    end
+end
+
+# Initialize tmux window name
+if test -n "$TMUX"
+    set -l mode (tmux show-option -gqv @window_name_mode)
+    if test "$mode" != "command"
+        tmux rename-window (basename $PWD)
     end
 end
