@@ -35,6 +35,8 @@ alias cls clear
 # alias g git
 alias gp "git pull"
 alias gP "git push"
+alias wp "git fetch origin dev:dev && git merge dev"
+alias wP "git push -u origin HEAD"
 # alias gc 'git commit -v'
 alias gc 'git checkout'
 # alias gca 'git commit -v -a'
