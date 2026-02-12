@@ -18,8 +18,7 @@ function bind_dollar
 end
 
 function fish_user_key_bindings
-    bind \ch peco_select_history # Bind for peco select history to Ctrl+R
-    bind \cp peco_change_directory # Bind for peco change directory to Ctrl+F
+    bind \cp fzf_change_directory # Ctrl+P: change directory
     bind \co ok_python_exercise # ok Python exercise
     bind \cx peco_kill_process # kill process
     # bind \cg ranger
