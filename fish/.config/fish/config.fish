@@ -3,8 +3,7 @@
 set -g fish_greeting # disable greeting message
 
 set -gx EDITOR nvim
-# set -gx TERM xterm-256color
-set -gx TERM screen-256color # for tmux
+# $TERM is set by tmux (tmux-256color) — don't override here
 
 # theme
 # ------------------------------------------------------------

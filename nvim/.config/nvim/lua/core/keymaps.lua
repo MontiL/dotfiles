@@ -309,9 +309,6 @@ map("n", "[l", "<cmd>lprev<CR>", { desc = "Prev Location List" })
 map("n", "]L", "<cmd>llast<CR>", { desc = "Last Location List" })
 map("n", "[L", "<cmd>lfirst<CR>", { desc = "First Location List" })
 
--- File explorer (Oil)
-map("n", "<leader>t", "<cmd>Oil --float<CR>", { desc = "Oil float" })
-
 -- Goyo mode
 map("n", "<leader>G", "<cmd>Goyo<CR>", { desc = "Goyo mode / Lite mode" })
 
