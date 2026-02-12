@@ -6,14 +6,12 @@ keybinding:
     # nextPage: '.' # default
     prevPage: '<c-b>' # go to next page in list
     nextPage: '<c-f>' # go to previous page in list
-
 os:
   edit: 'nvim {{filename}}'
   editAtLine: 'nvim --line={{line}} {{filename}}'
   editAtLineAndWait: 'nvim --block --line={{line}} {{filename}}'
   editInTerminal: true
   openDirInEditor: 'nvim {{dir}}'
-
 gui:
   nerdFontsVersion: "3"
   border: rounded
@@ -23,14 +21,12 @@ gui:
     inactiveBorderColor: ["#4C566A"]
     selectedLineBgColor: ["#434C5E"]
     defaultFgColor: ["#D8DEE9"]
-
 git:
-  paging:
-    pager: delta --dark --paging=never
+  pagers:
+    - pager: "delta --paging=never --line-numbers --line-numbers-left-format=\"\" --syntax-theme=Nord --minus-style=\"syntax #3B2C37\" --minus-emph-style=\"syntax #BF616A\" --plus-style=\"syntax #2B3840\" --plus-emph-style=\"syntax #A3BE8C\""
   autoFetch: true
   log:
     showGraph: always
-
 customCommands:
   - key: "<c-p>"
     context: "global"
@@ -43,5 +39,5 @@ customCommands:
   - key: "W"
     context: "files"
     command: "git add -p"
-    subprocess: true
     description: "Interactive staging"
+    output: terminal
