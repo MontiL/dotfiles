@@ -106,7 +106,6 @@ return {
               end,
             },
           },
-          { name = "buffer" },
           { name = "git" },
           { name = "luasnip" }, -- For luasnip users.
           { name = "nvim_lsp" },

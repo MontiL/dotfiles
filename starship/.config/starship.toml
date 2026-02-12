@@ -1,3 +1,18 @@
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$rust\
+$docker_context\
+$package\
+$cmd_duration\
+$line_break\
+$character"""
+
 # Inserts a blank line between shell prompts
 #add_newline = true
 
@@ -68,3 +83,31 @@ symbol = "☕ "
 style = "bold orange"
 # 只有當 command 回傳 0 (找到進程) 時才顯示
 when = "pgrep -x caffeinate"
+
+[nodejs]
+format = "[$symbol($version)]($style) "
+symbol = " "
+
+[python]
+format = "[${symbol}(${version})]($style) "
+symbol = " "
+
+[rust]
+format = "[$symbol($version)]($style) "
+symbol = " "
+
+[docker_context]
+only_with_files = true
+
+[package]
+display_private = true
+
+[cmd_duration]
+min_time = 2000
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+symbol = " "

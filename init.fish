@@ -5,14 +5,14 @@
 # disabled long-press globally
 defaults write -g ApplePressAndHoldEnabled -bool false
 
-# use node@20
-brew link --overwrite node@20
+# use node@22
+brew link --overwrite node@22
 
 echo 'change folder to .dotfiles'
 cd ~/.dotfiles
 
 echo 'stow config files'
-rm -rf ~/.gitconfig && stow ssh tmux git nvim starship peco pylsp lazygit ghostty aerospace
+rm -rf ~/.gitconfig && stow ssh tmux git nvim starship pylsp lazygit ghostty aerospace
 ln -s ~/.dotfiles/bin/color_transfer /usr/local/bin/color_transfer
 
 read -l -P 'Keyboard type to restore karabiner config: [1] Apple [2] Windows [3] K2 : ' foo
@@ -67,9 +67,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # extension
 cargo install cargo-update prosemd-lsp
 
-echo 'install nvm'
-nvm install latest
-nvm use latest
+echo 'install node via fnm'
+fnm install --lts
 
 echo 'install node'
 cat npm_requirements | xargs npm i -g

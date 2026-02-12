@@ -7,10 +7,6 @@ tap "teamookla/speedtest"
 # brew "pandoc"
 # Spreadsheet program for the terminal, using ncurses
 # brew "sc-im"
-# Terminal file manager
-brew "lf"
-# File browser
-brew "ranger"
 # Text interface for Git repositories
 brew "tig"
 # GitHub command-line tool

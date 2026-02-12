@@ -13,27 +13,35 @@ os:
   editAtLineAndWait: 'nvim --block --line={{line}} {{filename}}'
   editInTerminal: true
   openDirInEditor: 'nvim {{dir}}'
-#
+
 gui:
-    useHunkModeInStagingView: false  # Set to true to auto-enter hunk mode in staging view
-#     skipDiscardChangeWarning: true
-#     theme:
-#         activeBorderColor:
-#             - red
-#             - bold
-#         inactiveBorderColor:
-#             - white
-#         optionsTextColor:
-#             - blue
-#         selectedLineBgColor:
-#             - blue # set to `default` to have no background colour
-#         selectedRangeBgColor:
-#             - blue
-#         cherryPickedCommitBgColor:
-#             - cyan
-#         cherryPickedCommitFgColor:
-#             - blue
-#         unstagedChangesColor:
-#             - red
-#         defaultFgColor:
-#             - default
+  nerdFontsVersion: "3"
+  border: rounded
+  useHunkModeInStagingView: false
+  theme:
+    activeBorderColor: ["#88C0D0", bold]
+    inactiveBorderColor: ["#4C566A"]
+    selectedLineBgColor: ["#434C5E"]
+    defaultFgColor: ["#D8DEE9"]
+
+git:
+  paging:
+    pager: delta --dark --paging=never
+  autoFetch: true
+  log:
+    showGraph: always
+
+customCommands:
+  - key: "<c-p>"
+    context: "global"
+    command: "git push"
+    description: "Push"
+  - key: "F"
+    context: "global"
+    command: "git fetch --all --prune"
+    description: "Fetch all and prune"
+  - key: "W"
+    context: "files"
+    command: "git add -p"
+    subprocess: true
+    description: "Interactive staging"

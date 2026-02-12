@@ -142,7 +142,7 @@ set nrformats+=alpha
 -- Instant grep + quickfix
 -- https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 vim.cmd([[
-set grepprg=ag\ --vimgrep
+set grepprg=rg\ --vimgrep\ --smart-case
 
 function! Grep(...)
 	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))

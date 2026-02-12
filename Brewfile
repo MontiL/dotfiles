@@ -34,8 +34,6 @@ brew "cmake"
 brew "readline"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
-# Unfancy JavaScript
-brew "coffeescript"
 # Terminal countdown timer
 brew "countdown"
 # Get, unpack, build, and install modules from CPAN
@@ -88,8 +86,6 @@ brew "guile"
 brew "harfbuzz"
 # Improved top (interactive process viewer)
 brew "htop"
-# Add GitHub support to git on the command-line
-brew "hub"
 # Command-line benchmarking tool
 brew "hyperfine"
 # Tools and libraries to manipulate images in select formats
@@ -124,8 +120,6 @@ brew "node@22", link: true
 brew "opencc"
 # Open source suite of directory software
 brew "openldap"
-# Simplistic interactive filtering tool
-brew "peco"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Object-relational database system
@@ -150,8 +144,6 @@ brew "sevenzip"
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
-# Code-search similar to ack
-brew "the_silver_searcher"
 # Text interface for Git repositories
 brew "tig"
 # Terminal multiplexer
@@ -166,8 +158,6 @@ brew "uv"
 brew "vercel-cli"
 # Internet file retriever
 brew "wget"
-# JavaScript package manager
-brew "yarn"
 # Blazing fast terminal file manager written in Rust, based on async I/O
 brew "yazi"
 # Shell extension to navigate your filesystem faster

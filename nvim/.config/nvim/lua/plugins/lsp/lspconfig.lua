@@ -5,7 +5,7 @@ return {
     -- Automatically install LSPs to stdpath for neovim
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "folke/neodev.nvim",
+    "folke/lazydev.nvim",
     --[[ "williamboman/nvim-lsp-installer", ]]
     --[[ "tamago324/nlsp-settings.nvim", -- language server settings defined in json ]]
     -- "jose-elias-alvarez/null-ls.nvim",
@@ -123,28 +123,8 @@ return {
       },
     }
     vim.diagnostic.config(config)
-    -- Show line diagnostics automatically in hover window
-    vim.lsp.handlers["textDocument/hover"] = function(_, result, _, handler_config)
-      local hover_config = handler_config or {}
-      hover_config.border = "rounded"
-      vim.lsp.util.open_floating_preview(
-        vim.lsp.util.convert_input_to_markdown_lines(result.contents),
-        "markdown",
-        hover_config
-      )
-    end
-    vim.lsp.handlers["textDocument/signatureHelp"] = function(_, result, ctx, handler_config)
-      local sig_config = handler_config or {}
-      sig_config.border = "rounded"
-      local signatures = result.signatures
-      if ctx and ctx.client_id then
-        signatures = vim.lsp.util.stylize_markdown(signatures, { client_id = ctx.client_id })
-      end
-      vim.lsp.util.open_floating_preview(
-        vim.lsp.util.convert_input_to_markdown_lines(signatures),
-        "markdown",
-        sig_config
-      )
-    end
+    -- Rounded borders for hover and signature help
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
   end,
 }

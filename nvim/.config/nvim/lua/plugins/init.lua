@@ -1,9 +1,7 @@
 return {
   -- General utilities
   ----------------------------------------------------------------------------------------------------
-  "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
-  "vim-scripts/BufOnly.vim",
 
   --[[ "wellle/targets.vim", ]]
   -- "michaeljsmith/vim-indent-object",
@@ -35,11 +33,6 @@ return {
   },
   "tpope/vim-repeat",
 
-
-  {
-    "norcalli/nvim-terminal.lua",
-    config = function() require("terminal").setup() end,
-  },
 
   -- git
   ----------------------------------------------------------------------------------------------------

@@ -19,3 +19,27 @@ cursor-style = block
 cursor-style-blink = false
 adjust-cursor-thickness = 2
 keybind = shift+enter=text:\x1b\r
+
+# Window
+window-padding-y = 5
+window-save-state = always
+window-inherit-working-directory = true
+confirm-close-surface = false
+
+# Mouse & Clipboard
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+clipboard-paste-protection = true
+
+# Shell integration
+shell-integration = fish
+shell-integration-features = cursor,sudo,title
+
+# Font features
+font-thicken = true
+
+# Keybindings
+keybind = super+equal=increase_font_size:1
+keybind = super+minus=decrease_font_size:1
+keybind = super+zero=reset_font_size
+keybind = super+k=clear_screen
