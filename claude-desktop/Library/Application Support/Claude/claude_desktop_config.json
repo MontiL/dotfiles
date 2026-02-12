@@ -22,7 +22,7 @@
       "args": [
         "mcp-server-git",
         "--repository",
-        "~/.z/projects/capybara/www.capybara.run/"
+        "~/.z/projects/capybara/www/"
       ]
     },
     "brave-search": {

@@ -2,7 +2,7 @@ function fzf_change_directory
     begin
         # Capybara worktrees
         set -l capy $HOME/.z/projects/capybara
-        echo $capy/www.capybara.run
+        echo $capy/www
         for n in 1 2 3 4 5
             echo $capy/agent$n
         end

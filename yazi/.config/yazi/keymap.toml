@@ -20,7 +20,7 @@ desc = "Go to config"
 
 [[manager.prepend_keymap]]
 on = ["g", "w"]
-run = "cd ~/.z/projects/capybara/www.capybara.run/"
+run = "cd ~/.z/projects/capybara/www/"
 desc = "Go to capybara www"
 
 [[manager.prepend_keymap]]
