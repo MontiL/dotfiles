@@ -75,6 +75,181 @@ function ws --description "Worktree sync: merge agents into dev, push dev, then 
     end
     echo "Done."
 end
+
+# Worker Pool Functions
+# ============================================================
+# Architecture: workers/{dev,a1-a5}/w{1-5}
+# Ports: dev=3010+w-1, agent=3000+N*100+10+w-1
+# Usage: wc a1 3, wrm a1 3, wsync a1 3, wca a1, wrma a1
+
+function __pool_resolve --description "Resolve parent dir, branch, rel_path for pool worker"
+    set -l parent $argv[1]
+    set -l root ~/.z/projects/capybara
+    switch $parent
+        case dev
+            echo "$root/www.capybara.run"
+            echo dev
+            echo "../../../www.capybara.run"
+        case a1 a2 a3 a4 a5
+            set -l n (string sub -s 2 $parent)
+            echo "$root/agent$n"
+            echo "agent$n"
+            echo "../../../agent$n"
+        case '*'
+            echo "Error: invalid parent '$parent' (use: dev, a1-a5)" >&2
+            return 1
+    end
+end
+
+function wc --description "Create a pool worker worktree: wc <parent> <num>"
+    if test (count $argv) -ne 2
+        echo "Usage: wc <parent> <num> (e.g., wc a1 3)"
+        return 1
+    end
+
+    set -l parent $argv[1]
+    set -l num $argv[2]
+    set -l root ~/.z/projects/capybara
+    set -l resolved (__pool_resolve $parent) || return 1
+    set -l parent_dir $resolved[1]
+    set -l parent_branch $resolved[2]
+    set -l rel_path $resolved[3]
+    set -l worker_dir "$root/workers/$parent/w$num"
+    set -l branch
+    set -l port
+
+    # Branch name: dev-w1 or a1w1
+    switch $parent
+        case dev
+            set branch "dev-w$num"
+        case '*'
+            set branch "$parent"w"$num"
+    end
+
+    # Port: dev=3010+w-1, agent=3000+N*100+10+w-1
+    switch $parent
+        case dev
+            set port (math 3010 + $num - 1)
+        case '*'
+            set -l n (string sub -s 2 $parent)
+            set port (math 3000 + $n \* 100 + 10 + $num - 1)
+    end
+
+    if test -d "$worker_dir"
+        echo "Worker $worker_dir already exists"
+        return 1
+    end
+
+    echo "Creating worker: $branch (port $port) from $parent_branch..."
+
+    # 1. Create worktree
+    git -C "$parent_dir" worktree add "$worker_dir" -b "$branch" "$parent_branch"
+    or return 1
+
+    # 2. Symlink node_modules
+    ln -s "$rel_path/node_modules" "$worker_dir/node_modules"
+
+    # 3. Copy .env and change NEXTAUTH_URL port
+    cp "$parent_dir/.env" "$worker_dir/.env"
+    sed -i '' "/^NEXTAUTH_URL/s|localhost:[0-9]*|localhost:$port|" "$worker_dir/.env"
+
+    # 4. Prisma generate
+    fish -c "cd $worker_dir && pnpm prisma generate"
+
+    echo "✓ Worker $branch ready at $worker_dir (port $port)"
+end
+
+function wrm --description "Remove a pool worker worktree: wrm <parent> <num>"
+    if test (count $argv) -ne 2
+        echo "Usage: wrm <parent> <num>"
+        return 1
+    end
+
+    set -l parent $argv[1]
+    set -l num $argv[2]
+    set -l root ~/.z/projects/capybara
+    set -l resolved (__pool_resolve $parent) || return 1
+    set -l parent_dir $resolved[1]
+    set -l worker_dir "$root/workers/$parent/w$num"
+    set -l branch
+
+    switch $parent
+        case dev
+            set branch "dev-w$num"
+        case '*'
+            set branch "$parent"w"$num"
+    end
+
+    if not test -d "$worker_dir"
+        echo "Worker $worker_dir does not exist"
+        return 1
+    end
+
+    echo "Removing worker: $branch..."
+    rm -f "$worker_dir/node_modules"
+    git -C "$parent_dir" worktree remove "$worker_dir" --force
+    git -C "$parent_dir" branch -D "$branch" 2>/dev/null
+    echo "✓ Worker $branch removed"
+end
+
+function wsync --description "Sync pool worker with parent branch: wsync <parent> <num>"
+    if test (count $argv) -ne 2
+        echo "Usage: wsync <parent> <num>"
+        return 1
+    end
+
+    set -l parent $argv[1]
+    set -l num $argv[2]
+    set -l root ~/.z/projects/capybara
+    set -l resolved (__pool_resolve $parent) || return 1
+    set -l parent_branch $resolved[2]
+    set -l worker_dir "$root/workers/$parent/w$num"
+    set -l branch
+
+    switch $parent
+        case dev
+            set branch "dev-w$num"
+        case '*'
+            set branch "$parent"w"$num"
+    end
+
+    if not test -d "$worker_dir"
+        echo "Worker $worker_dir does not exist"
+        return 1
+    end
+
+    echo "Syncing $branch with $parent_branch..."
+    git -C "$worker_dir" merge "$parent_branch" --no-edit
+
+    set -l schema_changed (git -C "$worker_dir" diff --name-only HEAD@{1}..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
+    if test -n "$schema_changed"
+        echo "  Prisma schema changed, regenerating..."
+        fish -c "cd $worker_dir && pnpm prisma generate"
+    end
+
+    echo "✓ Worker $branch synced"
+end
+
+function wca --description "Create all 5 workers for a parent: wca <parent>"
+    if test (count $argv) -ne 1
+        echo "Usage: wca <parent> (e.g., wca a1)"
+        return 1
+    end
+    for n in 1 2 3 4 5
+        wc $argv[1] $n
+    end
+end
+
+function wrma --description "Remove all workers for a parent: wrma <parent>"
+    if test (count $argv) -ne 1
+        echo "Usage: wrma <parent> (e.g., wrma a1)"
+        return 1
+    end
+    for n in 1 2 3 4 5
+        wrm $argv[1] $n 2>/dev/null
+    end
+end
+
 # alias gc 'git commit -v'
 alias gc 'git checkout'
 # alias gca 'git commit -v -a'
