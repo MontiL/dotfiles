@@ -33,37 +33,43 @@ abbr -a -- - 'cd -'
 alias cls clear
 alias gp "git pull" # pull from remote
 alias gP "git push" # push to remote
-alias wp "git fetch origin dev && git merge FETCH_HEAD dev" # pull from worktree
+alias wp "git fetch origin dev && git rebase FETCH_HEAD" # pull from worktree (rebase for linear history)
 alias wP "git push origin dev" # push dev to remote
 alias d2m "git fetch . dev:main && git push origin main" # merge dev to main and push (no checkout)
 alias d2t "git fetch . dev:test && git push origin test" # merge dev to test and push (no checkout)
 alias d2a "git fetch . dev:test && git fetch . dev:main && git push origin test main" # merge dev to test+main and push (no checkout)
-function ws --description "Worktree sync: merge agents into dev, push dev, then sync agents back"
+function ws --description "Worktree sync: rebase agents onto dev, push dev, then sync agents back"
     set -l root ~/.z/projects/capybara
     set -l dev "$root/www.capybara.run"
-    # 1. Merge each agent branch into dev (skip if no new commits)
+    # 1. Rebase each agent branch onto dev, then fast-forward merge into dev
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
         if test -d "$agent_dir"
             set -l ahead (git -C "$dev" rev-list --count dev..agent$n 2>/dev/null)
             if test "$ahead" -gt 0
-                echo "Merging agent$n into dev ($ahead commits)..."
-                git -C "$dev" merge agent$n --no-edit
+                echo "Rebasing agent$n onto dev ($ahead commits)..."
+                git -C "$agent_dir" rebase dev
+                or begin
+                    echo "  ⚠ Rebase conflict in agent$n — resolve manually then re-run ws"
+                    return 1
+                end
+                echo "Fast-forward merging agent$n into dev..."
+                git -C "$dev" merge agent$n
             end
         end
     end
     # 2. Push dev to remote
     echo "Pushing dev to origin..."
     git -C "$dev" push origin dev
-    # 3. Sync agents back to latest dev (+ prisma generate if schema changed)
+    # 3. Sync agents back to latest dev via rebase (+ prisma generate if schema changed)
     set -l schema_changed (git -C "$dev" diff --name-only HEAD@{1}..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
         if test -d "$agent_dir"
             set -l behind (git -C "$agent_dir" rev-list --count agent$n..dev 2>/dev/null)
             if test "$behind" -gt 0
-                echo "Syncing agent$n ($behind behind)..."
-                git -C "$agent_dir" merge dev --no-edit
+                echo "Rebasing agent$n onto dev ($behind behind)..."
+                git -C "$agent_dir" rebase dev
                 if test -n "$schema_changed"
                     echo "  Prisma schema changed, regenerating client..."
                     pnpm -C "$agent_dir" prisma generate
@@ -216,8 +222,8 @@ function wsync --description "Sync pool worker with parent branch: wsync <parent
         return 1
     end
 
-    echo "Syncing $branch with $parent_branch..."
-    git -C "$worker_dir" merge "$parent_branch" --no-edit
+    echo "Rebasing $branch onto $parent_branch..."
+    git -C "$worker_dir" rebase "$parent_branch"
 
     set -l schema_changed (git -C "$worker_dir" diff --name-only HEAD@{1}..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
     if test -n "$schema_changed"
