@@ -37,9 +37,9 @@ alias gp "git pull" # pull from remote
 alias gP "git push" # push to remote
 alias wp "git fetch origin dev && git merge FETCH_HEAD dev" # pull from worktree
 alias wP "git push origin dev" # push dev to remote
-alias d2m "git checkout main && git merge dev && git checkout dev" # merge dev to main
-alias d2t "git checkout test && git merge dev && git checkout dev" # merge dev to test
-alias d2a "git checkout test && git merge dev && git checkout main && git merge dev && git checkout dev" # merge dev to test and main
+alias d2m "git fetch . dev:main && git push origin main" # merge dev to main and push (no checkout)
+alias d2t "git fetch . dev:test && git push origin test" # merge dev to test and push (no checkout)
+alias d2a "git fetch . dev:test && git fetch . dev:main && git push origin test main" # merge dev to test+main and push (no checkout)
 function ws --description "Worktree sync: merge agents into dev, push dev, then sync agents back"
     set -l root ~/.z/projects/capybara
     set -l dev "$root/www.capybara.run"
@@ -68,7 +68,7 @@ function ws --description "Worktree sync: merge agents into dev, push dev, then 
                 git -C "$agent_dir" merge dev --no-edit
                 if test -n "$schema_changed"
                     echo "  Prisma schema changed, regenerating client..."
-                    pnpm --prefix "$agent_dir" prisma generate
+                    pnpm -C "$agent_dir" prisma generate
                 end
             end
         end
