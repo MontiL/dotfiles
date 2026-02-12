@@ -76,3 +76,14 @@ After making changes, verify they work before committing:
 - **Brewfile changes**: Run `brew bundle check` to validate
 - **Neovim**: Open nvim and confirm no errors on startup
 - **tmux**: Reload config with `prefix + r` or `tmux source-file ~/.tmux.conf`
+
+## After Committing
+
+Always rebase onto main and push after completing changes:
+
+```bash
+git pull --rebase origin main  # rebase if needed
+git push origin main
+```
+
+This applies to every commit in this dotfiles repo — do not leave unpushed work.
