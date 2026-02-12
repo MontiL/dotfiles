@@ -35,9 +35,33 @@ alias gp "git pull" # pull from remote
 alias gP "git push" # push to remote
 alias wp "git fetch origin dev && git rebase FETCH_HEAD" # pull from worktree (rebase for linear history)
 alias wP "git push origin dev" # push dev to remote
-alias d2m "git fetch . dev:main && git push origin main" # merge dev to main and push (no checkout)
-alias d2t "git fetch . dev:test && git push origin test" # merge dev to test and push (no checkout)
-alias d2a "git fetch . dev:test && git fetch . dev:main && git push origin test main" # merge dev to test+main and push (no checkout)
+function d2m --description "Fast-forward main to dev and push"
+    echo "Updating main to dev..."
+    git fetch . dev:main
+    or return 1
+    echo "Pushing main to origin..."
+    git push origin main
+    echo "Done."
+end
+function d2t --description "Fast-forward test to dev and push"
+    echo "Updating test to dev..."
+    git fetch . dev:test
+    or return 1
+    echo "Pushing test to origin..."
+    git push origin test
+    echo "Done."
+end
+function d2a --description "Fast-forward test+main to dev and push"
+    echo "Updating test to dev..."
+    git fetch . dev:test
+    or return 1
+    echo "Updating main to dev..."
+    git fetch . dev:main
+    or return 1
+    echo "Pushing test+main to origin..."
+    git push origin test main
+    echo "Done."
+end
 function ws --description "Worktree sync: rebase agents onto dev, push dev, then sync agents back"
     set -l root ~/.z/projects/capybara
     set -l dev "$root/www.capybara.run"
