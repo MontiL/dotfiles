@@ -67,6 +67,11 @@ return {
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
+    -- ts_ls: prioritize tsconfig.json for root detection (monorepo support)
+    vim.lsp.config('ts_ls', {
+      root_markers = { 'tsconfig.json', 'package.json' },
+    })
+
     -- mason-lspconfig is configured in mason.lua
     local mason_lspconfig = require("mason-lspconfig")
 
