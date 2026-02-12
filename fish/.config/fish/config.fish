@@ -37,6 +37,9 @@ alias gp "git pull" # pull from remote
 alias gP "git push" # push to remote
 alias wp "git fetch origin dev && git merge FETCH_HEAD dev" # pull from worktree
 alias wP "git push origin dev" # push dev to remote
+alias d2m "git checkout main && git merge dev && git checkout dev" # merge dev to main
+alias d2t "git checkout test && git merge dev && git checkout dev" # merge dev to test
+alias d2a "git checkout test && git merge dev && git checkout main && git merge dev && git checkout dev" # merge dev to test and main
 function ws --description "Worktree sync: merge agents into dev, push dev, then sync agents back"
     set -l root ~/.z/projects/capybara
     set -l dev "$root/www.capybara.run"
