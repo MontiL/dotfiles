@@ -10,6 +10,8 @@ $rust\
 $docker_context\
 $package\
 $cmd_duration\
+${custom.at_jobs}\
+${custom.cafe}\
 $line_break\
 $character"""
 
