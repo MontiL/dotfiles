@@ -96,12 +96,19 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
                 git -C "$agent_dir" rebase dev
                 if test -n "$schema_changed"
                     echo "  Prisma schema changed, regenerating client..."
-                    pnpm -C "$agent_dir" prisma generate
+                    fish -c "cd $agent_dir && pnpm prisma generate"
                 end
             end
         end
     end
     echo "Done."
+end
+function wss --description "Worktree sync + fast-forward test & main to dev and push"
+    ws
+    or return 1
+    d2t
+    or return 1
+    d2m
 end
 
 # Worker Pool Functions
