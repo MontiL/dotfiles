@@ -322,7 +322,7 @@ alias t tmux # can follow by session name
 alias ta "tmux attach"
 alias tk "tmux kill-session -t" # can follow by session name
 alias tl "tmux list-sessions"
-alias tw "tmux new-session -c ~/.z/projects/capybara/agent1 \; new-window -c ~/.z/projects/capybara/agent2 \; new-window -c ~/.z/projects/capybara/agent3 \; new-window -c ~/.z/projects/capybara/agent4 \; new-window -c ~/.z/projects/capybara/agent5 \; new-window -c ~/.z/projects/capybara/www/"
+alias tw "tmux new-session -c ~/.z/projects/capybara/agent1 \; new-window -c ~/.z/projects/capybara/agent2 \; new-window -c ~/.z/projects/capybara/agent3 \; new-window -c ~/.z/projects/capybara/agent4 \; new-window -c ~/.z/projects/capybara/agent5 \; new-window -c ~/.z/projects/capybara/www/ \; new-window -c ~/.z/projects/capybara/www/"
 alias tws "tmux new-session -c ~/.z/projects/capybara/www/ \; new-window \; split-window -v 'pnpm dlx @agentdeskai/browser-tools-server' \; select-pane -U"
 
 alias ls eza
