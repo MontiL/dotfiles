@@ -23,7 +23,7 @@ gui:
     defaultFgColor: ["#D8DEE9"]
 git:
   pagers:
-    - pager: "delta --paging=never --line-numbers --line-numbers-left-format=\"\" --syntax-theme=Nord --minus-style=\"syntax #3B2C37\" --minus-emph-style=\"syntax #BF616A\" --plus-style=\"syntax #2B3840\" --plus-emph-style=\"syntax #A3BE8C\""
+    - pager: "delta --paging=never --line-numbers --line-numbers-left-format=\"\" --syntax-theme=Nord --minus-style=\"syntax #3B2C37\" --minus-emph-style=\"syntax #6E3B3F\" --plus-style=\"syntax #2B3840\" --plus-emph-style=\"syntax #354B3B\""
   autoFetch: true
   log:
     showGraph: always
