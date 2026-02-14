@@ -65,6 +65,7 @@ end
 function ws --description "Worktree sync: rebase agents onto dev, push dev, then sync agents back"
     set -l root ~/.z/projects/capybara
     set -l dev "$root/www"
+    set -l orig_head (git -C "$dev" rev-parse HEAD)
     # 1. Rebase each agent branch onto dev, then fast-forward merge into dev
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
@@ -86,7 +87,7 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
     echo "Pushing dev to origin..."
     git -C "$dev" push origin dev
     # 3. Sync agents back to latest dev via rebase (+ prisma generate if schema changed)
-    set -l schema_changed (git -C "$dev" diff --name-only HEAD@{1}..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
+    set -l schema_changed (git -C "$dev" diff --name-only $orig_head..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
         if test -d "$agent_dir"
@@ -94,6 +95,7 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
             if test "$behind" -gt 0
                 echo "Rebasing agent$n onto dev ($behind behind)..."
                 git -C "$agent_dir" rebase dev
+                or echo "  ⚠ agent$n sync rebase failed — run: cd $agent_dir && git rebase dev"
                 if test -n "$schema_changed"
                     echo "  Prisma schema changed, regenerating client..."
                     fish -c "cd $agent_dir && pnpm prisma generate"
@@ -106,9 +108,7 @@ end
 function wss --description "Worktree sync + fast-forward test & main to dev and push"
     ws
     or return 1
-    d2t
-    or return 1
-    d2m
+    d2a
 end
 
 # Worker Pool Functions
