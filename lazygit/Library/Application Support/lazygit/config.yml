@@ -28,7 +28,7 @@ git:
   log:
     showGraph: always
 customCommands:
-  - key: "<c-p>"
+  - key: "P"
     context: "global"
     command: "git push"
     description: "Push"
