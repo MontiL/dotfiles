@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "WebFetch(domain:github.com)",
+      "Read(//Users/monti/.config/nvim/lua/plugins/lsp/**)",
+      "Bash(brew config:*)",
+      "Bash(export:*)",
+      "Bash(export HOMEBREW_BOTTLE_DOMAIN=\"https://mirrors.ustc.edu.cn/homebrew-bottles\")",
+      "Bash(brew tap:*)",
+      "Bash(source:*)",
+      "Bash(brew:*)",
+      "Read(//Users/monti/.config/nvim/**)",
+      "Bash(git status:*)",
+      "Bash(ls:*)",
+      "Bash(git -C /Users/monti/.dotfiles ls-files:*)",
+      "Bash(corepack:*)",
+      "Bash(pnpm:*)",
+      "Bash([ -d .claude ])",
+      "Bash(git -C /Users/monti/.dotfiles log --oneline -20)"
+    ],
+    "deny": []
+  }
+}
