@@ -65,7 +65,6 @@ end
 function ws --description "Worktree sync: rebase agents onto dev, push dev, then sync agents back"
     set -l root ~/.z/projects/capybara
     set -l dev "$root/www"
-    set -l orig_head (git -C "$dev" rev-parse HEAD)
     # 1. Rebase each agent branch onto dev, then fast-forward merge into dev
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
@@ -87,16 +86,17 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
     echo "Pushing dev to origin..."
     git -C "$dev" push origin dev
     # 3. Sync agents back to latest dev via rebase (+ prisma generate if schema changed)
-    set -l schema_changed (git -C "$dev" diff --name-only $orig_head..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
         if test -d "$agent_dir"
             set -l behind (git -C "$agent_dir" rev-list --count agent$n..dev 2>/dev/null)
             if test "$behind" -gt 0
+                set -l agent_head (git -C "$agent_dir" rev-parse HEAD)
                 echo "Rebasing agent$n onto dev ($behind behind)..."
                 git -C "$agent_dir" rebase dev
                 or echo "  ⚠ agent$n sync rebase failed — run: cd $agent_dir && git rebase dev"
-                if test -n "$schema_changed"
+                set -l schema_diff (git -C "$agent_dir" diff --name-only $agent_head..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
+                if test -n "$schema_diff"
                     echo "  Prisma schema changed, regenerating client..."
                     fish -c "cd $agent_dir && pnpm prisma generate"
                 end
@@ -253,11 +253,12 @@ function wsync --description "Sync pool worker with parent branch: wsync <parent
         return 1
     end
 
+    set -l old_head (git -C "$worker_dir" rev-parse HEAD)
     echo "Rebasing $branch onto $parent_branch..."
     git -C "$worker_dir" rebase "$parent_branch"
 
-    set -l schema_changed (git -C "$worker_dir" diff --name-only HEAD@{1}..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
-    if test -n "$schema_changed"
+    set -l schema_diff (git -C "$worker_dir" diff --name-only $old_head..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
+    if test -n "$schema_diff"
         echo "  Prisma schema changed, regenerating..."
         fish -c "cd $worker_dir && pnpm prisma generate"
     end
