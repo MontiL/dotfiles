@@ -85,7 +85,7 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
     # 2. Push dev to remote
     echo "Pushing dev to origin..."
     git -C "$dev" push origin dev
-    # 3. Sync agents back to latest dev via rebase (+ prisma generate if schema changed)
+    # 3. Sync agents back to latest dev via rebase (+ pnpm install / prisma generate if changed)
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
         if test -d "$agent_dir"
@@ -95,6 +95,11 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
                 echo "Rebasing agent$n onto dev ($behind behind)..."
                 git -C "$agent_dir" rebase dev
                 or echo "  ⚠ agent$n sync rebase failed — run: cd $agent_dir && git rebase dev"
+                set -l pkg_diff (git -C "$agent_dir" diff --name-only $agent_head..HEAD -- "package.json" 2>/dev/null | head -1)
+                if test -n "$pkg_diff"
+                    echo "  package.json changed, installing dependencies..."
+                    fish -c "cd $agent_dir && pnpm install"
+                end
                 set -l schema_diff (git -C "$agent_dir" diff --name-only $agent_head..HEAD -- "prisma/schema/" 2>/dev/null | head -1)
                 if test -n "$schema_diff"
                     echo "  Prisma schema changed, regenerating client..."
