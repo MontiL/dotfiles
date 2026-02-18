@@ -193,8 +193,8 @@ function wc --description "Create a pool worker worktree: wc <parent> <num>"
     cp "$parent_dir/.env" "$worker_dir/.env"
     sed -i '' "/^NEXTAUTH_URL/s|localhost:[0-9]*|localhost:$port|" "$worker_dir/.env"
 
-    # 4. Prisma generate
-    fish -c "cd $worker_dir && pnpm prisma generate"
+    # 4. Install dependencies & generate prisma client
+    fish -c "cd $worker_dir && pnpm install && pnpm prisma generate"
 
     echo "✓ Worker $branch ready at $worker_dir (port $port)"
 end
