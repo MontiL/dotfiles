@@ -66,6 +66,7 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
     set -l root ~/.z/projects/capybara
     set -l dev "$root/www"
     # 1. Rebase each agent branch onto dev, then fast-forward merge into dev
+    set -l dev_head_before (git -C "$dev" rev-parse HEAD)
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
         if test -d "$agent_dir"
@@ -106,6 +107,22 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
                     fish -c "cd $agent_dir && pnpm prisma generate"
                 end
             end
+        end
+    end
+    # 4. Clear eslint cache across all worktrees if config/deps changed
+    set -l dev_pkg_diff (git -C "$dev" diff --name-only $dev_head_before..HEAD -- "package.json" 2>/dev/null | head -1)
+    set -l dev_eslint_diff (git -C "$dev" diff --name-only $dev_head_before..HEAD -- "eslint.config.mjs" 2>/dev/null | head -1)
+    if test -n "$dev_pkg_diff" -o -n "$dev_eslint_diff"
+        echo "ESLint config/deps changed, clearing lint caches..."
+        rm -f "$dev/.eslintcache"
+        for n in 1 2 3 4 5
+            rm -f "$root/agent$n/.eslintcache"
+            for w in 1 2 3 4 5
+                rm -f "$root/workers/a$n/w$w/.eslintcache"
+            end
+        end
+        for w in 1 2 3 4 5
+            rm -f "$root/workers/dev/w$w/.eslintcache"
         end
     end
     echo "Done."
@@ -266,6 +283,15 @@ function wsync --description "Sync pool worker with parent branch: wsync <parent
     if test -n "$schema_diff"
         echo "  Prisma schema changed, regenerating..."
         fish -c "cd $worker_dir && pnpm prisma generate"
+    end
+
+    set -l pkg_diff (git -C "$worker_dir" diff --name-only $old_head..HEAD -- "package.json" 2>/dev/null | head -1)
+    set -l eslint_diff (git -C "$worker_dir" diff --name-only $old_head..HEAD -- "eslint.config.mjs" 2>/dev/null | head -1)
+    if test -n "$pkg_diff" -o -n "$eslint_diff"
+        if test -f "$worker_dir/.eslintcache"
+            echo "  ESLint config/deps changed, clearing lint cache..."
+            rm -f "$worker_dir/.eslintcache"
+        end
     end
 
     echo "✓ Worker $branch synced"
