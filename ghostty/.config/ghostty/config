@@ -18,7 +18,7 @@ background-blur-radius = 10
 cursor-style = block
 cursor-style-blink = false
 adjust-cursor-thickness = 2
-keybind = shift+enter=text:\x1b\r
+
 
 # Window
 window-padding-y = 5
@@ -39,8 +39,12 @@ shell-integration-features = cursor,sudo,title
 font-thicken = true
 
 # Keybindings
-macos-option-as-alt = true
+keybind = shift+enter=text:\x1b\r
 keybind = super+equal=increase_font_size:1
 keybind = super+minus=decrease_font_size:1
 keybind = super+zero=reset_font_size
 keybind = super+k=clear_screen
+## Keybindings for ctrl f/b in claude code
+macos-option-as-alt = true
+keybind = ctrl+f=text:\x1bf
+keybind = ctrl+b=text:\x1bb
