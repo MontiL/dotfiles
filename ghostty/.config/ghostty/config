@@ -39,6 +39,7 @@ shell-integration-features = cursor,sudo,title
 font-thicken = true
 
 # Keybindings
+macos-option-as-alt = true
 keybind = super+equal=increase_font_size:1
 keybind = super+minus=decrease_font_size:1
 keybind = super+zero=reset_font_size

@@ -149,8 +149,8 @@ alt-0 = 'workspace P'
 # alt-y = 'workspace Y'
 # alt-z = 'workspace Z'
 
-alt-f = 'fullscreen'
-alt-shift-f = 'layout floating tiling'
+alt-z = 'fullscreen'
+alt-shift-z = 'layout floating tiling'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = 'move-node-to-workspace 1'
