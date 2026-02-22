@@ -416,7 +416,9 @@ switch (uname)
     case Darwin
         source ~/.dotfiles/fish/.config/fish/config-osx.fish
     case Linux
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        if test -x /home/linuxbrew/.linuxbrew/bin/brew
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        end
         source ~/.dotfiles/fish/.config/fish/config-linux.fish
 end
 
@@ -447,17 +449,26 @@ set fzf_fd_opts --hidden --exclude=.git #--bind=ctrl-/:toggle-preview fzf --prev
 set fzf_preview_file_cmd "fzf --preview 'cat {}' --preview-window right:90%:hidden:wrap --bind ctrl-/:toggle-preview"
 
 # pnpm
-set -gx PNPM_HOME "$HOME/Library/pnpm"
+switch (uname)
+    case Darwin
+        set -gx PNPM_HOME "$HOME/Library/pnpm"
+    case Linux
+        set -gx PNPM_HOME "$HOME/.local/share/pnpm"
+end
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
 
 # fnm (after PNPM_HOME so fnm's node path takes priority)
-fnm env --use-on-cd --shell fish | source
+if type -q fnm
+    fnm env --use-on-cd --shell fish | source
+end
 
 # Added by Windsurf
-fish_add_path /Users/monti/.codeium/windsurf/bin
+if test -d /Users/monti/.codeium/windsurf/bin
+    fish_add_path /Users/monti/.codeium/windsurf/bin
+end
 
 # Gemini
 set -gx GEMINI_MODEL gemini-3-pro-preview
