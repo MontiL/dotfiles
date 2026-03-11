@@ -72,7 +72,7 @@ ap-northeast-1 = "Japan"
 disabled = true
 
 [custom.at_jobs]
-command = "atq | wc -l | tr -d ' '"
+command = "atq | command wc -l | tr -d ' '"
 when = "atq | grep -q '.'"
 format = "[⏳ $output]($style) "
 style = "bold blue"
