@@ -63,9 +63,8 @@ return {
     --   -- dockerls = {},
     -- }
 
-    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    -- blink.cmp provides LSP capabilities
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     -- ts_ls: prioritize tsconfig.json for root detection (monorepo support)
     vim.lsp.config('ts_ls', {
