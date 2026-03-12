@@ -60,7 +60,7 @@ return {
     "windwp/nvim-autopairs",
     config = function()
       require("nvim-autopairs").setup {
-        disable_filetype = { "TelescopePrompt", "vim" }
+        disable_filetype = { "fzf", "vim" }
       }
     end
   },
@@ -69,43 +69,6 @@ return {
   -- "prabirshrestha/vim-lsp",
   -- "mattn/vim-lsp-settings",
 
-  -- fzf
-  {
-    "junegunn/fzf.vim",
-    -- dependencies = { "junegunn/fzf", build = "fzf#install()" },
-    dependencies = { "junegunn/fzf" },
-    -- name = 'fzf',
-    -- dir = "~/.fzf",
-    -- build = "./install --all",
-    -- build = "./install --bin",
-    build = function()
-      vim.fn["fzf#install"]()
-    end,
-    config = function()
-      vim.cmd([[
-        " - Popup window (anchored to the bottom of the current window)
-        let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95, 'relative': v:true, 'yoffset': 1.0 } }
-        let g:fzf_preview_window = ['right:50%', 'ctrl-/']
-        " Customize fzf colors to match your color scheme
-        " - fzf#wrap translates this to a set of `--color` options
-        let g:fzf_colors =
-        \ { 'fg':      ['fg', 'Normal'],
-          \ 'bg':      ['bg', 'Normal'],
-          \ 'hl':      ['fg', 'Comment'],
-          \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-          \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-          \ 'hl+':     ['fg', 'Statement'],
-          \ 'info':    ['fg', 'PreProc'],
-          \ 'border':  ['fg', 'Ignore'],
-          \ 'prompt':  ['fg', 'Conditional'],
-          \ 'pointer': ['fg', 'Exception'],
-          \ 'marker':  ['fg', 'Keyword'],
-          \ 'spinner': ['fg', 'Label'],
-          \ 'header':  ['fg', 'Comment'] }
-        let g:fzf_command_prefix = 'Fzf'
-        ]])
-    end
-  },
 
   -- diff tool
   "will133/vim-dirdiff",

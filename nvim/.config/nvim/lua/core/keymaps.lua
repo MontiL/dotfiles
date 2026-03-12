@@ -44,8 +44,8 @@ map("n", "<space>m", ":message<CR>", { desc = "message" })
 map("n", "<space>L", "<cmd>LspInfo<CR>", { desc = "LSP Info" })
 map("n", "<space>M", "<cmd>Mason<CR>", { desc = "Mason LSP manager" })
 map("n", "<space>W", "<cmd>WhichKey<CR>", { desc = "WhichKey menu" })
-map("n", "<space>/", "<cmd>Telescope keymaps<CR>", { desc = "Query Keymaps by Telescope" })
-map("n", "<space>?", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" })
+map("n", "<space>/", "<cmd>FzfLua keymaps<CR>", { desc = "Query Keymaps" })
+map("n", "<space>?", "<cmd>FzfLua helptags<CR>", { desc = "Help tags" })
 map("n", "<leader>f", function()
   require("conform").format({
     timeout_ms = 500,
@@ -280,24 +280,14 @@ map("n", "[<space>", "O<Esc>j", { desc = "Insert newline" })
 map("n", "]b", "<cmd>bnext<CR>", { desc = "Next buffer" })
 map("n", "[b", "<cmd>bprevious<CR>", { desc = "Prev buffer" })
 
--- Telescope
+-- Fuzzy finder (fzf-lua)
 wk.add({ { "<leader>s", name = "Search ..." } })
-map(
-  "n",
-  "<leader>sf",
-  "<cmd>Telescope find_files find_command=rg,--files,--follow,--hidden,--ignore-case,--glob=!.git,--glob=!backup<CR>",
-  { desc = "[S]earch [F]iles" }
-)
-map("n", "<leader>sg", "<cmd>Telescope git_status<CR>", { desc = "[s]earch [g]it status" })
-map("n", "<leader>sr", "<cmd>Telescope live_grep<CR>", { desc = "[s]earch by g[r]ep" })
-map("n", "<leader>sa", "<cmd>Telescope live_grep_args<CR>", { desc = "[s]earch by grep [a]rgs" })
-map(
-  "n",
-  "<leader>sw",
-  "<cmd>Telescope grep_string<CR>",
-  { desc = "[S]earch the string under cursor in current [w]orking directory" }
-)
-map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "[s]earch [b]uffer" })
+map("n", "<leader>sf", "<cmd>FzfLua files<CR>", { desc = "[S]earch [F]iles" })
+map("n", "<leader>sg", "<cmd>FzfLua git_status<CR>", { desc = "[s]earch [g]it status" })
+map("n", "<leader>sr", "<cmd>FzfLua live_grep<CR>", { desc = "[s]earch by g[r]ep" })
+map("n", "<leader>sa", "<cmd>FzfLua live_grep_glob<CR>", { desc = "[s]earch by grep [a]rgs (glob)" })
+map("n", "<leader>sw", "<cmd>FzfLua grep_cword<CR>", { desc = "[S]earch [w]ord under cursor" })
+map("n", "<leader>sb", "<cmd>FzfLua blines<CR>", { desc = "[s]earch [b]uffer lines" })
 
 -- Quickfix and Location list navigation
 map("n", "[q", "<cmd>cprev<CR>", { desc = "Prev Quickfix" })
@@ -319,11 +309,11 @@ map("n", "gd", function()
 end, { desc = "Definition" })
 map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Declaration" })
 map("n", "gI", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
-map("n", "gS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", { desc = "[W]orkspace [S]ymbols" })
+map("n", "gS", "<cmd>FzfLua lsp_workspace_symbols<CR>", { desc = "[W]orkspace [S]ymbols" })
 map("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", { desc = "Workspace Symbol" })
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover" })
 map("n", "<space>s", vim.lsp.buf.signature_help, { desc = "Signature Documentation" })
-map("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "[G]oto [R]eferences" })
+map("n", "gr", "<cmd>FzfLua lsp_references<CR>", { desc = "[G]oto [R]eferences" })
 map("n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename" })
 
 -- Gitsigns
@@ -455,20 +445,29 @@ map("n", "sv", "<cmd>vsplit<Return>", { desc = "Vertical Split" })
 map("n", "se", "<cmd>Oil --float<cr>", { desc = "Oil file [E]xplorer" })
 map("n", "sf", "<cmd>Oil<CR>", { desc = "Oil file explorer" })
 map("n", "sF", "<cmd>Oil .<CR>", { desc = "Oil from project root" })
-map("n", "so", "<cmd>Telescope oldfiles<CR>", { desc = "[s]earch [o]ldfiles" })
-map("n", "sb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" })
-map(
-  "n",
-  "sw",
-  "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>",
-  { desc = "[S]earch [W]orktree" }
-)
-map(
-  "n",
-  "sW",
-  "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>",
-  { desc = "[S]et [W]orktree" }
-)
+map("n", "so", "<cmd>FzfLua oldfiles<CR>", { desc = "[s]earch [o]ldfiles" })
+map("n", "sb", "<cmd>FzfLua buffers<CR>", { desc = "Buffers" })
+map("n", "sw", function()
+  local worktree = require("git-worktree")
+  require("fzf-lua").fzf_exec("git worktree list", {
+    prompt = "Worktrees> ",
+    actions = {
+      ["default"] = function(selected)
+        local path = selected[1]:match("^(%S+)")
+        worktree.switch_worktree(path)
+      end,
+    },
+  })
+end, { desc = "[S]earch [W]orktree" })
+map("n", "sW", function()
+  vim.ui.input({ prompt = "Worktree path: " }, function(path)
+    if not path or path == "" then return end
+    vim.ui.input({ prompt = "Branch: " }, function(branch)
+      if not branch or branch == "" then return end
+      require("git-worktree").create_worktree(path, branch)
+    end)
+  end)
+end, { desc = "[S]et [W]orktree (create)" })
 map("n", "sh", "<C-w>h", { desc = "Jump left" })
 map("n", "sk", "<C-w>k", { desc = "Jump up" })
 map("n", "sj", "<C-w>j", { desc = "Jump down" })
@@ -528,7 +527,7 @@ map(
   '<cmd>lua require"dap".set_exception_breakpoints({"all"})<CR>',
   { desc = "Set Exception Breakpoints" }
 )
-map("n", "<space>dl", "<cmd>Telescope dap list_breakpoints<CR>", { desc = "List Breakpoints" })
+map("n", "<space>dl", "<cmd>FzfLua dap_breakpoints<CR>", { desc = "List Breakpoints" })
 map("n", "<space>dk", '<cmd>lua require"dap".up()<CR>zz', { desc = "Up" })
 map("n", "<space>dj", '<cmd>lua require"dap".down()<CR>zz', { desc = "Down" })
 map("n", "<space>dt", '<cmd>lua require"dap".terminate()<CR>', { desc = "Terminate" })
@@ -540,7 +539,7 @@ map(
   { desc = "Scopes" }
 )
 map("n", "<space>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<CR>", { desc = "Evaluate Input" })
-map("n", "<space>d?", "<cmd>Telescope dap commands<CR>", { desc = "List Commands" })
+map("n", "<space>d?", "<cmd>FzfLua dap_commands<CR>", { desc = "List Commands" })
 map("n", "<space>b", '<cmd>lua require"dap".toggle_breakpoint()<CR>', { desc = "Toggle Breakpoint" })
 map(
   "n",
