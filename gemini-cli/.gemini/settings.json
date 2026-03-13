@@ -1,0 +1,68 @@
+{
+  "ui": {
+    "theme": "GitHub",
+    "showUserIdentity": true
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "enablePermanentToolApproval": true,
+    "folderTrust": {
+      "enabled": true
+    }
+  },
+  "general": {
+    "previewFeatures": true,
+    "sessionRetention": {
+      "enabled": true,
+      "maxAge": "30d",
+      "warningAcknowledged": true
+    },
+    "enableAutoUpdate": true
+  },
+  "model": {
+    "skipNextSpeakerCheck": true
+  },
+  "tools": {
+    "core": [
+      "list_directory",
+      "read_file",
+      "write_file",
+      "replace",
+      "search_file_content",
+      "glob",
+      "web_fetch",
+      "google_web_search",
+      "run_shell_command(ls)",
+      "run_shell_command(timeout)",
+      "run_shell_command(pnpm)",
+      "run_shell_command(tsc)",
+      "run_shell_command(find)",
+      "run_shell_command(fish)",
+      "run_shell_command(grep)",
+      "run_shell_command(node)",
+      "run_shell_command(git)",
+      "run_shell_command(xargs)"
+    ]
+  },
+  "mcpServers": {
+    "tavily-remote": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.tavily.com/mcp/?tavilyApiKey=<your-api-key>"
+      ]
+    }
+  },
+  "context": {
+    "includeDirectories": [
+      "~/Downloads",
+      "~/Screenshots",
+      "~/.dotfiles",
+      "~/.z/projects",
+      "/tmp"
+    ]
+  }
+}
