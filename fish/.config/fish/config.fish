@@ -332,6 +332,7 @@ alias v nvim
 alias c claude
 alias cr "claude --resume"
 alias g gemini
+alias gr "gemini --resume"
 alias gpp "gemini --model gemini-3-pro-preview"
 alias gfp "gemini --model gemini-3-flash-preview"
 
