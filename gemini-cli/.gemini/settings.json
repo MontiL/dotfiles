@@ -54,6 +54,12 @@
         "mcp-remote",
         "https://mcp.tavily.com/mcp/?tavilyApiKey=<your-api-key>"
       ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
     }
   },
   "context": {
