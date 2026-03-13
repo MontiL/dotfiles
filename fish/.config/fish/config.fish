@@ -29,6 +29,7 @@ set -x LC_CTYPE en_US.UTF-8
 set -g capy ~/.z/projects/capybara/
 set -g dotfile ~/.dotfiles/
 
+set -gx COLORTERM truecolor
 # aliases
 # ------------------------------------------------------------
 alias .. "cd .."
@@ -332,6 +333,7 @@ alias v nvim
 alias c claude
 alias cr "claude --resume"
 alias g gemini
+alias gg='source ~/gemini-bot/venv/bin/activate.fish && python3 ~/gemini-bot/chat.py'
 alias gr "gemini --resume"
 alias gpp "gemini --model gemini-3-pro-preview"
 alias gfp "gemini --model gemini-3-flash-preview"
@@ -415,14 +417,15 @@ fish_add_path -g ~/go/bin
 # pg_dump / pg_restore
 fish_add_path /opt/homebrew/opt/libpq/bin
 
-set -gx NODE_EXTRA_CA_CERTS "/private/etc/ssl/cert.pem"
 # PostgreSQL 15
 fish_add_path /opt/homebrew/opt/postgresql@15/bin
 
 switch (uname)
     case Darwin
+        set -gx NODE_EXTRA_CA_CERTS "/private/etc/ssl/cert.pem"
         source ~/.dotfiles/fish/.config/fish/config-osx.fish
     case Linux
+        set -gx NODE_EXTRA_CA_CERTS "/etc/ssl/certs/ca-certificates.crt"
         if test -x /home/linuxbrew/.linuxbrew/bin/brew
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         end
