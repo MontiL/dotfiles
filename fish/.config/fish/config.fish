@@ -4,6 +4,12 @@ set -g fish_greeting # disable greeting message
 
 set -gx EDITOR nvim
 # $TERM is set by tmux (tmux-256color) — don't override here
+# Ghostty sets TERMINFO to its own directory, which only contains ghostty entries.
+# Inside tmux, TERM is tmux-256color and tools like termbox can't find it there.
+# Erase TERMINFO inside tmux so the system terminfo database is used instead.
+if set -q TMUX
+    set -e TERMINFO
+end
 
 # theme
 # ------------------------------------------------------------
