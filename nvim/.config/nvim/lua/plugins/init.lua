@@ -2,6 +2,15 @@ return {
   -- General utilities
   ----------------------------------------------------------------------------------------------------
   "nvim-lua/plenary.nvim",
+  {
+    "ellisonleao/dotenv.nvim",
+    config = function()
+      require("dotenv").setup({
+        enable_on_load = true, -- will load .env file on current working directory if it exists
+        verbose = false, -- show error notification if .env file is not found and if .env is load
+      })
+    end,
+  },
 
   --[[ "wellle/targets.vim", ]]
   -- "michaeljsmith/vim-indent-object",
