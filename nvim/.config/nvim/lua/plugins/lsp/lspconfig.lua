@@ -79,26 +79,45 @@ return {
     if mason_lspconfig.setup_handlers then
       mason_lspconfig.setup_handlers({
         function(server_name)
-          -- Use vim.lsp.enable with configuration
-          vim.lsp.enable(server_name)
-          -- Configure capabilities through vim.lsp.config
-          if vim.lsp.config[server_name] then
-            vim.lsp.config[server_name] = vim.tbl_deep_extend('force', vim.lsp.config[server_name] or {}, {
-              capabilities = capabilities,
-            })
+          -- Configure capabilities and settings through vim.lsp.config
+          local config = {
+            capabilities = capabilities,
+          }
+
+          if server_name == "lua_ls" then
+            config.settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim" },
+                },
+              },
+            }
           end
+
+          vim.lsp.config(server_name, config)
+          vim.lsp.enable(server_name)
         end,
       })
     else
       -- Fallback: setup common servers manually if setup_handlers doesn't exist
       local servers = { "lua_ls", "ts_ls", "jsonls", "bashls", "pyright" }
       for _, server_name in ipairs(servers) do
-        vim.lsp.enable(server_name)
-        if vim.lsp.config[server_name] then
-          vim.lsp.config[server_name] = vim.tbl_deep_extend('force', vim.lsp.config[server_name] or {}, {
-            capabilities = capabilities,
-          })
+        local config = {
+          capabilities = capabilities,
+        }
+
+        if server_name == "lua_ls" then
+          config.settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+            },
+          }
         end
+
+        vim.lsp.config(server_name, config)
+        vim.lsp.enable(server_name)
       end
     end
 

@@ -44,6 +44,18 @@ return {
         lua = { "luacheck" },
       }
 
+      -- Customizing luacheck to recognize 'vim' global
+      local luacheck = lint.linters.luacheck
+      luacheck.args = {
+        "--globals",
+        "vim",
+        "--formatter",
+        "plain",
+        "--codes",
+        "--ranges",
+        "-",
+      }
+
       -- Create autocommand to trigger linting
       local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
