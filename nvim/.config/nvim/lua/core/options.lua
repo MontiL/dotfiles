@@ -105,6 +105,10 @@ endif
 
 " File types
 " ---------------------------------------------------------------------
+" .env
+au BufNewFile,BufRead .env set filetype=dotenv
+au BufNewFile,BufRead .env.local set filetype=dotenv
+au BufNewFile,BufRead .env.* set filetype=dotenv
 " .prettierignore
 au BufNewFile,BufRead .prettierignore set filetype=gitignore
 " JavaScript
