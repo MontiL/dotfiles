@@ -19,7 +19,9 @@ end
 
 function fish_user_key_bindings
     bind \cp fzf_change_directory # Ctrl+P: change directory
-    bind \co ok_python_exercise # ok Python exercise
+    # bind \co ok_python_exercise # ok Python exercise
+    bind \co 'ql; commandline -f repaint' # Ctrl+O: Queue List (Out)
+    bind \cq _qadd_smart_binding # Ctrl+Q: Queue Add (Smart)
 
     # change default key binding
     bind --preset $argv \cf forward-word
