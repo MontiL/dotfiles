@@ -13,7 +13,7 @@ function ql --description "List, select, copy and remove prompt from queue (dire
         # Read the file content, trim leading/trailing newlines and spaces, then take the first line
         # 'string trim' handles whitespace, then we pick the first non-empty line
         set -l clean_content (cat "$f" | string trim)
-        set -l first_line (echo "$clean_content" | head -n 1 | string sub -l 60 | string replace -a "\t" " ")
+        set -l first_line (string replace -a '\n' ' ' -- "$clean_content" | string sub -l 80 | string replace -a "\t" " ")
         
         if test -z "$first_line"
             set first_line "(Empty)"
@@ -24,7 +24,7 @@ function ql --description "List, select, copy and remove prompt from queue (dire
 
     # Run fzf in fullscreen
     # We use printf to format the output with actual tabs for fzf
-    set -l selection (printf "%s\t%s\n" $fzf_input | fzf -d "\t" --with-nth 2.. --preview "cat {1}" --header "Enter: Copy & Delete | Esc: Cancel" --reverse)
+    set -l selection (printf "%s\t%s\n" $fzf_input | fzf -d "\t" --with-nth 2.. --preview "printf '%b\n' \"\$(cat {1})\"" --header "Enter: Copy & Delete | Esc: Cancel" --reverse)
 
     if test -n "$selection"
         # Extract filename (field 1)

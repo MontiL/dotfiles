@@ -4,7 +4,7 @@ function _qadd_from_editor
     
     # Open editor
     if set -q EDITOR
-        $EDITOR $tmpfile
+        $EDITOR +startinsert $tmpfile
     else
         vim $tmpfile
     end
