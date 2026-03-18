@@ -42,7 +42,7 @@ function qadd --description "Add a prompt to the queue (directory-based)"
     set -l filename "$PROMPT_QUEUE_DIR/$timestamp.txt"
 
     # Write content to file (handles newlines natively)
-    string join "\n" $argv > "$filename"
+    string join \n $argv > "$filename"
     
     echo "✅ Added to queue."
     echo "Pending: "(count (ls "$PROMPT_QUEUE_DIR"))
