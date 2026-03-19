@@ -70,5 +70,9 @@
       "~/.z/projects",
       "/tmp"
     ]
+  },
+  "ide": {
+    "hasSeenNudge": true,
+    "enabled": true
   }
 }
