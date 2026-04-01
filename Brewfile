@@ -193,8 +193,6 @@ cask "google-drive"
 cask "inkscape"
 # Keyboard customiser
 cask "karabiner-elements"
-# Reverse proxy, secure introspectable tunnels to localhost
-cask "ngrok"
 # Calculator and converter application
 cask "numi"
 # Knowledge base that works on top of a local folder of plain text Markdown files
