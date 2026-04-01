@@ -7,6 +7,7 @@ tap "nikitabobko/tap"
 tap "ohueter/tap"
 tap "supabase/tap"
 tap "teamookla/speedtest"
+tap "ngrok/ngrok"
 tap "universal-ctags/universal-ctags"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
@@ -193,6 +194,8 @@ cask "google-drive"
 cask "inkscape"
 # Keyboard customiser
 cask "karabiner-elements"
+# Reverse proxy, secure introspectable tunnels to localhost
+brew "ngrok/ngrok/ngrok"
 # Calculator and converter application
 cask "numi"
 # Knowledge base that works on top of a local folder of plain text Markdown files
