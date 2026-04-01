@@ -65,8 +65,6 @@ brew "fswatch"
 brew "fzf"
 # GNU awk utility
 brew "gawk"
-# Interact with Google Gemini AI models from the command-line
-brew "gemini-cli"
 # GitHub command-line tool
 brew "gh"
 # Remote repository management made easy
