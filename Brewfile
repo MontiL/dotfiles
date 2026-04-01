@@ -33,8 +33,6 @@ brew "cairo"
 brew "cmake"
 # Library for command-line editing
 brew "readline"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node"
 # Terminal countdown timer
 brew "countdown"
 # Get, unpack, build, and install modules from CPAN
@@ -113,8 +111,6 @@ brew "mactop"
 brew "ncdu"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node@22", link: true
 # Simplified-traditional Chinese conversion tool
 brew "opencc"
 # Open source suite of directory software
