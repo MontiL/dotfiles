@@ -3,6 +3,7 @@
 set -g fish_greeting # disable greeting message
 
 set -gx EDITOR nvim
+set -gx HOMEBREW_NO_AUTO_UPDATE 1
 # $TERM is set by tmux (tmux-256color) — don't override here
 # Ghostty sets TERMINFO to its own directory, which only contains ghostty entries.
 # Inside tmux, TERM is tmux-256color and tools like termbox can't find it there.
