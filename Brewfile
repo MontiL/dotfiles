@@ -102,6 +102,8 @@ brew "libxml2"
 brew "libyaml"
 # Just-In-Time Compiler (JIT) for the Lua programming language
 brew "luajit"
+# Lua language server
+brew "lua-language-server"
 # Package manager for the Lua programming language
 brew "luarocks"
 # Apple Silicon Monitor Top written in Go Lang
