@@ -34,6 +34,9 @@ Session.vim
 # Neovim packer
 # nvim/.config/nvim/plugin/packer_compiled.lua
 
+# Secrets
+fish/.config/fish/api-keys.fish
+
 # Fish
 fish/.config/fish/fish_variables
 #opt/fzf/shell/key-bindings.fish
