@@ -146,6 +146,8 @@ brew "tig"
 brew "tmux"
 # Incremental parsing library
 brew "tree-sitter"
+# Tree-sitter CLI (required by nvim-treesitter main branch to compile parsers)
+brew "tree-sitter-cli"
 # Language for application scale JavaScript development
 brew "typescript"
 # Extremely fast Python package installer and resolver, written in Rust
