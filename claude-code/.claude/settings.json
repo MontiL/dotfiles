@@ -80,6 +80,7 @@
       "/tmp"
     ]
   },
+  "model": "opus",
   "enabledPlugins": {
     "ui-ux-pro-max@ui-ux-pro-max-skill": true,
     "typescript-lsp@claude-plugins-official": true,
@@ -99,7 +100,16 @@
     "commit-commands@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true
   },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
   "alwaysThinkingEnabled": true,
+  "theme": "dark-ansi",
   "feedbackSurveyState": {
     "lastShownTime": 1754056907550
   }
