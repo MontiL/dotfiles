@@ -43,11 +43,13 @@ function fzf_change_directory
             ls -ad $HOME/Library/Preferences/Adobe\ Illustrator\ 26\ Settings
         end
 
-        # external drive
-        ls -ad /Volumes/*
-        set -l r6 /Volumes/Pegasus2R6
-        if test -d $r6
-            fd . $r6/Projects -d2 -td
+        # external drive (macOS only)
+        if test -d /Volumes
+            ls -ad /Volumes/*
+            set -l r6 /Volumes/Pegasus2R6
+            if test -d $r6
+                fd . $r6/Projects -d2 -td
+            end
         end
     end | sed -e 's/\/\//\//;s/\/$//' | fzf --height=~50% --reverse --scheme=path | read -l selected
 

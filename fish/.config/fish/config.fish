@@ -368,6 +368,7 @@ alias tw "tmux new-session -n agent1 -c ~/.z/projects/capybara/agent1 \; new-win
 alias tws "tmux new-session -c ~/.z/projects/capybara/www/ \; new-window \; split-window -v 'pnpm dlx @agentdeskai/browser-tools-server' \; select-pane -U"
 
 alias ls eza
+alias l eza
 alias la "ls -a"
 alias ll "ls -l --icons"
 alias lla "ll -a"
