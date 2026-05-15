@@ -77,6 +77,9 @@ After making changes, verify they work before committing:
 - **Neovim**: Open nvim and confirm no errors on startup
 - **tmux**: Reload config with `prefix + r` or `tmux source-file ~/.tmux.conf`
 
+Once changes are verified, commit them automatically — do not ask for
+confirmation first. This applies to all work in this dotfiles repo.
+
 ## After Committing
 
 Always rebase onto main and push after completing changes:
