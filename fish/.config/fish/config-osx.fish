@@ -66,12 +66,17 @@ if set -q PYENV_INIT
     pyenv init - | source
 end
 
+# fnm (Node.js version manager)
+if command -v fnm &> /dev/null
+    fnm env --use-on-cd --shell fish | source
+end
+
 # # have ruby first in your PATH, run:
 # set -gx fish_add_path `(brew --prefix)/opt/homebrew/opt/ruby/bin`
 # # For compilers to find ruby you may need to set:
 # set -gx LDFLAGS `-L(brew --prefix)/opt/ruby/lib`
 # set -gx CPPFLAGS `-I(brew --prefix)/opt/ruby/include`
-# 
+#
 # # For pkg-config to find ruby you may need to set:
 # set -gx PKG_CONFIG_PATH "(brew --prefix)/opt/ruby/lib/pkgconfig"
 
