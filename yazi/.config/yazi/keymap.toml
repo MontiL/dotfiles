@@ -1,39 +1,39 @@
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["g", "d"]
 run = "cd ~/.dotfiles"
 desc = "Go to dotfiles"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["g", "p"]
 run = "cd ~/.z/projects"
 desc = "Go to projects"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["g", "D"]
 run = "cd ~/Downloads"
 desc = "Go to Downloads"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["g", "c"]
 run = "cd ~/.config"
 desc = "Go to config"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["g", "w"]
 run = "cd ~/.z/projects/capybara/www/"
 desc = "Go to capybara www"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["."]
 run = "hidden toggle"
 desc = "Toggle hidden files"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["<C-t>"]
 run = '''shell 'tmux split-window -h -c "$PWD"' --confirm'''
 desc = "Open tmux split here"
 
-[[manager.prepend_keymap]]
-on = ["<C-f>"]
+[[mgr.prepend_keymap]]
+on = ["<C-o>"]
 run = '''shell 'open "$PWD"' --confirm'''
 desc = "Open current folder in Finder"
