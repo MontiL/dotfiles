@@ -37,3 +37,8 @@ desc = "Open tmux split here"
 on = ["<C-o>"]
 run = '''shell 'open "$PWD"' --confirm'''
 desc = "Open current folder in Finder"
+
+[[mgr.prepend_keymap]]
+on = ["e"]
+run = "open"
+desc = "Open (nvim for text/code, macOS open for the rest)"

@@ -18,6 +18,20 @@ reveal = [
   { run = 'open -R "$@"', for = "macos" },
 ]
 
+[open]
+prepend_rules = [
+  # Folders -> macOS open (Finder); on Linux falls back to xdg-open
+  { mime = "inode/directory", use = "open" },
+
+  # Plain text / code files -> nvim
+  { mime = "text/*", use = "edit" },
+
+  # Code & config files that often report as application/* or octet-stream
+  { url = "*.{json,toml,yaml,yml,xml,md,lock,env,gitignore,gitattributes,dockerfile,conf,ini}", use = "edit" },
+  { url = "*.{js,jsx,ts,tsx,mjs,cjs,html,htm,css,scss,sass,less,vue,svelte,astro}", use = "edit" },
+  { url = "*.{py,rb,rs,go,c,cc,cpp,h,hh,hpp,java,kt,swift,sh,fish,zsh,bash,lua,vim}", use = "edit" },
+]
+
 [tasks]
 micro_workers = 10
 macro_workers = 25
