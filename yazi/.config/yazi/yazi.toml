@@ -20,8 +20,10 @@ reveal = [
 
 [open]
 prepend_rules = [
-  # Folders -> macOS open (Finder); on Linux falls back to xdg-open
-  { mime = "inode/directory", use = "open" },
+  # Folders -> macOS open (Finder); on Linux falls back to xdg-open.
+  # `url = "*/"` matches directories without needing mime detection,
+  # which yazi skips for dirs by default.
+  { url = "*/", use = "open" },
 
   # Plain text / code files -> nvim
   { mime = "text/*", use = "edit" },
