@@ -333,6 +333,7 @@ alias gg "ghq get"
 alias v nvim
 alias c claude
 alias cr "claude --resume"
+alias cx codex
 alias g gemini
 alias gg='source ~/gemini-bot/venv/bin/activate.fish && python3 ~/gemini-bot/chat.py'
 alias gr "gemini --resume"
