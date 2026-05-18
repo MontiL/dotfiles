@@ -34,6 +34,6 @@ run = '''shell 'tmux split-window -h -c "$PWD"' --confirm'''
 desc = "Open tmux split here"
 
 [[mgr.prepend_keymap]]
-on = ["<C-e>"]
+on = ["<C-o>"]
 run = '''shell 'open "$PWD"' --confirm'''
 desc = "Open current folder in Finder"

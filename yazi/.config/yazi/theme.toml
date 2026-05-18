@@ -1,5 +1,5 @@
 # Nord theme for Yazi
-[manager]
+[mgr]
 cwd = { fg = "#81A1C1" }
 
 hovered = { reversed = true }
@@ -16,7 +16,7 @@ tab_active = { fg = "#2E3440", bg = "#88C0D0" }
 tab_inactive = { fg = "#D8DEE9", bg = "#3B4252" }
 tab_width = 1
 
-border = { fg = "#4C566A" }
+border_style = { fg = "#4C566A" }
 
 count_copied = { fg = "#2E3440", bg = "#EBCB8B" }
 count_cut = { fg = "#2E3440", bg = "#BF616A" }
@@ -51,42 +51,42 @@ permissions_s = { fg = "#4C566A" }
 
 [filetype]
 rules = [
-  { name = "*/", fg = "#81A1C1", bold = true },
+  { url = "*/", fg = "#81A1C1", bold = true },
 
-  { name = "*.rs", fg = "#D08770" },
-  { name = "*.lua", fg = "#81A1C1" },
-  { name = "*.sh", fg = "#A3BE8C" },
-  { name = "*.fish", fg = "#A3BE8C" },
-  { name = "*.toml", fg = "#D8DEE9" },
-  { name = "*.json", fg = "#EBCB8B" },
-  { name = "*.yaml", fg = "#EBCB8B" },
-  { name = "*.yml", fg = "#EBCB8B" },
-  { name = "*.md", fg = "#8FBCBB" },
-  { name = "*.txt", fg = "#D8DEE9" },
+  { url = "*.rs", fg = "#D08770" },
+  { url = "*.lua", fg = "#81A1C1" },
+  { url = "*.sh", fg = "#A3BE8C" },
+  { url = "*.fish", fg = "#A3BE8C" },
+  { url = "*.toml", fg = "#D8DEE9" },
+  { url = "*.json", fg = "#EBCB8B" },
+  { url = "*.yaml", fg = "#EBCB8B" },
+  { url = "*.yml", fg = "#EBCB8B" },
+  { url = "*.md", fg = "#8FBCBB" },
+  { url = "*.txt", fg = "#D8DEE9" },
 
-  { name = "*.js", fg = "#EBCB8B" },
-  { name = "*.jsx", fg = "#88C0D0" },
-  { name = "*.ts", fg = "#81A1C1" },
-  { name = "*.tsx", fg = "#88C0D0" },
-  { name = "*.css", fg = "#B48EAD" },
-  { name = "*.html", fg = "#D08770" },
+  { url = "*.js", fg = "#EBCB8B" },
+  { url = "*.jsx", fg = "#88C0D0" },
+  { url = "*.ts", fg = "#81A1C1" },
+  { url = "*.tsx", fg = "#88C0D0" },
+  { url = "*.css", fg = "#B48EAD" },
+  { url = "*.html", fg = "#D08770" },
 
-  { name = "*.py", fg = "#81A1C1" },
-  { name = "*.c", fg = "#81A1C1" },
-  { name = "*.cpp", fg = "#81A1C1" },
+  { url = "*.py", fg = "#81A1C1" },
+  { url = "*.c", fg = "#81A1C1" },
+  { url = "*.cpp", fg = "#81A1C1" },
 
-  { name = "*.jpg", fg = "#B48EAD" },
-  { name = "*.jpeg", fg = "#B48EAD" },
-  { name = "*.png", fg = "#B48EAD" },
-  { name = "*.gif", fg = "#B48EAD" },
-  { name = "*.svg", fg = "#B48EAD" },
-  { name = "*.webp", fg = "#B48EAD" },
+  { url = "*.jpg", fg = "#B48EAD" },
+  { url = "*.jpeg", fg = "#B48EAD" },
+  { url = "*.png", fg = "#B48EAD" },
+  { url = "*.gif", fg = "#B48EAD" },
+  { url = "*.svg", fg = "#B48EAD" },
+  { url = "*.webp", fg = "#B48EAD" },
 
-  { name = "*.zip", fg = "#D08770" },
-  { name = "*.tar", fg = "#D08770" },
-  { name = "*.gz", fg = "#D08770" },
-  { name = "*.7z", fg = "#D08770" },
+  { url = "*.zip", fg = "#D08770" },
+  { url = "*.tar", fg = "#D08770" },
+  { url = "*.gz", fg = "#D08770" },
+  { url = "*.7z", fg = "#D08770" },
 
-  { name = ".git*", fg = "#D08770", italic = true },
-  { name = ".env*", fg = "#BF616A", italic = true },
+  { url = ".git*", fg = "#D08770", italic = true },
+  { url = ".env*", fg = "#BF616A", italic = true },
 ]
