@@ -32,3 +32,8 @@ desc = "Toggle hidden files"
 on = ["<C-t>"]
 run = '''shell 'tmux split-window -h -c "$PWD"' --confirm'''
 desc = "Open tmux split here"
+
+[[manager.prepend_keymap]]
+on = ["<C-o>"]
+run = '''shell 'open "$PWD"' --confirm'''
+desc = "Open current folder in Finder"
