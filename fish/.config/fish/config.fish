@@ -333,8 +333,8 @@ alias gg "ghq get"
 alias v nvim
 alias c claude
 alias cr "claude --resume"
-alias cx codex
-alias cxr "codex resume"
+alias cx "codex --sandbox danger-full-access"
+alias cxr "codex resume --sandbox danger-full-access"
 alias g gemini
 alias gg='source ~/gemini-bot/venv/bin/activate.fish && python3 ~/gemini-bot/chat.py'
 alias gr "gemini --resume"
@@ -397,8 +397,12 @@ alias mchost "ngrok tcp 25565"
 
 alias done "terminal-notifier -message 'finished' -sound default; killall caffeinate"
 
-# yazi wrapper - cd to last browsed directory on exit
 function y
+    yazi $argv
+end
+
+# yazi wrapper - cd to last browsed directory on exit
+function yc
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi $argv --cwd-file="$tmp"
     if set -q tmp; and test -n (cat "$tmp"); and test (cat "$tmp") != (pwd)
