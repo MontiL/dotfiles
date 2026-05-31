@@ -464,6 +464,8 @@ set -x BAT_THEME DarkNeon
 # Fzf
 fzf_configure_bindings --directory=\cs --history=\cr --process=\cx --git_log=\cg # --git_status=\cs
 set fzf_fd_opts --hidden --exclude=.git #--bind=ctrl-/:toggle-preview fzf --preview='cat {}'
+# alt-s: same directory search as ctrl-s, but also includes .gitignore-d files (photos etc.)
+bind \es _fzf_search_directory_all
 set fzf_preview_file_cmd "fzf --preview 'cat {}' --preview-window right:90%:hidden:wrap --bind ctrl-/:toggle-preview"
 
 # pnpm
