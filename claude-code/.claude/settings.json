@@ -80,7 +80,6 @@
       "/tmp"
     ]
   },
-  "model": "opus",
   "enabledPlugins": {
     "ui-ux-pro-max@ui-ux-pro-max-skill": true,
     "typescript-lsp@claude-plugins-official": true,
@@ -112,5 +111,6 @@
   "theme": "dark-ansi",
   "feedbackSurveyState": {
     "lastShownTime": 1754056907550
-  }
+  },
+  "model": "opus"
 }
