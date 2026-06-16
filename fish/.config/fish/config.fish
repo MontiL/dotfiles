@@ -475,9 +475,15 @@ switch (uname)
     case Linux
         set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 end
-if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
+# 把 PNPM_HOME 與其 bin/ 子目錄都加進 PATH
+# （不同 pnpm 版本/設定的 global-bin-dir 可能是 $PNPM_HOME 或 $PNPM_HOME/bin，
+#  兩個都加可避免 "global bin directory is not in PATH" 警告）
+for __p in $PNPM_HOME $PNPM_HOME/bin
+    if not contains -- $__p $PATH
+        set -gx PATH $__p $PATH
+    end
 end
+set -e __p
 # pnpm end
 
 # fnm (after PNPM_HOME so fnm's node path takes priority)
