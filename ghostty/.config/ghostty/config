@@ -33,7 +33,7 @@ clipboard-paste-protection = true
 
 # Shell integration
 shell-integration = fish
-shell-integration-features = cursor,sudo,title
+shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
 
 # Font features
 font-thicken = true
