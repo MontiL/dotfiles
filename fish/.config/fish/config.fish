@@ -73,8 +73,24 @@ end
 function ws --description "Worktree sync: rebase agents onto dev, push dev, then sync agents back"
     set -l root ~/.z/projects/capybara
     set -l dev "$root/www"
-    # 1. Rebase each agent branch onto dev, then fast-forward merge into dev
     set -l dev_head_before (git -C "$dev" rev-parse HEAD)
+    # 0. Integrate remote dev first — another machine may have pushed
+    echo "Fetching origin dev..."
+    git -C "$dev" fetch origin dev
+    or begin
+        echo "  ⚠ fetch origin dev failed"
+        return 1
+    end
+    set -l remote_ahead (git -C "$dev" rev-list --count dev..FETCH_HEAD 2>/dev/null)
+    if test "$remote_ahead" -gt 0
+        echo "Remote dev is $remote_ahead ahead, rebasing local dev..."
+        git -C "$dev" rebase FETCH_HEAD
+        or begin
+            echo "  ⚠ dev rebase conflict — resolve in $dev then re-run ws"
+            return 1
+        end
+    end
+    # 1. Rebase each agent branch onto dev, then fast-forward merge into dev
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
         if test -d "$agent_dir"
@@ -91,9 +107,18 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
             end
         end
     end
-    # 2. Push dev to remote
+    # 2. Push dev to remote (self-healing against a race with another machine)
     echo "Pushing dev to origin..."
-    git -C "$dev" push origin dev
+    if not git -C "$dev" push origin dev
+        echo "Push rejected — re-fetching and rebasing dev, then retrying..."
+        git -C "$dev" fetch origin dev
+        and git -C "$dev" rebase FETCH_HEAD
+        and git -C "$dev" push origin dev
+        or begin
+            echo "  ⚠ dev push still failing — resolve manually in $dev"
+            return 1
+        end
+    end
     # 3. Sync agents back to latest dev via rebase (+ pnpm install / prisma generate if changed)
     for n in 1 2 3 4 5
         set -l agent_dir "$root/agent$n"
