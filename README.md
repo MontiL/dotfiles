@@ -68,7 +68,9 @@
 | `v` | `nvim` | Neovim |
 | `c` | `claude` | Claude Code |
 | `cr` | `claude --resume` | 繼續上次 Claude 對話 |
+| `cx` | `codex --sandbox danger-full-access` | Codex CLI |
 | `g` | `gemini` | Gemini CLI |
+| `gr` | `gemini --resume` | 繼續上次 Gemini 對話 |
 | `lg` | `lazygit` | Git TUI |
 
 ### Git
@@ -84,6 +86,22 @@
 | `gcb` | `git-forgit checkout_branch` | 互動式切換分支 |
 | `gss` | `git-forgit stash_show` | 互動式暫存檢視 |
 | `gsp` | `git-forgit stash_push` | 互動式暫存推入 |
+
+> `ga` / `gd` / `glo` / `gcb` / `gss` / `gsp`（以及 `gcf`）是 forgit 外掛的 abbr，輸入後會展開為完整指令。
+
+### 多 worktree 工作流程（Fish 函式）
+
+`config.fish` 定義了一組 git worktree 自動化函式，用於多 agent 平行開發
+（路徑寫死於 `~/.z/projects/capybara`，移植到其他專案前需自行調整）：
+
+| 函式 | 說明 |
+|------|------|
+| `ws` | 同步：先整合遠端 dev，將各 agent rebase 到 dev、推送 dev，再把 agent 同步回最新 dev（必要時自動 `pnpm install` / `prisma generate`） |
+| `wss` | `ws` 後再把 `test` 與 `main` 快轉到 `dev` 並推送 |
+| `d2m` / `d2t` / `d2a` | 將 `main` / `test` / 兩者快轉到 `dev` 並推送 |
+| `wp` / `wP` | 從 worktree rebase 拉取 / 推送 `dev` |
+| `wc` / `wrm` / `wsync` | 建立 / 移除 / 同步單一 worker worktree（`wc a1 3`） |
+| `wca` / `wrma` | 為某個 parent 建立 / 移除全部 5 個 worker |
 
 ### 套件管理（pnpm）
 
@@ -104,24 +122,30 @@
 | `clean` | 清理：brew、rustup |
 | `myip` | 查詢公開 IPv4 位址 |
 | `cafe` | 切換 caffeinate（防止系統休眠，Starship 會顯示 ☕） |
+| `done` | 跳出「finished」通知並結束 caffeinate（長任務完成提示） |
 
 ### FZF 快捷鍵（在 Fish Shell 中）
 
 | 快捷鍵 | 說明 |
 |--------|------|
-| `Ctrl+P` | 模糊搜尋並跳轉目錄（搜尋 dotfiles、projects 等路徑） |
+| `Ctrl+P` | 模糊搜尋並跳轉目錄（`fzf_change_directory`，含 dotfiles、projects 等路徑） |
+| `Ctrl+S` | 在當前目錄搜尋檔案 |
+| `Alt+S` | 同 `Ctrl+S`，但也包含 `.gitignore` 的檔案（照片等） |
 | `Ctrl+R` | 搜尋指令歷史 |
 | `Ctrl+G` | 搜尋 Git 日誌 |
 | `Ctrl+X` | 搜尋行程 |
+| `Ctrl+O` | 列出 / 取用 prompt 佇列（`ql`） |
+| `Ctrl+Q` | 將 prompt 加入佇列（`qadd`） |
 
-### 文字移動（Fish / Ghostty）
+### 文字移動（Fish）
 
 | 快捷鍵 | 說明 |
 |--------|------|
 | `Ctrl+F` | 向前跳一個字 |
 | `Ctrl+B` | 向後跳一個字 |
-| `Alt+P` / `Ctrl+E` | 向上搜尋 |
-| `Alt+N` / `Ctrl+N` | 向下搜尋 |
+| `Alt+P` | 依目前輸入向上搜尋歷史 |
+| `Alt+N` | 依目前輸入向下搜尋歷史 |
+| `!` | 在行尾自動展開為上一條指令 |
 
 ---
 
@@ -247,17 +271,19 @@ tmux 使用 **Vi 風格** 的複製模式：
 
 > 透過 tmux-yank 外掛，複製的內容會同步到系統剪貼簿。
 
-### Git 整合
+### 彈出式終端機
 
 | 操作 | 說明 |
 |------|------|
-| `prefix + g` | 用 FZF 瀏覽 Git 檔案（80% 彈出視窗） |
+| `prefix + g` | 在當前目錄開啟 80% 彈出式終端機（常用於臨時 git 操作） |
 
-### 設定重載
+### 其他
 
 | 操作 | 說明 |
 |------|------|
 | `prefix + r` | 重新載入 tmux 設定檔 |
+| `prefix + o` | 用系統預設程式開啟當前目錄（macOS Finder） |
+| `prefix + l` | 清除當前窗格的捲動歷史 |
 
 ### Session 自動儲存與恢復
 
@@ -404,17 +430,32 @@ Leader 鍵為 `\`（反斜線）。以下 `<leader>` 表示按 `\`，`<space>` �
 
 | 快捷鍵 | 說明 |
 |--------|------|
-| `Alt + h/j/k/l` | 切換焦點到 左/下/上/右 |
 | `Alt + Shift + h/j/k/l` | 移動視窗到 左/下/上/右 |
 | `Alt + 1-5` | 切換到工作區 1-5 |
 | `Alt + 0` | 切換到工作區 P |
 | `Alt + Shift + 1-5` | 將視窗移到工作區 1-5 |
 | `Alt + z` | 全螢幕 |
 | `Alt + Shift + z` | 切換浮動/平鋪 |
-| `Alt + Tab` | 切換到上一個工作區 |
-| `Alt + Shift + Tab` | 將工作區移到下一個螢幕 |
-| `Alt + /` | 切換佈局模式（tiles / accordion / horizontal） |
+| `Alt + Tab` | 在最近兩個工作區之間來回切換 |
+| `Alt + Shift + Tab` | 將目前工作區移到下一個螢幕 |
+| `Alt + Ctrl + Tab` | 將目前視窗移到下一個螢幕 |
+| `Alt + /` | 切換佈局：tiles → horizontal → vertical |
+| `Alt + ,` | 切換 accordion 佈局 |
 | `Alt + Shift + -/=` | 縮小/放大視窗 |
+
+> 焦點切換（`Alt + h/j/k/l`）目前在設定中為註解狀態，可於 `aerospace.toml` 取消註解啟用。
+
+### Service 模式
+
+按 `Alt + Shift + ;` 進入 service 模式，再按：
+
+| 按鍵 | 說明 |
+|------|------|
+| `Esc` | 重新載入設定並回到 main 模式 |
+| `r` | 重置（攤平）工作區佈局 |
+| `f` | 切換浮動/平鋪佈局 |
+| `Backspace` | 關閉目前工作區除焦點外的所有視窗 |
+| `Alt + Shift + h/j/k/l` | 將視窗與相鄰視窗合併（join） |
 
 ---
 
@@ -432,11 +473,17 @@ Leader 鍵為 `\`（反斜線）。以下 `<leader>` 表示按 `\`，`<space>` �
 
 ## Ghostty 終端機
 
+- **主題**：Nord
 - **字型**：JetBrainsMonoNL Nerd Font Mono，16pt
 - **背景透明度**：90%，模糊效果
 - **游標**：方塊，不閃爍
 - **視窗標題**：隱藏（macOS）
-- **特殊按鍵**：`Shift+Enter` 映射為特殊序列（供 Claude Code 使用）
+- **剪貼簿**：選取即複製（copy-on-select）、貼上保護
+- **Shell 整合**：fish，含 `ssh-env`、`ssh-terminfo`（供遠端 tmux 使用）
+- **特殊按鍵**：
+  - `Shift+Enter` → 換行序列（供 Claude Code 使用）
+  - `Ctrl+F` / `Ctrl+B` → 送出 `Alt+f` / `Alt+b`（讓終端中的逐字移動生效）
+  - `Cmd +/-/0` 調整字級、`Cmd+K` 清除畫面
 
 ---
 
