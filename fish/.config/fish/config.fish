@@ -164,6 +164,13 @@ function wss --description "Worktree sync + fast-forward test & main to dev and 
     ws
     or return 1
     d2a
+    or return 1
+    # 通知 capy 重新部署 diagnostic-agent（純 ssh alias，無密鑰；連不到就跳過、不擋 wss）
+    if command -q ssh
+        echo "Deploying diagnostic-agent to capy..."
+        ssh -o ConnectTimeout=5 -o BatchMode=yes capy deploy-agent
+        or echo "  ⚠ capy deploy skipped (capy 連不到或 deploy-agent 失敗)"
+    end
 end
 
 # Worker Pool Functions
