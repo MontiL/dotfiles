@@ -171,6 +171,10 @@ function wss --description "Worktree sync + fast-forward test & main to dev and 
         ssh -o ConnectTimeout=5 -o BatchMode=yes capy deploy-agent
         or echo "  ⚠ capy deploy skipped (capy 連不到或 deploy-agent 失敗)"
     end
+    # 同步專案 + dotfiles 到 imac（連不到就跳過、不擋 wss）
+    echo "Syncing dev env to imac..."
+    fish ~/.z/projects/capybara/www/scripts/sync-dev-env.fish imac
+    or echo "  ⚠ imac sync skipped (連不到或同步失敗)"
 end
 
 # Worker Pool Functions
