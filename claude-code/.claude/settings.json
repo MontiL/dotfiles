@@ -95,6 +95,7 @@
     ],
     "Notification": [
       {
+        "matcher": "permission_prompt|idle_prompt|agent_needs_input|elicitation_dialog",
         "hooks": [
           {
             "type": "command",
@@ -133,9 +134,9 @@
     }
   },
   "alwaysThinkingEnabled": true,
+  "tui": "fullscreen",
   "theme": "dark-ansi",
   "feedbackSurveyState": {
     "lastShownTime": 1754056907550
-  },
-  "tui": "fullscreen"
+  }
 }
