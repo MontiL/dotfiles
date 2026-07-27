@@ -130,7 +130,7 @@ getHistory() {
 
 bindkey -s '^y' 'eval $getHistory^M'
 
-[[ -s /Users/monti/.autojump/etc/profile.d/autojump.sh ]] && source /Users/monti/.autojump/etc/profile.d/autojump.sh
+[[ -s "$HOME/.autojump/etc/profile.d/autojump.sh" ]] && source "$HOME/.autojump/etc/profile.d/autojump.sh"
 # source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -143,6 +143,9 @@ export LC_ALL=en_US.UTF-8
 eval "$(starship init zsh)"
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/monti/.cache/lm-studio/bin"
+[ -d "$HOME/.cache/lm-studio/bin" ] && export PATH="$PATH:$HOME/.cache/lm-studio/bin"
 
-PATH=~/.console-ninja/.bin:$PATH
+[ -d "$HOME/.console-ninja/.bin" ] && export PATH="$HOME/.console-ninja/.bin:$PATH"
+
+# Added by Antigravity CLI installer
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"

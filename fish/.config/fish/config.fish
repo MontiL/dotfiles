@@ -528,18 +528,22 @@ if type -q fnm
 end
 
 # Added by Windsurf
-if test -d /Users/monti/.codeium/windsurf/bin
-    fish_add_path /Users/monti/.codeium/windsurf/bin
+if test -d $HOME/.codeium/windsurf/bin
+    fish_add_path $HOME/.codeium/windsurf/bin
 end
 
 # Gemini
 set -gx GEMINI_MODEL gemini-3-pro-preview
 
 # Added by LM Studio CLI (lms)
-set -gx PATH $PATH /Users/monti/.cache/lm-studio/bin
+if test -d $HOME/.cache/lm-studio/bin
+    fish_add_path -a $HOME/.cache/lm-studio/bin
+end
 
-# Load API keys
-source ~/.dotfiles/fish/.config/fish/api-keys.fish
+# Load API keys (not tracked in git, may not exist on every machine)
+if test -f $HOME/.dotfiles/fish/.config/fish/api-keys.fish
+    source $HOME/.dotfiles/fish/.config/fish/api-keys.fish
+end
 
 function __tmux_rename_window --on-event fish_preexec
     if test -n "$TMUX"
@@ -577,4 +581,9 @@ if test -n "$TMUX"
     if test "$mode" != "command"
         tmux rename-window (basename $PWD)
     end
+end
+
+# Added by Antigravity CLI installer
+if test -d $HOME/.local/bin
+    fish_add_path $HOME/.local/bin
 end
