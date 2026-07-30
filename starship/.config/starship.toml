@@ -80,13 +80,16 @@ style = "bold blue"
 # 自定義咖啡模組
 [custom.cafe]
 description = "顯示咖啡狀態"
-# 檢查是否有 caffeinate 進程
-command = "pgrep -x caffeinate > /dev/null"
-# 偵測到進程時顯示的圖示與樣式
-symbol = "☕ "
-style = "bold orange"
-# 只有當 command 回傳 0 (找到進程) 時才顯示
-when = "pgrep -x caffeinate"
+# starship 預設用 $SHELL (fish) 跑 command/when，這裡用 POSIX 語法所以指定 sh
+# （不要自己加 -c，starship 是把指令從 stdin 餵給 shell）
+shell = ["/bin/sh"]
+# 只認 cafe 開的那隻 caffeinate（見 fish/functions/cafe.fish）。
+# 不能用 pgrep -x caffeinate：Claude Code 等工具也會開 caffeinate，圖示會誤亮。
+when = 'pid=$(cat "$HOME/.cache/cafe.pid" 2>/dev/null); [ -n "$pid" ] && ps -o comm= -p "$pid" 2>/dev/null | grep -q caffeinate'
+# custom 模組在 output 為空時整個不顯示，所以圖示要由 command 印出來
+command = "printf '☕'"
+format = "[$output]($style) "
+style = "bold yellow"
 
 [nodejs]
 format = "[$symbol($version)]($style) "
