@@ -1,0 +1,51 @@
+#!/bin/sh
+# cafe-bump — 作業期間讓螢幕恆亮（效果等同手動 `cafe`），但用 TTL 續約而非開關。
+#
+# 由 Claude Code 的 UserPromptSubmit / PostToolUse hook 呼叫，每次呼叫把到期時間
+# 往後推。沒人再續約時 caffeinate 自己過期，所以：
+#   - 不需要 refcount 去重：多個 Claude Code 共用同一個 slot，誰續約誰擁有
+#   - 不需要收尾 hook：claude 被 kill -9 也只是不再續約，最多 TTL 秒後恢復正常
+#
+# 刻意不加鎖：多個實例同時從冷狀態續約時，會各自開一隻、只有最後一隻被記錄，
+# 其餘成為孤兒。但孤兒都帶 -t TTL 會自己死，代價有上限；而鎖一旦卡住就會讓
+# 整個機制靜默失效，那比多幾隻短命 process 糟得多。
+#
+# 手動的 `cafe`（~/.cache/cafe.pid）是獨立機制，兩者互不干擾。
+
+set -u
+
+TTL=600 # 每次續約讓 caffeinate 再活這麼多秒
+MARGIN=120 # 剩餘不足這麼多秒就提前續約
+STATE="${XDG_CACHE_HOME:-$HOME/.cache}/cafe-auto"
+
+now=$(date +%s)
+pid=''
+deadline=''
+[ -r "$STATE" ] && read -r pid deadline <"$STATE" 2>/dev/null
+
+# 上一隻還活著嗎？只認 caffeinate，避免 PID 被回收後誤殺別人。
+alive=''
+case $pid in
+    '' | *[!0-9]*) ;;
+    *)
+        case $(ps -o comm= -p "$pid" 2>/dev/null) in
+            *caffeinate) alive=1 ;;
+        esac
+        ;;
+esac
+
+# 還活著而且離到期還早 → 絕大多數呼叫走這條，只讀一個檔就結束
+if [ -n "$alive" ]; then
+    case $deadline in
+        '' | *[!0-9]*) ;;
+        *) [ "$now" -lt "$((deadline - MARGIN))" ] && exit 0 ;;
+    esac
+    kill "$pid" 2>/dev/null
+fi
+
+nohup caffeinate -di -t "$TTL" >/dev/null 2>&1 &
+new_pid=$!
+
+mkdir -p "$(dirname "$STATE")"
+tmp="$STATE.$$"
+printf '%s %s\n' "$new_pid" "$((now + TTL))" >"$tmp" && mv -f "$tmp" "$STATE"

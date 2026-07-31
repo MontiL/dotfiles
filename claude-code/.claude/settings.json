@@ -50,7 +50,6 @@
       "Bash(corepack:*)",
       "Bash([ -d .claude ])",
       "Skill(commit-commands:commit)",
-      "Bash",
       "Bash(GIT_SEQUENCE_EDITOR=\"sed -i '''' ''s/^pick 35d681c23/fixup 35d681c23/''\" git rebase -i 13cdbfc32~1)",
       "mcp__plugin_playwright_playwright__browser_navigate",
       "mcp__plugin_playwright_playwright__browser_take_screenshot",
@@ -78,7 +77,8 @@
       "~/.dotfiles",
       "~/.z/projects",
       "/tmp"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "model": "opus",
   "hooks": {
@@ -104,26 +104,48 @@
           }
         ]
       }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/bin/cafe-bump",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/bin/cafe-bump",
+            "async": true
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
-    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": false,
     "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": false,
     "clangd-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "playwright@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": false,
     "vercel@claude-plugins-official": true,
-    "context7@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true,
+    "context7@claude-plugins-official": false,
+    "feature-dev@claude-plugins-official": false,
+    "code-simplifier@claude-plugins-official": false,
     "ralph-loop@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true
+    "commit-commands@claude-plugins-official": false,
+    "skill-creator@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
