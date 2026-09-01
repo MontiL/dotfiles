@@ -160,6 +160,16 @@ function ws --description "Worktree sync: rebase agents onto dev, push dev, then
     end
     echo "Done."
 end
+function __is_sync_target_machine --description "True on machines that are themselves sync targets (imac / Mia 的 mba)"
+    # imac：用機型辨識
+    switch (sysctl -n hw.model 2>/dev/null)
+        case 'iMac*'
+            return 0
+    end
+    # Mia 的 mba：用登入帳號辨識
+    test (whoami) = mia
+end
+
 function wss --description "Worktree sync + fast-forward test & main to dev and push"
     ws
     or return 1
@@ -172,9 +182,14 @@ function wss --description "Worktree sync + fast-forward test & main to dev and 
         or echo "  ⚠ capy deploy skipped (capy 連不到或 deploy-agent 失敗)"
     end
     # 同步專案 + dotfiles 到 imac（連不到就跳過、不擋 wss）
-    echo "Syncing dev env to imac..."
-    fish ~/.z/projects/capybara/www/scripts/sync-dev-env.fish imac
-    or echo "  ⚠ imac sync skipped (連不到或同步失敗)"
+    # 在 imac / Mia 的 mba 上跑時不需要再同步回自己
+    if __is_sync_target_machine
+        echo "Skipping dev env sync (本機就是同步目標)."
+    else
+        echo "Syncing dev env to imac..."
+        fish ~/.z/projects/capybara/www/scripts/sync-dev-env.fish imac
+        or echo "  ⚠ imac sync skipped (連不到或同步失敗)"
+    end
 end
 
 # Worker Pool Functions
