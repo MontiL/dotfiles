@@ -175,10 +175,18 @@ function wss --description "Worktree sync + fast-forward test & main to dev and 
     or return 1
     d2a
     or return 1
-    # 通知 capy 重新部署 diagnostic-agent（純 ssh alias，無密鑰；連不到就跳過、不擋 wss）
+    # 通知 capy 重新部署 diagnostic-agent（連不到就跳過、不擋 wss）
+    # 先走區網 IP（各機都用 ssh-copy-id 佈好金鑰）；連不上才退回 capy alias
     if command -q ssh
         echo "Deploying diagnostic-agent to capy..."
-        ssh -o ConnectTimeout=5 -o BatchMode=yes capy deploy-agent
+        ssh -o ConnectTimeout=5 -o BatchMode=yes capy@192.168.68.200 deploy-agent
+        set -l rc $status
+        # 255 = ssh 本身連不上（不是 deploy-agent 失敗），才值得換一條路重試
+        if test $rc -eq 255
+            ssh -o ConnectTimeout=5 -o BatchMode=yes capy deploy-agent
+            set rc $status
+        end
+        test $rc -eq 0
         or echo "  ⚠ capy deploy skipped (capy 連不到或 deploy-agent 失敗)"
     end
     # 同步專案 + dotfiles 到 imac（連不到就跳過、不擋 wss）
