@@ -130,6 +130,8 @@ brew "rsync"
 brew "ruby-install"
 # Safe, concurrent, practical language
 brew "rust"
+# Small man page generator
+brew "scdoc"
 # 7-Zip is a file archiver with a high compression ratio
 brew "sevenzip"
 # Cross-shell prompt for astronauts
