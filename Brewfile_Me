@@ -30,7 +30,9 @@ brew "grep"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # A tiling window manager for macOS based on binary space partitioning.
-brew "koekeishiya/formulae/yabai"
+# NOTE: koekeishiya/formulae now redirects to asmvik/formulae, which Homebrew
+# flags as an untrusted tap. Not installed here; using aerospace instead.
+# brew "asmvik/formulae/yabai"
 # Video communication and virtual meeting platform
 # cask "zoom"
 # Remote desktop client

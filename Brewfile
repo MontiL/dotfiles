@@ -1,6 +1,4 @@
 tap "felixkratz/formulae"
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "nikitabobko/tap"
 tap "supabase/tap"
 tap "teamookla/speedtest"
