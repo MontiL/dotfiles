@@ -1,5 +1,4 @@
 tap "felixkratz/formulae"
-tap "fsouza/prettierd"
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "koekeishiya/formulae"
@@ -120,6 +119,8 @@ brew "openldap"
 brew "poppler"
 # Object-relational database system
 brew "postgresql@15", link: true
+# Prettier daemon
+brew "prettierd"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
 # Interpreted, interactive, object-oriented programming language
