@@ -95,8 +95,8 @@ karabiner*/.config/karabiner/automatic_backups/
 # adobe/Adobe InDesign/Version 17.0-J/zh_TW/Workspaces/基本功能_CurrentWorkspace.xml
 # adobe/Adobe InDesign/Version 17.0-J/zh_TW/DVADialogPrefs/DVADialogPrefs.xml
 
-# lazygit
-lazygit/Library/Application Support/lazygit/state.yml
+# lazygit - machine-local runtime state (recentrepos / lastversion)
+lazygit/.config/lazygit/state.yml
 nvim/.config/nvim/lazy-lock.json
 
 # fzf - config will be different in Apple Silicon and Intel; ignore it first
