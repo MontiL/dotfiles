@@ -446,8 +446,9 @@ alias myip 'dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com'
 
 # `brew update` must run first so `brew bundle` sees fresh formula data and can
 # actually upgrade what the Brewfile pins. Steps are `;`-separated so one failing
-# step does not skip the rest.
-alias update "cd ~/.dotfiles/ && git submodule update --init; brew update; brew bundle; brew upgrade; brew autoremove; pnpm update -g; ~/.dotfiles/bin/alacritty-build"
+# step does not skip the rest -- which means `cd` may have failed, so pin
+# --file rather than letting `brew bundle` pick up a Brewfile from the cwd.
+alias update "cd ~/.dotfiles/ && git submodule update --init; brew update; brew bundle --file ~/.dotfiles/Brewfile; brew upgrade; brew autoremove; pnpm update -g; ~/.dotfiles/bin/alacritty-build"
 alias clean "brew cleanup -s && rustup update"
 alias clean_chrome "rm -rf /Users/"(whoami)"/Library/Caches/Google/Chrome/* && rm -rf /Users/"(whoami)"/Library/Application\ Support/Google/Chrome/Profile\ *"
 
