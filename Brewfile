@@ -195,7 +195,5 @@ cask "obsidian"
 cask "raycast"
 # Open-source code editor
 cask "visual-studio-code"
-# BBS client
-cask "welly"
 # Video communication and virtual meeting platform
 cask "zoom"
