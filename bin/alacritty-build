@@ -1,0 +1,79 @@
+#!/bin/sh
+# alacritty-build — 從原始碼編譯並安裝 Alacritty.app
+#
+# Homebrew 在 2026-09-01 以 fails_gatekeeper_check 停用了 alacritty cask：上游釋出
+# 的 .dmg 沒過 Apple 公證，所以 `brew install alacritty` 之後只會拿到 disabled 錯誤。
+#
+# 自己編譯不需要繞過任何安全檢查：本機產生的檔案不會被打上 com.apple.quarantine，
+# 而上游 Makefile 的 app target 會再用 ad-hoc 簽章簽一次，Gatekeeper 兩邊都不會擋。
+# 所以這支腳本刻意不碰 xattr / spctl。
+#
+# 用法：
+#   ~/.dotfiles/bin/alacritty-build          # 裝上游最新正式版
+#   ~/.dotfiles/bin/alacritty-build v0.17.0  # 指定版本
+#
+# 原始碼留在 $SRC，重跑只做 fetch，不重新 clone，也保留 cargo 的編譯快取。
+
+set -eu
+
+REPO=https://github.com/alacritty/alacritty.git
+SRC="${XDG_CACHE_HOME:-$HOME/.cache}/alacritty-src"
+APP=/Applications/Alacritty.app
+BIN="$HOME/.local/bin/alacritty"
+
+die() {
+	printf 'alacritty-build: %s\n' "$1" >&2
+	exit 1
+}
+
+# --- 相依檢查 ---------------------------------------------------------------
+command -v cargo >/dev/null || die "找不到 cargo，先 brew install rust"
+command -v tic >/dev/null || die "找不到 tic（ncurses）"
+if ! command -v scdoc >/dev/null; then
+	# make app 靠 scdoc 產 man page，缺了整個 target 會中斷
+	echo "==> 安裝 scdoc（產 man page 用）"
+	brew install scdoc
+fi
+
+# --- 決定版本 ---------------------------------------------------------------
+version="${1:-}"
+if [ -z "$version" ]; then
+	echo "==> 查詢上游最新版本"
+	version=$(git ls-remote --tags --refs --sort=-v:refname "$REPO" 'v*' |
+		sed 's,.*refs/tags/,,' | grep -v -- '-rc' | head -1)
+	[ -n "$version" ] || die "抓不到版本號"
+fi
+echo "==> 版本 $version"
+
+# --- 取得原始碼 -------------------------------------------------------------
+if [ -d "$SRC/.git" ]; then
+	git -C "$SRC" fetch --quiet --tags origin
+else
+	rm -rf "$SRC"
+	git clone --quiet "$REPO" "$SRC"
+fi
+git -C "$SRC" checkout --quiet "$version"
+
+# --- 編譯 -------------------------------------------------------------------
+# 用 native 而非 universal：Homebrew 的 rust 只帶本機 target，做 universal 會缺
+# x86_64-apple-darwin 的 std 而失敗。反正是自己機器要用的。
+echo "==> 編譯中（第一次要數分鐘）"
+make -C "$SRC" app
+
+built="$SRC/target/release/osx/Alacritty.app"
+[ -d "$built" ] || die "編譯完卻找不到 $built"
+
+# --- 安裝 -------------------------------------------------------------------
+echo "==> 安裝到 $APP"
+rm -rf "$APP"
+cp -R "$built" "$APP"
+
+# CLI 進 PATH（~/.local/bin 已在 fish 的 PATH 裡）
+mkdir -p "$(dirname "$BIN")"
+ln -sf "$APP/Contents/MacOS/alacritty" "$BIN"
+
+# terminfo：macOS 內建 ncurses 沒有 alacritty 這筆，少了它 ssh 到別台會亂碼
+tic -xe alacritty,alacritty-direct -o "$HOME/.terminfo" "$SRC/extra/alacritty.info"
+
+echo "==> 完成：$("$BIN" --version)"
+codesign -dv "$APP" 2>&1 | sed -n 's/^Signature=/==> 簽章：/p'
