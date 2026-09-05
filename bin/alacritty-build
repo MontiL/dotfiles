@@ -1,5 +1,5 @@
 #!/bin/sh
-# alacritty-build — 從原始碼編譯並安裝 Alacritty.app
+# alacritty-build — 從原始碼編譯並安裝／更新 Alacritty.app
 #
 # Homebrew 在 2026-09-01 以 fails_gatekeeper_check 停用了 alacritty cask：上游釋出
 # 的 .dmg 沒過 Apple 公證，所以 `brew install alacritty` 之後只會拿到 disabled 錯誤。
@@ -9,8 +9,12 @@
 # 所以這支腳本刻意不碰 xattr / spctl。
 #
 # 用法：
-#   ~/.dotfiles/bin/alacritty-build          # 裝上游最新正式版
-#   ~/.dotfiles/bin/alacritty-build v0.17.0  # 指定版本
+#   alacritty-build           # 沒裝就裝，已是最新就跳過（給 update 用）
+#   alacritty-build v0.17.0   # 裝指定版本
+#   alacritty-build --force   # 版本相同也重編
+#
+# 因為會被 `update` 每次呼叫，所以：已是最新時不做事、不碰網路以外的東西，
+# 且查不到上游版本（離線）時只警告不失敗，免得拖垮整條 update 鏈。
 #
 # 原始碼留在 $SRC，重跑只做 fetch，不重新 clone，也保留 cargo 的編譯快取。
 
@@ -26,7 +30,49 @@ die() {
 	exit 1
 }
 
-# --- 相依檢查 ---------------------------------------------------------------
+warn() {
+	printf 'alacritty-build: %s\n' "$1" >&2
+}
+
+# --- 參數 -------------------------------------------------------------------
+force=0
+version=''
+for arg; do
+	case "$arg" in
+	-f | --force) force=1 ;;
+	-h | --help)
+		sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'
+		exit 0
+		;;
+	-*) die "未知選項：$arg" ;;
+	*) version="v${arg#v}" ;;
+	esac
+done
+
+# --- 目前裝了什麼 -----------------------------------------------------------
+installed=''
+if [ -x "$APP/Contents/MacOS/alacritty" ]; then
+	installed=$("$APP/Contents/MacOS/alacritty" --version 2>/dev/null | awk '{print $2}')
+fi
+
+# --- 決定目標版本 -----------------------------------------------------------
+if [ -z "$version" ]; then
+	version=$(git ls-remote --tags --refs --sort=-v:refname "$REPO" 'v*' 2>/dev/null |
+		sed 's,.*refs/tags/,,' | grep -v -- '-rc' | head -1) || version=''
+	if [ -z "$version" ]; then
+		# 離線時已經有裝就當作沒事，沒裝才算失敗
+		[ -n "$installed" ] || die "查不到上游版本，也沒有已安裝的版本"
+		warn "查不到上游版本（離線？），維持現有的 $installed"
+		exit 0
+	fi
+fi
+
+if [ "$force" -eq 0 ] && [ "v$installed" = "$version" ]; then
+	echo "alacritty $version 已是最新"
+	exit 0
+fi
+
+# --- 相依檢查（確定要編了才檢查／安裝）--------------------------------------
 command -v cargo >/dev/null || die "找不到 cargo，先 brew install rust"
 command -v tic >/dev/null || die "找不到 tic（ncurses）"
 if ! command -v scdoc >/dev/null; then
@@ -35,17 +81,13 @@ if ! command -v scdoc >/dev/null; then
 	brew install scdoc
 fi
 
-# --- 決定版本 ---------------------------------------------------------------
-version="${1:-}"
-if [ -z "$version" ]; then
-	echo "==> 查詢上游最新版本"
-	version=$(git ls-remote --tags --refs --sort=-v:refname "$REPO" 'v*' |
-		sed 's,.*refs/tags/,,' | grep -v -- '-rc' | head -1)
-	[ -n "$version" ] || die "抓不到版本號"
-fi
-echo "==> 版本 $version"
-
 # --- 取得原始碼 -------------------------------------------------------------
+if [ -n "$installed" ]; then
+	echo "==> $installed -> ${version#v}"
+else
+	echo "==> 首次安裝 ${version#v}"
+fi
+
 if [ -d "$SRC/.git" ]; then
 	git -C "$SRC" fetch --quiet --tags origin
 else
