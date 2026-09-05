@@ -1,12 +1,9 @@
 tap "felixkratz/formulae"
 tap "homebrew/bundle"
 tap "homebrew/services"
-tap "koekeishiya/formulae"
 tap "nikitabobko/tap"
-tap "ohueter/tap"
 tap "supabase/tap"
 tap "teamookla/speedtest"
-tap "universal-ctags/universal-ctags"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
 # Mozilla CA certificate store
