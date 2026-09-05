@@ -1,6 +1,88 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": false,
+    "code-simplifier@claude-plugins-official": false,
+    "commit-commands@claude-plugins-official": false,
+    "context7@claude-plugins-official": false,
+    "feature-dev@claude-plugins-official": false,
+    "frontend-design@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": false,
+    "playwright@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": false,
+    "ralph-loop@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": false,
+    "superpowers@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": false,
+    "vercel@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "repo": "anthropics/claude-plugins-official",
+        "source": "github"
+      }
+    }
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "afplay /System/Library/Sounds/Hero.aiff",
+            "type": "command"
+          }
+        ],
+        "matcher": "permission_prompt|idle_prompt|agent_needs_input|elicitation_dialog"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "$HOME/.dotfiles/bin/cafe-bump",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "afplay /System/Library/Sounds/Hero.aiff",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "$HOME/.dotfiles/bin/cafe-bump",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
+    "additionalDirectories": [
+      "~/Downloads",
+      "~/Screenshots",
+      "~/.dotfiles",
+      "~/.z/projects",
+      "/tmp"
+    ],
     "allow": [
       "WebSearch",
       "WebFetch",
@@ -71,94 +153,8 @@
       "mcp__plugin_context7_context7__query-docs",
       "Skill(keybindings-help)"
     ],
-    "additionalDirectories": [
-      "~/Downloads",
-      "~/Screenshots",
-      "~/.dotfiles",
-      "~/.z/projects",
-      "/tmp"
-    ],
     "defaultMode": "auto"
   },
-  "model": "opus",
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay /System/Library/Sounds/Hero.aiff",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "matcher": "permission_prompt|idle_prompt|agent_needs_input|elicitation_dialog",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay /System/Library/Sounds/Hero.aiff",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.dotfiles/bin/cafe-bump",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.dotfiles/bin/cafe-bump",
-            "async": true
-          }
-        ]
-      }
-    ]
-  },
-  "enabledPlugins": {
-    "ui-ux-pro-max@ui-ux-pro-max-skill": false,
-    "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": false,
-    "clangd-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": false,
-    "frontend-design@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": false,
-    "vercel@claude-plugins-official": true,
-    "context7@claude-plugins-official": false,
-    "feature-dev@claude-plugins-official": false,
-    "code-simplifier@claude-plugins-official": false,
-    "ralph-loop@claude-plugins-official": true,
-    "security-guidance@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": false,
-    "skill-creator@claude-plugins-official": false
-  },
-  "extraKnownMarketplaces": {
-    "claude-plugins-official": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/claude-plugins-official"
-      }
-    }
-  },
-  "alwaysThinkingEnabled": true,
-  "tui": "fullscreen",
   "theme": "dark-ansi",
-  "feedbackSurveyState": {
-    "lastShownTime": 1754056907550
-  }
+  "tui": "fullscreen"
 }

@@ -99,6 +99,23 @@ stow aerospace  # AeroSpace 視窗管理
 
 開啟 tmux 後按 `prefix + I`（即 `Ctrl-t` 再按 `I`）安裝 TPM 外掛。
 
+## 設定 Claude Code
+
+用 stow 建立 symlink：
+
+```bash
+stow claude-code
+```
+
+設定 git filter，避免 Claude Code CLI 每次啟動改寫 `settings.json`
+（key 順序、`model`、`feedbackSurveyState`、`agentPushNotifEnabled`）
+造成的雜訊 diff（每個 repo clone 執行一次）：
+
+```bash
+git config filter.claude-settings.clean "jq --sort-keys 'del(.model, .feedbackSurveyState, .agentPushNotifEnabled)'"
+git config filter.claude-settings.smudge cat
+```
+
 ## API 金鑰
 
 API 金鑰放在 `fish/.config/fish/api-keys.fish`，此檔案不追蹤於 Git。

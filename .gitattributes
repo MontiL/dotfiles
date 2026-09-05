@@ -1,0 +1,5 @@
+# Claude Code CLI rewrites settings.json on every launch (key reordering,
+# plus model/feedbackSurveyState/agentPushNotifEnabled churn), which pollutes
+# git status/diff. This filter normalizes those fields out before they hit
+# the index. One-time setup per machine: see INSTALL.md.
+claude-code/.claude/settings.json filter=claude-settings
