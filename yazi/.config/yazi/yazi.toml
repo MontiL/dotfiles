@@ -8,14 +8,14 @@ linemode = "size"
 
 [opener]
 edit = [
-  { run = 'nvim "$@"', block = true, for = "unix" },
+  { run = 'nvim %s', block = true, for = "unix" },
 ]
 open = [
-  { run = 'open "$@"', for = "macos" },
-  { run = 'xdg-open "$@"', for = "linux" },
+  { run = 'open %s', for = "macos" },
+  { run = 'xdg-open %s1', for = "linux" },
 ]
 reveal = [
-  { run = 'open -R "$@"', for = "macos" },
+  { run = 'open -R %s1', for = "macos" },
 ]
 
 [open]
