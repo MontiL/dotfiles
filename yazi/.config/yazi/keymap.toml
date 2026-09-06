@@ -42,3 +42,8 @@ desc = "Open current folder in Finder"
 on = ["e"]
 run = "open"
 desc = "Open (nvim for text/code, macOS open for the rest)"
+
+[[mgr.prepend_keymap]]
+on = ["<Enter>"]
+run = "plugin smart-enter"
+desc = "Enter the folder, or open the file"
